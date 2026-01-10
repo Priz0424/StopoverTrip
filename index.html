@@ -31,7 +31,7 @@
             background-size: cover; 
             background-position: center; 
             color: white; 
-            padding: 100px 25px 60px; /* 增加頂部高度 */
+            padding: 60px 25px 40px; /* 調整頂部與底部高度 */
             text-align: left; 
         }
         .hero h1 { font-size: 2rem; margin: 0; font-weight: 800; }
@@ -49,13 +49,15 @@
         .day-num { font-size: 2.8rem; font-weight: 900; color: var(--accent); opacity: 0.25; line-height: 1; }
         .day-info { font-size: 1.15rem; font-weight: bold; color: var(--primary); }
 
-        .event-wrapper { border-left: 2px solid #e9ecef; margin-left: 15px; padding-left: 25px; position: relative; }
+        .event-wrapper { border-left: 2px solid #e9ecef; margin-left: 5px; padding-left: 5px; position: relative; }
         .event-card { 
             background: var(--glass); 
             backdrop-filter: blur(15px); 
             border-radius: 24px; 
-            padding: 22px; 
-            margin-bottom: 25px; 
+            padding: 12px 10px; 
+            margin-bottom: 15px; 
+            padding-left: 10px; 
+            padding-right: 0px; 
             box-shadow: 0 8px 30px rgba(0,0,0,0.04); 
             border: 1px solid rgba(255,255,255,0.7);
             transition: all 0.3s ease;
@@ -95,7 +97,7 @@
         .flight-tiger .flight-number { background: rgba(162,74,74,0.15); }
 
         /* 航班與交通細節 */
-        .flight-detail { background: #1e272e; color: #fff; border-radius: 16px; padding: 18px; margin: 12px 0; border-left: 5px solid var(--accent); }
+        .flight-detail { background: #1e272e; color: #fff; border-radius: 16px; padding: 12px 12px; margin: 8px 0; border-left: 5px solid var(--accent); }
 
         /* =========================
            航司視覺區別（航班卡片）
@@ -251,11 +253,6 @@
 <div class="hero">
     <p>3/3 - 3/14 Global Adventure</p>
     <h1>首爾,阿布達比,奧匈!</h1>
-    <div class="user-dots">
-        <div class="dot" style="color:#ff7675">PINRU</div>
-        <div class="dot" style="color:#74b9ff">PINGHAO</div>
-        <div class="dot" style="color:#55efc4">TSEFAN</div>
-    </div>
 </div>
 
 <div class="main-content">
@@ -263,7 +260,7 @@
     <section class="day-section" id="d3">
         <div class="day-header">
             <div class="day-num">03</div>
-            <div class="day-info"><span>March 03</span>先去首爾</div>
+            <div class="day-info"><span>March 03</span>｜啟程首爾</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card flight-scoot">
@@ -322,7 +319,7 @@
     <section class="day-section" id="d4">
         <div class="day-header">
             <div class="day-num">04</div>
-            <div class="day-info"><span>March 04</span> 前往阿布達比</div>
+            <div class="day-info"><span>March 04</span>｜前往阿布達比</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card flight-etihad">
@@ -355,7 +352,7 @@
     <section class="day-section" id="d5">
         <div class="day-header">
             <div class="day-num">05</div>
-            <div class="day-info"><span>March 05</span>Abu Dhabi｜抵達＋休息＋清真寺</div>
+            <div class="day-info"><span>March 05</span>｜阿布達比Day1</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card">
@@ -413,7 +410,7 @@
     <section class="day-section" id="d6">
         <div class="day-header">
             <div class="day-num">06</div>
-            <div class="day-info"><span>March 06</span>Abu Dhabi｜付費重點日</div>
+            <div class="day-info"><span>March 06</span>｜阿布達比Day2</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card">
@@ -485,7 +482,7 @@
     <section class="day-section" id="d8">
         <div class="day-header">
             <div class="day-num">08</div>
-            <div class="day-info"><span>March 08</span> 布達佩斯兩日遊</div>
+            <div class="day-info"><span>March 08</span>｜布達佩斯兩日遊</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card flight-etihad">
@@ -531,7 +528,7 @@
     <section class="day-section" id="d10">
         <div class="day-header">
             <div class="day-num">10</div>
-            <div class="day-info"><span>March 10</span> 維也納-兩日遊</div>
+            <div class="day-info"><span>March 10</span>｜維也納-兩日遊</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card">
@@ -557,7 +554,7 @@
     <section class="day-section" id="d12">
         <div class="day-header">
             <div class="day-num">12</div>
-            <div class="day-info"><span>March 12</span> 離開歐洲，前往阿布達比</div>
+            <div class="day-info"><span>March 12</span>｜離開歐洲，前往阿布達比</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card flight-etihad">

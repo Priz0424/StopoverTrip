@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>3/3-3/14 跨國之旅 | 旗艦版</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #d4a373;
+            --kr: #1a5e9a;
+            --uae: #8b6b4d;
+            --euro: #27ae60;
+            --glass: rgba(255, 255, 255, 0.92);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; } /* 基礎平滑滾動 */
+
+        body { 
+            font-family: 'Inter', -apple-system, 'PingFang TC', sans-serif; 
+            background: #fdfaf6; 
+            margin: 0; 
+            color: #333; 
+            overflow-x: hidden;
+        }
+
+        /* 英雄區增加 padding 防止遮擋第一段內容 */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80'); 
+            background-size: cover; 
+            background-position: center; 
+            color: white; 
+            padding: 100px 25px 60px; /* 增加頂部高度 */
+            text-align: left; 
+        }
+        .hero h1 { font-size: 2rem; margin: 0; font-weight: 800; }
+        .hero p { opacity: 0.8; font-size: 0.8rem; letter-spacing: 2px; margin-top: 8px; }
+
+        .user-dots { display: flex; gap: 8px; margin-top: 15px; }
+        .dot { padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); }
+
+        /* 內容區：增加頂部 margin 讓第一天不會被擋住 */
+        .main-content { max-width: 800px; margin: 20px auto 0; padding: 0 15px 150px; }
+
+        /* 重要：scroll-margin-top 防止跳轉後標題被頂部遮擋 */
+        .day-section { margin-bottom: 60px; scroll-margin-top: 40px; }
+        .day-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
+        .day-num { font-size: 2.8rem; font-weight: 900; color: var(--accent); opacity: 0.25; line-height: 1; }
+        .day-info { font-size: 1.15rem; font-weight: bold; color: var(--primary); }
+
+        .event-wrapper { border-left: 2px solid #e9ecef; margin-left: 15px; padding-left: 25px; position: relative; }
+        .event-card { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px); 
+            border-radius: 24px; 
+            padding: 22px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04); 
+            border: 1px solid rgba(255,255,255,0.7);
+            transition: all 0.3s ease;
+        }
+        /* 滑過特效 */
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+        .event-card::before { content: ''; width: 10px; height: 10px; background: white; border: 3px solid var(--accent); border-radius: 50%; position: absolute; left: -34px; top: 25px; }
+
+        /* 航班卡片標頭（班號融合） */
+        .flight-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .flight-airline {
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .flight-number {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.05);
+            color: #444;
+        }
+
+        /* 航司對應低調色（只影響 flight-number） */
+        .flight-etihad .flight-number { background: rgba(139,107,77,0.15); }
+        .flight-scoot .flight-number { background: rgba(176,138,60,0.15); }
+        .flight-tiger .flight-number { background: rgba(162,74,74,0.15); }
+
+        /* 航班與交通細節 */
+        .flight-detail { background: #1e272e; color: #fff; border-radius: 16px; padding: 18px; margin: 12px 0; border-left: 5px solid var(--accent); }
+
+        /* =========================
+           航司視覺區別（航班卡片）
+           ========================= */
+
+        .event-card.flight-etihad {
+            border-left: 5px solid #8b6b4d;
+            background: linear-gradient(180deg, #ffffff 0%, #f4f1ec 100%);
+        }
+
+        .event-card.flight-scoot {
+            border-left: 5px solid #b08a3c;
+            background: linear-gradient(180deg, #ffffff 0%, #f3efe6 100%);
+        }
+
+        .event-card.flight-tiger {
+            border-left: 5px solid #a24a4a;
+            background: linear-gradient(180deg, #ffffff 0%, #f4eded 100%);
+        }
+
+        /* 航班內層時間資訊加強 */
+        .event-card.flight-etihad .flight-detail,
+        .event-card.flight-scoot .flight-detail,
+        .event-card.flight-tiger .flight-detail {
+            border-radius: 14px;
+            background: #1e272e;
+        }
+
+        .event-card.flight-etihad .badge {
+            background: #8b6b4d;
+            color: #fff;
+        }
+
+        .event-card.flight-scoot .badge {
+            background: #b08a3c;
+            color: #fff;
+        }
+
+        .event-card.flight-tiger .badge {
+            background: #a24a4a;
+            color: #fff;
+        }
+        .flight-route { display: flex; justify-content: space-between; align-items: center; }
+        .airport-code { font-size: 1.2rem; font-weight: 800; display: block; letter-spacing: 1px; color: #fff; }
+        .airport-time {
+            font-size: 1.1rem;
+            color: #ffb347;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-top: 2px;
+        }
+        .flight-info { font-size: 0.85rem; color: #ddd; margin-top: 6px; line-height: 1.3; }
+        .flight-subinfo { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
+
+        .land-detail {
+            background: #f4f6f8;
+            color: #2c3e50;
+            border-radius: 16px;
+            padding: 18px;
+            margin: 12px 0;
+            border-left: 5px solid #27ae60;
+        }
+
+        .land-route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .land-icon {
+            font-size: 1.4rem;
+            opacity: 0.6;
+        }
+
+        .land-info {
+            font-size: 0.85rem;
+            margin-top: 6px;
+            color: #555;
+        }
+
+        .badge { font-size: 0.65rem; padding: 4px 10px; border-radius: 8px; font-weight: 800; color: white; display: inline-block; margin-bottom: 10px; text-transform: uppercase; }
+        .bg-kr { background: var(--kr); }
+        .bg-uae { background: var(--uae); }
+        .bg-euro { background: var(--euro); }
+
+        .map-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            background: #eef2f7;
+            color: #2c3e50;
+            text-decoration: none;
+            border: 1px solid #dde3ea;
+        }
+        .map-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        .event-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .transport-badge { background: #f8f9fa; padding: 15px; border-radius: 16px; margin-top: 10px; border: 1px solid #edf2f7; }
+        .node { display: flex; gap: 15px; margin-bottom: 10px; font-size: 0.85rem; }
+        .node-time { font-weight: 700; color: var(--primary); min-width: 55px; }
+
+        /* 底部導航按鈕 */
+        .bottom-nav { 
+            position: fixed; 
+            bottom: 30px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: rgba(26, 26, 26, 0.9); 
+            backdrop-filter: blur(15px);
+            padding: 10px; 
+            border-radius: 50px; 
+            display: flex; 
+            gap: 5px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            z-index: 1000; 
+            width: 90%; 
+            max-width: 500px; 
+            justify-content: space-around;
+        }
+        .bottom-nav a { 
+            color: white; 
+            text-decoration: none; 
+            font-size: 0.7rem; 
+            opacity: 0.4; 
+            font-weight: bold; 
+            padding: 10px 15px;
+            border-radius: 25px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bottom-nav a.active { 
+            opacity: 1; 
+            background: var(--accent); 
+            color: #000; 
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <p>3/3 - 3/14 Global Adventure</p>
+    <h1>首爾,阿布達比,奧匈!</h1>
+    <div class="user-dots">
+        <div class="dot" style="color:#ff7675">PINRU</div>
+        <div class="dot" style="color:#74b9ff">PINGHAO</div>
+        <div class="dot" style="color:#55efc4">TSEFAN</div>
+    </div>
+</div>
+
+<div class="main-content">
+
+    <section class="day-section" id="d3">
+        <div class="day-header">
+            <div class="day-num">03</div>
+            <div class="day-info"><span>March 03</span>先去首爾</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card flight-scoot">
+                <div class="flight-header">
+                    <div class="flight-airline">Scoot</div>
+                    <div class="flight-number">TR 896</div>
+                </div>
+                <div class="flight-detail">
+                    <div class="flight-info">機型: Boeing 787-9</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">TPE</span>
+                            <span class="airport-time">18:15 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                        <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">ICN</span>
+                            <span class="airport-time">21:45 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 約 2h 30m</div>
+                </div>
+            </div>
+            <div class="event-card flight-tiger">
+                <div class="flight-header">
+                    <div class="flight-airline">Tigerair</div>
+                    <div class="flight-number">IT 602</div>
+                </div>
+                <div class="flight-detail">
+                    <div class="flight-info">機型: Airbus A320</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">TPE</span>
+                            <span class="airport-time">20:00 </span>
+                            <span class="flight-subinfo">航站: 2</span>
+                        </div>
+                        <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">ICN</span>
+                            <span class="airport-time">23:30 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 2h 30m</div>
+                </div>
+            </div>
+            <p style="font-size: 0.85rem; margin: 0;">
+                TR896 和 IT602 的兩位成員抵達首爾，第三位成員已經在韓國，三人於飯店會合
+                <b><a href="https://goo.gl/maps/vEEMwM9DmW32" target="_blank">Hotel Seattle Incheon Airport</a></b>。
+            </p>
+        </div>
+    </section>
+
+    <section class="day-section" id="d4">
+        <div class="day-header">
+            <div class="day-num">04</div>
+            <div class="day-info"><span>March 04</span> 前往阿布達比</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card flight-etihad">
+                <div class="flight-header">
+                    <div class="flight-airline">Etihad Airways</div>
+                    <div class="flight-number">EY 827</div>
+                </div>
+                <div class="flight-detail">
+                    <div class="flight-info">機型: Boeing 787‑9</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">ICN</span>
+                            <span class="airport-time">23:45 </span>
+                            <span class="flight-subinfo">航站: 2</span>
+                        </div>
+                        <div style="font-size: 1.2rem; color: var(--accent)">➔</div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">AUH</span>
+                            <span class="airport-time">05:20 (+1) </span>
+                            <span class="flight-subinfo">航站: 3</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 10h 35m</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 5: Abu Dhabi 抵達＋休息＋清真寺 -->
+    <section class="day-section" id="d5">
+        <div class="day-header">
+            <div class="day-num">05</div>
+            <div class="day-info"><span>March 05</span>Abu Dhabi｜抵達＋休息＋清真寺</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="event-title">Royal Rose Hotel</div>
+                <p>早上 05:20 抵達 AUH<br>
+                計程車前往 Royal Rose Hotel<br>
+                行李寄放／可入住先休息<br>
+                <b>建議休息至 10:30–11:00</b>
+                </p>
+                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+            </div>
+            <!-- 機場備註 -->
+            <div class="event-card" style="background: #fffbe9; border-left: 5px solid #f1c40f;">
+                <b>✈️ 機場備註</b>
+                <ul style="margin: 8px 0 0 0;">
+                    <li>AUH 機場 7 號出口可購買交通卡</li>
+                    <li>可使用信用卡加值</li>
+                    <li>抵達時記得領取免費 24 小時 eSIM</li>
+                </ul>
+            </div>
+            <div class="event-card">
+                <div class="event-title">🕌 謝赫扎耶德大清真寺（免費）</div>
+                <ul>
+                    <li>公車前往（省錢，時間較久）</li>
+                    <li>建議停留 1.5–2 小時</li>
+                </ul>
+                <div style="margin-top: 10px;">
+                    <b>攝影重點：</b>
+                    <ul>
+                        <li>白色大圓頂與長廊</li>
+                        <li>世界最大手工地毯</li>
+                        <li>巨型吊燈</li>
+                    </ul>
+                </div>
+                <div style="margin-top: 10px; background: #f6f7fa; padding: 10px 14px; border-radius: 10px;">
+                    <b>服裝提醒：</b><br>
+                    男性：不可無袖、短褲不可太短
+                </div>
+                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+            </div>
+            <div class="event-card">
+                <div class="event-title">Corniche 傍晚建議</div>
+                <ul>
+                    <li>Corniche 海濱散步</li>
+                    <li>超市／商場</li>
+                    <li>晚餐</li>
+                    <li>早點回飯店休息</li>
+                </ul>
+                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 6: Abu Dhabi 付費重點日 -->
+    <section class="day-section" id="d6">
+        <div class="day-header">
+            <div class="day-num">06</div>
+            <div class="day-info"><span>March 06</span>Abu Dhabi｜付費重點日</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="event-title">上午：Qasr Al Watan（總統府，付費）</div>
+                <ul>
+                    <li>參觀王座廳、圖書館、展示廳</li>
+                    <li>建議時間：約 2 小時</li>
+                </ul>
+                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+            </div>
+            <div class="event-card">
+                <div class="event-title">下午：Louvre Abu Dhabi（付費）</div>
+                <ul>
+                    <li>建築＋展覽，2–3 小時</li>
+                    <li>可在外側海邊步道散步</li>
+                </ul>
+                <div style="margin-top: 10px;">
+                    <b>晚上備註：</b>
+                    <ul>
+                        <li>Emirates Palace 外圍拍照（免費）</li>
+                        <li>晚餐後回飯店</li>
+                    </ul>
+                </div>
+                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+            </div>
+            <div class="event-card">
+                <div class="event-title">Emirates Palace（晚上備註）</div>
+                <ul>
+                    <li>Emirates Palace 外圍拍照（免費）</li>
+                    <li>晚餐後回飯店</li>
+                </ul>
+                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Day 7: Abu Dhabi 輕鬆＋免費補景點 -->
+    <section class="day-section" id="d7">
+        <div class="day-header">
+            <div class="day-num">07</div>
+            <div class="day-info"><span>March 07</span>Abu Dhabi｜輕鬆＋免費補景點</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="event-title">輕鬆日，挑 2–3 個即可</div>
+                <ul>
+                    <li>Heritage Village</li>
+                    <li>Al Mina Fish Market</li>
+                    <li>Corniche 沙灘</li>
+                    <li>咖啡廳／Mall 休息</li>
+                </ul>
+                <div>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Heritage Village</a>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Al Mina Fish Market</a>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Corniche Beach</a>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Cafe / Mall</a>
+                </div>
+                <div style="margin-top: 10px;">
+                    <b>晚上：</b>
+                    <ul>
+                        <li>整理行李</li>
+                        <li>洗澡、休息</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="day-section" id="d8">
+        <div class="day-header">
+            <div class="day-num">08</div>
+            <div class="day-info"><span>March 08</span> 布達佩斯兩日遊</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card flight-etihad">
+                <div class="flight-header">
+                    <div class="flight-airline">Etihad Airways</div>
+                    <div class="flight-number">EY 153</div>
+                </div>
+                <div class="flight-detail">
+                    <div class="flight-info">機型: Boeing 777‑300ER</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">AUH</span>
+                            <span class="airport-time">02:55 </span>
+                            <span class="flight-subinfo">航站: 3</span>
+                        </div>
+                        <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">VIE</span>
+                            <span class="airport-time">06:10 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 6h 15m</div>
+                </div>
+                <div class="land-detail">
+                    <div class="land-route">
+                        <div>
+                            <b>🚌 FlixBus</b><br>
+                            <span>VIE 機場 → Budapest Népliget</span>
+                        </div>
+                        <div class="land-icon">🚌</div>
+                    </div>
+                    <div class="land-info">
+                        08:50 上車 → 11:40 抵達（約 2h 50m）
+                    </div>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 上車地點</a>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 抵達地點</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="day-section" id="d10">
+        <div class="day-header">
+            <div class="day-num">10</div>
+            <div class="day-info"><span>March 10</span> 維也納-兩日遊</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <span class="badge bg-euro">RegioJet RJ1034</span>
+                <div class="land-detail">
+                    <div class="land-route">
+                        <div>
+                            <b>🚆 RegioJet RJ1034</b><br>
+                            <span>Budapest Déli pu. → Vienna Hbf</span>
+                        </div>
+                        <div class="land-icon">🚆</div>
+                    </div>
+                    <div class="land-info">
+                        11:45 出發 → 14:32 抵達（2h 47m，直達）
+                    </div>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Budapest Déli pu.</a>
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Vienna Hbf</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="day-section" id="d12">
+        <div class="day-header">
+            <div class="day-num">12</div>
+            <div class="day-info"><span>March 12</span> 離開歐洲，前往阿布達比</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card flight-etihad">
+                <div class="flight-header">
+                    <div class="flight-airline">Etihad Airways</div>
+                    <div class="flight-number">EY 154</div>
+                </div>
+                <div class="flight-detail">
+                    <div class="flight-info">機型: Boeing 787‑9</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">VIE</span>
+                            <span class="airport-time">10:55 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                        <div style="font-size: 1.2rem; color: var(--accent)">➔</div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">AUH</span>
+                            <span class="airport-time">19:20 </span>
+                            <span class="flight-subinfo">航站: 3</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 5h 25m，阿布達比停留 13h 15m</div>
+                </div>
+                <div class="transport-badge" style="background: #fff8f0;">
+                    <span style="font-weight: bold; color: #d35400;">🌙 阿布達比轉機 (13h 15m)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="day-section" id="d13">
+        <div class="day-header">
+            <div class="day-num">13</div>
+            <div class="day-info"><span>Mar 13 - 14</span>返航</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card flight-etihad">
+                <div class="flight-header">
+                    <div class="flight-airline">Etihad Airways</div>
+                    <div class="flight-number">EY 826</div>
+                </div>
+                <div class="flight-detail">
+                    <div class="flight-info">機型: Boeing 787‑9</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">AUH</span>
+                            <span class="airport-time">08:35 </span>
+                            <span class="flight-subinfo">航站: 3</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">ICN</span>
+                            <span class="airport-time">21:55 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 8h 20m</div>
+                </div>
+            </div>
+            <div class="event-card flight-scoot">
+                <div class="flight-header">
+                    <div class="flight-airline">Scoot</div>
+                    <div class="flight-number">TR 897</div>
+                </div>
+                <div class="flight-detail" style="background: #4a5568;">
+                    <div class="flight-info">機型: Boeing 787-9</div>
+                    <div class="flight-route" style="margin-top: 8px;">
+                        <div>
+                            <span class="airport-code">ICN</span>
+                            <span class="airport-time">23:00 </span>
+                            <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">TPE</span>
+                            <span class="airport-time">00:45 (+1) </span>
+                            <span class="flight-subinfo">航站: 2</span>
+                        </div>
+                    </div>
+                    <div class="flight-info" style="margin-top:6px;">飛行時間: 2h 45m</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<nav class="bottom-nav">
+    <a href="#d3" class="active">3/3</a>
+    <a href="#d4">3/4</a>
+    <a href="#d8">3/8</a>
+    <a href="#d10">3/10</a>
+    <a href="#d12">3/12</a>
+    <a href="#d13">回程</a>
+</nav>
+
+<script>
+    // 滾動觀察者：當滑動到對應區域時，自動更新按鈕狀態
+    const sections = document.querySelectorAll('.day-section');
+    const navLinks = document.querySelectorAll('.bottom-nav a');
+
+    window.addEventListener('scroll', () => {
+        let current = "";
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -254,23 +254,6 @@
             padding: 6px 10px;
             border-radius: 10px;
         }
-        .todo-check {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-
-        .todo-check input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
-        .todo-check input[type="checkbox"]:checked + span {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
         /* 底部導航按鈕 */
         .bottom-nav { 
             position: fixed; 
@@ -342,7 +325,7 @@
                         </div>
                     </div>
                     <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 2h 30m</span>
+                        <span>飛行時間: 約 2h 30m</span>
                         <span style="color: #bbb;">機型: Boeing 787-9</span>
                     </div>
                 </div>
@@ -356,7 +339,7 @@
                         <div>
                             <span class="airport-code">TPE</span>
                             <span class="airport-time">20:00 </span>
-                            <span class="flight-subinfo">航站: 1</span>
+                            <span class="flight-subinfo">航站: 2</span>
                         </div>
                         <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
                         <div style="text-align: right;">
@@ -382,12 +365,17 @@
                         </li>
                         <li>
                             <span class="time">15:00</span>
-                            桃園機場集合 → 等開櫃託運行李
+                            🧳 桃園機場集合 → 等託運行李
                         </li>
                         <li>
-                            <span class="time">23:45</span>
-                            抵達仁川機場會合
+                            <span class="time">15:30</span>
+                            🍴  <b>Plaza Premium</b> 用午晚餐
                         </li>
+                        <li>
+                            <span class="time">23:40</span>
+                            ✈️ 抵達仁川機場 後會合
+                        </li>
+
                         <li>
                             🚇 搭乘機場地鐵前往市區
                             <div class="note">末班車時間：23:56</div>
@@ -396,8 +384,8 @@
                             🏨 抵達 <b>Unseo 站</b> → 步行前往飯店休息
                             <div class="note">Hotel Seattle Incheon Airport</div>
                         </li>
-                    </ul>
-                    <a href="https://maps.app.goo.gl/5KchC2hr5jH3ZeV89" target="_blank" class="map-btn">📍 飯店 Google 地圖</a>
+
+                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 飯店 Google 地圖</a>
                 </div>
             </div>
         </div>
@@ -419,13 +407,13 @@
                         <div>
                             <span class="airport-code">ICN</span>
                             <span class="airport-time">23:45 </span>
-                            <span class="flight-subinfo">航站: 1</span>
+                            <span class="flight-subinfo">航站: 2</span>
                         </div>
                         <div style="font-size: 1.2rem; color: var(--accent)">➔</div>
                         <div style="text-align: right;">
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">05:20 (+1) </span>
-                            <span class="flight-subinfo">航站: A</span>
+                            <span class="flight-subinfo">航站: 3</span>
                         </div>
                     </div>
                     <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
@@ -433,6 +421,44 @@
                         <span style="color: #bbb;">機型: Boeing 787‑9</span>
                     </div>
                 </div>
+            </div>
+            <div class="event-card">
+                <div class="event-title">📅 3/4｜出發前行程與機場準備</div>
+                <ul class="trip-list">
+                    <li>
+                        🍽️ 起床至樓下享用免費早餐
+                    </li>
+                    <li>
+                        <span class="time">11:00</span>
+                        🧳 退房並將行李寄放於飯店
+                    </li>
+                    <li>
+                        🚶‍♂️ 飯店附近散步、順路至 <b>樂天超市</b> 補貨
+                    </li>
+                    <li>
+                        <span class="time">18:30</span>
+                        ✈️ 抵達仁川機場 ICN（先不吃晚餐）
+                    </li>
+                    <li class="todo">
+                        <label class="todo-check">
+                            <input type="checkbox">
+                            <span>🛁 可至 SPA AT HOME 淋浴 (239台幣)</span>
+                        </label>
+                    </li>
+                    <li>
+                        <span class="time">19:45</span>
+                        🛫 Etihad Airways 開櫃辦理報到
+                    </li>
+                    <li>
+                        <span class="time">20:30</span>
+                        🍝 進入 <b>Matina Lounge </b> 用晚餐
+                    </li>
+                    <li>
+                        <span class="time">22:00</span>
+                        🕘 離開休息室，慢慢前往登機口
+                    </li>
+                </ul>
+                </ul>
             </div>
         </div>
     </section>
@@ -584,13 +610,13 @@
                         <div>
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">02:55 </span>
-                            <span class="flight-subinfo">航站: A</span>
+                            <span class="flight-subinfo">航站: 3</span>
                         </div>
                         <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
                         <div style="text-align: right;">
                             <span class="airport-code">VIE</span>
                             <span class="airport-time">06:10 </span>
-                            <span class="flight-subinfo">航站: 3</span>
+                            <span class="flight-subinfo">航站: 1</span>
                         </div>
                     </div>
                     <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
@@ -658,13 +684,13 @@
                         <div>
                             <span class="airport-code">VIE</span>
                             <span class="airport-time">10:55 </span>
-                            <span class="flight-subinfo">航站: 3</span>
+                            <span class="flight-subinfo">航站: 1</span>
                         </div>
                         <div style="font-size: 1.2rem; color: var(--accent)">➔</div>
                         <div style="text-align: right;">
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">19:20 </span>
-                            <span class="flight-subinfo">航站: A</span>
+                            <span class="flight-subinfo">航站: 3</span>
                         </div>
                     </div>
                     <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
@@ -685,7 +711,7 @@
                         <div>
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">08:35 </span>
-                            <span class="flight-subinfo">航站: A</span>
+                            <span class="flight-subinfo">航站: 3</span>
                         </div>
                         <div style="text-align: right;">
                             <span class="airport-code">ICN</span>

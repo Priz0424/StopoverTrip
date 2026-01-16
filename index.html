@@ -1003,17 +1003,27 @@
     });
 
     // =======================
-    // Snap 滾動 touch 支援（更可靠）
+    // Snap 滾動 touch 支援（真正卡住每個日期區塊）
     // =======================
     let touchStartY = 0;
     let touchEndY = 0;
     let isTouching = false;
     let isSnapping = false; // snap 鎖
     const SNAP_THROTTLE = 700; // ms, 節流時間
-    const MIN_SWIPE_DIST = 50; // px, 判斷為滑動的最小距離
+    const MIN_SWIPE_DIST = 40; // px, 判斷為滑動的最小距離
+    let snapTimeout = null;
+    let scrollLockTimeout = null;
+
+    // 滾動期間臨時鎖定 body scroll
+    function lockBodyScroll() {
+        document.body.style.overflowY = 'hidden';
+    }
+    function unlockBodyScroll() {
+        document.body.style.overflowY = '';
+    }
 
     function getCurrentSectionIndex() {
-        // 找到目前視窗頂部最近的 section index
+        // 找到視窗頂部最近的 section index
         let idx = 0;
         let minDist = Infinity;
         const scrollY = window.scrollY;
@@ -1040,24 +1050,33 @@
         }
     }
 
-    let snapTimeout = null;
     document.addEventListener('touchstart', function(e) {
         if (e.touches.length !== 1 || isSnapping) return;
         isTouching = true;
         touchStartY = e.touches[0].clientY;
         touchEndY = touchStartY;
-    }, {passive: true});
+        // 鎖定 body，防止自由滑動
+        lockBodyScroll();
+    }, {passive: false});
 
     document.addEventListener('touchmove', function(e) {
-        if (!isTouching || e.touches.length !== 1) return;
+        if (!isTouching || isSnapping || e.touches.length !== 1) return;
         touchEndY = e.touches[0].clientY;
-    }, {passive: true});
+        // 阻止預設滾動，完全鎖定自由滑動
+        e.preventDefault();
+    }, {passive: false});
 
     document.addEventListener('touchend', function(e) {
-        if (!isTouching || isSnapping) return;
+        if (!isTouching || isSnapping) {
+            unlockBodyScroll();
+            return;
+        }
         isTouching = false;
         const deltaY = touchEndY - touchStartY;
-        if (Math.abs(deltaY) < MIN_SWIPE_DIST) return;
+        if (Math.abs(deltaY) < MIN_SWIPE_DIST) {
+            unlockBodyScroll();
+            return;
+        }
         // 向上滑(手指往上移動) → 下一個, 向下滑 → 上一個
         const currentIdx = getCurrentSectionIndex();
         let targetIdx = currentIdx;
@@ -1070,12 +1089,18 @@
         }
         if (targetIdx !== currentIdx) {
             isSnapping = true;
+            lockBodyScroll();
             scrollToSectionWithOffset(targetIdx);
             // 解鎖 snap，避免連續觸發
             if (snapTimeout) clearTimeout(snapTimeout);
-            snapTimeout = setTimeout(() => { isSnapping = false; }, SNAP_THROTTLE);
+            snapTimeout = setTimeout(() => {
+                isSnapping = false;
+                unlockBodyScroll();
+            }, SNAP_THROTTLE);
+        } else {
+            unlockBodyScroll();
         }
-    }, {passive: true});
+    }, {passive: false});
 
     // 點擊縮小模式下的 active 按鈕可展開/收回
     bottomNav.addEventListener('click', function(e) {

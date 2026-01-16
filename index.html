@@ -254,12 +254,12 @@
             padding: 6px 10px;
             border-radius: 10px;
         }
-        /* 底部導航按鈕 */
+        /* 底部導航按鈕（縮放動畫版本） */
         .bottom-nav { 
             position: fixed; 
             bottom: 1px; 
             left: 50%; 
-            transform: translateX(-50%); 
+            transform: translateX(-50%) scale(1); 
             background: rgba(26, 26, 26, 0.9); 
             backdrop-filter: blur(15px);
             padding: 10px; 
@@ -271,17 +271,18 @@
             width: 90%; 
             max-width: 500px; 
             justify-content: space-around;
-            /* 覆蓋所有尺寸、padding、背景、border-radius、transform 的變化 */
+            /* 使用 transform: scale 動畫，速度調慢 */
             transition:
-                width 0.35s cubic-bezier(0.4,0,0.2,1),
-                left 0.35s cubic-bezier(0.4,0,0.2,1),
-                right 0.35s cubic-bezier(0.4,0,0.2,1),
-                bottom 0.35s cubic-bezier(0.4,0,0.2,1),
-                transform 0.35s cubic-bezier(0.4,0,0.2,1),
-                padding 0.35s cubic-bezier(0.4,0,0.2,1),
-                border-radius 0.35s cubic-bezier(0.4,0,0.2,1),
-                background 0.35s cubic-bezier(0.4,0,0.2,1),
-                box-shadow 0.35s cubic-bezier(0.4,0,0.2,1);
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.5s ease,
+                width 0.5s cubic-bezier(0.4,0,0.2,1),
+                left 0.5s cubic-bezier(0.4,0,0.2,1),
+                right 0.5s cubic-bezier(0.4,0,0.2,1),
+                bottom 0.5s cubic-bezier(0.4,0,0.2,1),
+                padding 0.5s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
+                background 0.5s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.5s cubic-bezier(0.4,0,0.2,1);
         }
         .bottom-nav a { 
             color: white; 
@@ -291,63 +292,62 @@
             font-weight: bold; 
             padding: 10px 15px;
             border-radius: 25px;
-            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
             transition:
-                background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.5s ease,
+                background 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .bottom-nav a.active { 
             opacity: 1; 
             background: var(--accent); 
             color: #000; 
             transform: scale(1.1);
-            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
             transition:
-                background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.5s ease,
+                background 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        /* 滑動時縮小並移動到底部右下角 */
+        /* 滑動時縮小並移動到底部右下角，並縮放 */
         .bottom-nav.scrolled {
             left: auto;
             right: 18px;
             bottom: 18px;
-            transform: none;
             width: auto;
             max-width: 90vw;
-            padding: 7px 6px;
+            padding: 0 0;
             border-radius: 999px;
             background: rgba(26, 26, 26, 0.96);
             box-shadow: 0 8px 24px rgba(0,0,0,0.32);
             justify-content: center;
-            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
+            /* 使用縮放動畫 */
+            transform: scale(0.8);
             transition:
-                width 0.35s cubic-bezier(0.4,0,0.2,1),
-                left 0.35s cubic-bezier(0.4,0,0.2,1),
-                right 0.35s cubic-bezier(0.4,0,0.2,1),
-                bottom 0.35s cubic-bezier(0.4,0,0.2,1),
-                transform 0.35s cubic-bezier(0.4,0,0.2,1),
-                padding 0.35s cubic-bezier(0.4,0,0.2,1),
-                border-radius 0.35s cubic-bezier(0.4,0,0.2,1),
-                background 0.35s cubic-bezier(0.4,0,0.2,1),
-                box-shadow 0.35s cubic-bezier(0.4,0,0.2,1);
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.5s ease,
+                width 0.5s cubic-bezier(0.4,0,0.2,1),
+                left 0.5s cubic-bezier(0.4,0,0.2,1),
+                right 0.5s cubic-bezier(0.4,0,0.2,1),
+                bottom 0.5s cubic-bezier(0.4,0,0.2,1),
+                padding 0.5s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
+                background 0.5s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.5s cubic-bezier(0.4,0,0.2,1);
         }
         .bottom-nav.scrolled a {
             opacity: 0;
@@ -357,19 +357,22 @@
             margin: 0;
             font-size: inherit;
             background: none;
-            transition:
-                background 0.3s cubic-bezier(0.4,0,0.2,1),
-                color 0.3s cubic-bezier(0.4,0,0.2,1),
-                border-radius 0.3s cubic-bezier(0.4,0,0.2,1),
-                padding 0.3s cubic-bezier(0.4,0,0.2,1),
-                font-size 0.3s cubic-bezier(0.4,0,0.2,1),
-                width 0.3s cubic-bezier(0.4,0,0.2,1),
-                min-width 0.3s cubic-bezier(0.4,0,0.2,1),
-                height 0.3s cubic-bezier(0.4,0,0.2,1),
-                opacity 0.3s cubic-bezier(0.4,0,0.2,1),
-                margin 0.3s cubic-bezier(0.4,0,0.2,1),
-                transform 0.3s cubic-bezier(0.4,0,0.2,1);
             display: none;
+            /* scale to 0 for hiding */
+            transform: scale(0);
+            transition:
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.5s ease,
+                background 0.5s cubic-bezier(0.4,0,0.2,1),
+                color 0.5s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
+                padding 0.5s cubic-bezier(0.4,0,0.2,1),
+                font-size 0.5s cubic-bezier(0.4,0,0.2,1),
+                width 0.5s cubic-bezier(0.4,0,0.2,1),
+                min-width 0.5s cubic-bezier(0.4,0,0.2,1),
+                height 0.5s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.5s cubic-bezier(0.4,0,0.2,1),
+                margin 0.5s cubic-bezier(0.4,0,0.2,1);
         }
         .bottom-nav.scrolled a.active {
             opacity: 1;
@@ -377,13 +380,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 更小橢圓尺寸，調整 padding 與高度，讓形狀更圓潤美觀 */
-            padding: 2px 12px;
+            /* 更圓潤的膠囊形狀 */
+            padding: 0 20px;
             margin: 0;
             width: auto;
-            min-width: 30px;
-            height: 24px;
-            font-size: 0.85rem;
+            min-width: 40px;
+            height: 40px;
+            font-size: 0.9rem;
             background: var(--accent);
             color: #000;
             border-radius: 999px;
@@ -391,19 +394,21 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.12);
             overflow: visible;
             white-space: nowrap;
-            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
+            /* scale up for active */
+            transform: scale(1.1);
             transition:
-                background 0.3s cubic-bezier(0.4,0,0.2,1),
-                color 0.3s cubic-bezier(0.4,0,0.2,1),
-                border-radius 0.3s cubic-bezier(0.4,0,0.2,1),
-                padding 0.3s cubic-bezier(0.4,0,0.2,1),
-                font-size 0.3s cubic-bezier(0.4,0,0.2,1),
-                width 0.3s cubic-bezier(0.4,0,0.2,1),
-                min-width 0.3s cubic-bezier(0.4,0,0.2,1),
-                height 0.3s cubic-bezier(0.4,0,0.2,1),
-                opacity 0.3s cubic-bezier(0.4,0,0.2,1),
-                margin 0.3s cubic-bezier(0.4,0,0.2,1),
-                transform 0.3s cubic-bezier(0.4,0,0.2,1);
+                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
+                opacity 0.5s ease,
+                background 0.5s cubic-bezier(0.4,0,0.2,1),
+                color 0.5s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
+                padding 0.5s cubic-bezier(0.4,0,0.2,1),
+                font-size 0.5s cubic-bezier(0.4,0,0.2,1),
+                width 0.5s cubic-bezier(0.4,0,0.2,1),
+                min-width 0.5s cubic-bezier(0.4,0,0.2,1),
+                height 0.5s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.5s cubic-bezier(0.4,0,0.2,1),
+                margin 0.5s cubic-bezier(0.4,0,0.2,1);
         }
     </style>
 </head>
@@ -993,11 +998,33 @@
             if (window.scrollY > 90) {
                 if (scrollDirection === "down") {
                     bottomNav.classList.add('scrolled');
+                    // 向下滑動時，確保自動收回計時器被清除
+                    if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
+                        clearTimeout(navCollapseTimer);
+                        navCollapseTimer = null;
+                    }
                 } else if (scrollDirection === "up") {
-                    bottomNav.classList.remove('scrolled');
+                    // 向上滑動時，自動展開並啟動自動收回計時器
+                    if (bottomNav.classList.contains('scrolled')) {
+                        bottomNav.classList.remove('scrolled');
+                        // 啟動 1.8 秒自動收回（共用 navCollapseTimer）
+                        if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
+                            clearTimeout(navCollapseTimer);
+                            navCollapseTimer = null;
+                        }
+                        navCollapseTimer = setTimeout(() => {
+                            bottomNav.classList.add('scrolled');
+                            navCollapseTimer = null;
+                        }, 1800);
+                    }
                 }
             } else {
                 bottomNav.classList.remove('scrolled');
+                // 滾回頂部時清除自動收回計時器
+                if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
+                    clearTimeout(navCollapseTimer);
+                    navCollapseTimer = null;
+                }
             }
         }
     });
@@ -1102,7 +1129,8 @@
         }
     }, {passive: false});
 
-    // 點擊縮小模式下的 active 按鈕可展開/收回
+    // 點擊縮小模式下的 active 按鈕可展開/收回，並自動收回
+    let navCollapseTimer = null;
     bottomNav.addEventListener('click', function(e) {
         // 僅在縮小模式下，且點到 .active 的 a
         if (bottomNav.classList.contains('scrolled')) {
@@ -1110,10 +1138,21 @@
             // 如果點擊的是 a.active
             if (target.tagName === 'A' && target.classList.contains('active')) {
                 e.preventDefault();
+                // 清除舊的自動收回計時器
+                if (navCollapseTimer) {
+                    clearTimeout(navCollapseTimer);
+                    navCollapseTimer = null;
+                }
                 // 切換 scrolled 狀態
                 if (bottomNav.classList.contains('scrolled')) {
                     bottomNav.classList.remove('scrolled');
                     navManuallyExpanded = true;
+                    // 設置 1.8 秒自動收回
+                    navCollapseTimer = setTimeout(() => {
+                        bottomNav.classList.add('scrolled');
+                        navManuallyExpanded = false;
+                        navCollapseTimer = null;
+                    }, 1800);
                 } else {
                     bottomNav.classList.add('scrolled');
                     navManuallyExpanded = false;
@@ -1127,6 +1166,11 @@
         // 若已展開，且點擊非 bottomNav 內部
         if (navManuallyExpanded && !bottomNav.contains(e.target)) {
             navManuallyExpanded = false;
+            // 清除自動收回計時器
+            if (navCollapseTimer) {
+                clearTimeout(navCollapseTimer);
+                navCollapseTimer = null;
+            }
             if (window.scrollY > 90) {
                 bottomNav.classList.add('scrolled');
             }

@@ -790,6 +790,21 @@
         </div>
     </section>
 
+    <section class="day-section" id="d9">
+        <div class="day-header">
+            <div class="day-num">09</div>
+            <div class="day-info"><span>March 09</span>｜待排行程</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="event-title">📅 3/9｜待安排行程</div>
+                <ul class="trip-list">
+                    <!-- 待填充 -->
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <section class="day-section" id="d10">
         <div class="day-header">
             <div class="day-num">10</div>
@@ -812,6 +827,21 @@
                     <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Budapest Déli pu.</a>
                     <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Vienna Hbf</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="day-section" id="d11">
+        <div class="day-header">
+            <div class="day-num">11</div>
+            <div class="day-info"><span>March 11</span>｜待排行程</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="event-title">📅 3/11｜待安排行程</div>
+                <ul class="trip-list">
+                    <!-- 待填充 -->
+                </ul>
             </div>
         </div>
     </section>
@@ -875,6 +905,21 @@
 
             </div>
  
+        </div>
+    </section>
+
+    <section class="day-section" id="d13">
+        <div class="day-header">
+            <div class="day-num">13</div>
+            <div class="day-info"><span>March 13</span>｜待排行程</div>
+        </div>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="event-title">📅 3/13｜待安排行程</div>
+                <ul class="trip-list">
+                    <!-- 待填充 -->
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -1007,7 +1052,7 @@
                     // 向上滑動時，自動展開並啟動自動收回計時器
                     if (bottomNav.classList.contains('scrolled')) {
                         bottomNav.classList.remove('scrolled');
-                        // 啟動 1.8 秒自動收回（共用 navCollapseTimer）
+                        // 啟動 2.2 秒自動收回（共用 navCollapseTimer）
                         if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
                             clearTimeout(navCollapseTimer);
                             navCollapseTimer = null;
@@ -1015,7 +1060,7 @@
                         navCollapseTimer = setTimeout(() => {
                             bottomNav.classList.add('scrolled');
                             navCollapseTimer = null;
-                        }, 1800);
+                        }, 2200);
                     }
                 }
             } else {
@@ -1147,12 +1192,12 @@
                 if (bottomNav.classList.contains('scrolled')) {
                     bottomNav.classList.remove('scrolled');
                     navManuallyExpanded = true;
-                    // 設置 1.8 秒自動收回
+                    // 設置 2.2 秒自動收回
                     navCollapseTimer = setTimeout(() => {
                         bottomNav.classList.add('scrolled');
                         navManuallyExpanded = false;
                         navCollapseTimer = null;
-                    }, 1800);
+                    }, 2200);
                 } else {
                     bottomNav.classList.add('scrolled');
                     navManuallyExpanded = false;

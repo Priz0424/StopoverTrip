@@ -271,6 +271,17 @@
             width: 90%; 
             max-width: 500px; 
             justify-content: space-around;
+            /* 覆蓋所有尺寸、padding、背景、border-radius、transform 的變化 */
+            transition:
+                width 0.35s cubic-bezier(0.4,0,0.2,1),
+                left 0.35s cubic-bezier(0.4,0,0.2,1),
+                right 0.35s cubic-bezier(0.4,0,0.2,1),
+                bottom 0.35s cubic-bezier(0.4,0,0.2,1),
+                transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                padding 0.35s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.35s cubic-bezier(0.4,0,0.2,1),
+                background 0.35s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.35s cubic-bezier(0.4,0,0.2,1);
         }
         .bottom-nav a { 
             color: white; 
@@ -280,13 +291,119 @@
             font-weight: bold; 
             padding: 10px 15px;
             border-radius: 25px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
+            transition:
+                background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .bottom-nav a.active { 
             opacity: 1; 
             background: var(--accent); 
             color: #000; 
             transform: scale(1.1);
+            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
+            transition:
+                background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-radius 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* 滑動時縮小並移動到底部右下角 */
+        .bottom-nav.scrolled {
+            left: auto;
+            right: 18px;
+            bottom: 18px;
+            transform: none;
+            width: auto;
+            max-width: 90vw;
+            padding: 7px 6px;
+            border-radius: 999px;
+            background: rgba(26, 26, 26, 0.96);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+            justify-content: center;
+            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
+            transition:
+                width 0.35s cubic-bezier(0.4,0,0.2,1),
+                left 0.35s cubic-bezier(0.4,0,0.2,1),
+                right 0.35s cubic-bezier(0.4,0,0.2,1),
+                bottom 0.35s cubic-bezier(0.4,0,0.2,1),
+                transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                padding 0.35s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.35s cubic-bezier(0.4,0,0.2,1),
+                background 0.35s cubic-bezier(0.4,0,0.2,1),
+                box-shadow 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+        .bottom-nav.scrolled a {
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            padding: 0;
+            margin: 0;
+            font-size: inherit;
+            background: none;
+            transition:
+                background 0.3s cubic-bezier(0.4,0,0.2,1),
+                color 0.3s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.3s cubic-bezier(0.4,0,0.2,1),
+                padding 0.3s cubic-bezier(0.4,0,0.2,1),
+                font-size 0.3s cubic-bezier(0.4,0,0.2,1),
+                width 0.3s cubic-bezier(0.4,0,0.2,1),
+                min-width 0.3s cubic-bezier(0.4,0,0.2,1),
+                height 0.3s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s cubic-bezier(0.4,0,0.2,1),
+                margin 0.3s cubic-bezier(0.4,0,0.2,1),
+                transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            display: none;
+        }
+        .bottom-nav.scrolled a.active {
+            opacity: 1;
+            pointer-events: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* 更小橢圓尺寸，調整 padding 與高度，讓形狀更圓潤美觀 */
+            padding: 2px 12px;
+            margin: 0;
+            width: auto;
+            min-width: 30px;
+            height: 24px;
+            font-size: 0.85rem;
+            background: var(--accent);
+            color: #000;
+            border-radius: 999px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            overflow: visible;
+            white-space: nowrap;
+            /* 平滑過渡所有尺寸、padding、背景、border-radius、transform */
+            transition:
+                background 0.3s cubic-bezier(0.4,0,0.2,1),
+                color 0.3s cubic-bezier(0.4,0,0.2,1),
+                border-radius 0.3s cubic-bezier(0.4,0,0.2,1),
+                padding 0.3s cubic-bezier(0.4,0,0.2,1),
+                font-size 0.3s cubic-bezier(0.4,0,0.2,1),
+                width 0.3s cubic-bezier(0.4,0,0.2,1),
+                min-width 0.3s cubic-bezier(0.4,0,0.2,1),
+                height 0.3s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s cubic-bezier(0.4,0,0.2,1),
+                margin 0.3s cubic-bezier(0.4,0,0.2,1),
+                transform 0.3s cubic-bezier(0.4,0,0.2,1);
         }
     </style>
 </head>
@@ -325,7 +442,7 @@
                         </div>
                     </div>
                     <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 約 2h 30m</span>
+                        <span>飛行時間: 2h 30m</span>
                         <span style="color: #bbb;">機型: Boeing 787-9</span>
                     </div>
                 </div>
@@ -475,7 +592,7 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card">
-                <div class="event-title">📅 3/5｜阿布達比Day1</div>
+                <div class="event-title">🕌 Day 1｜清真寺</div>
                 <ul class="trip-list">
                     <li>
                         <span class="time">05:20</span>
@@ -512,7 +629,7 @@
                         🚶‍♂️ 海濱散步、超市／商場(待安排)
                     </li>
                     <li>
-                        🍽️ 晚餐（待安排）
+                        🍴 晚餐：⬜️ 保留，之後再找
                     </li>
                     <li>
                         🏨 早點回飯店休息
@@ -532,35 +649,36 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card">
-                <div class="event-title">上午：Qasr Al Watan（總統府，付費）</div>
-                <ul>
-                    <li>參觀王座廳、圖書館、展示廳</li>
-                    <li>建議時間：約 2 小時</li>
+                <div class="event-title">🎨🌿 Day 2｜野餐 × 藝術 </div>
+                <ul class="trip-list">
+                    <li>
+                        <span class="time">10:00</span>
+                        🛍️ World Trade Center（世貿）
+                        <div class="note">先逛逛，順便到 LuLu 超市 採買野餐食物</div>
+                    </li>
+                    <li>
+                        <span class="time">12:00</span>
+                        🧺 Corniche Park 野餐
+                        <div class="note">樹下遮陽、安靜、免費，早上最舒服</div>
+                    </li>
+                    <li>
+                        <span class="time">14:00</span>
+                        🖼️ Louvre Abu Dhabi
+                        <div class="note">下午光影最好，慢慢逛不趕</div>
+                    </li>
+                    <li>
+                        <span class="time">16:45</span>
+                        🕊️ Abrahamic Family House
+                        <div class="note">建築線條＋夕陽斜光，很適合收尾</div>
+                    </li>
+                    <li>
+                        🍴 晚餐：⬜️ 保留，之後再找
+                    </li>
                 </ul>
-                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
-            </div>
-            <div class="event-card">
-                <div class="event-title">下午：Louvre Abu Dhabi（付費）</div>
-                <ul>
-                    <li>建築＋展覽，2–3 小時</li>
-                    <li>可在外側海邊步道散步</li>
-                </ul>
-                <div style="margin-top: 10px;">
-                    <b>晚上備註：</b>
-                    <ul>
-                        <li>Emirates Palace 外圍拍照（免費）</li>
-                        <li>晚餐後回飯店</li>
-                    </ul>
-                </div>
-                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
-            </div>
-            <div class="event-card">
-                <div class="event-title">Emirates Palace（晚上備註）</div>
-                <ul>
-                    <li>Emirates Palace 外圍拍照（免費）</li>
-                    <li>晚餐後回飯店</li>
-                </ul>
-                <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Google 地圖</a>
+                <a href="https://maps.app.goo.gl/Raz3NQ8Y9vqzFANF8" target="_blank" class="map-btn">📍 World Trade Center</a>
+                <a href="https://maps.app.goo.gl/z1fgihNrUibkCuAd7" target="_blank" class="map-btn">📍 Corniche Park</a>
+                <a href="https://maps.app.goo.gl/9dJncHjuaTeeHNK47" target="_blank" class="map-btn">📍 Louvre</a>
+                <a href="https://maps.app.goo.gl/sw3cGiWej6CouBFp9" target="_blank" class="map-btn">📍 Abrahamic Family House</a>
             </div>
         </div>
     </section>
@@ -573,26 +691,48 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card">
-                <div class="event-title">輕鬆日，挑 2–3 個即可</div>
-                <ul>
-                    <li>Heritage Village</li>
-                    <li>Al Mina Fish Market</li>
-                    <li>Corniche 沙灘</li>
-                    <li>咖啡廳／Mall 休息</li>
+                <div class="event-title">🌆🌊 Day 3｜城市 × 海邊 × 夜航準備</div>
+                <ul class="trip-list">
+                    <li>
+                        <b>☕ 早餐：飯店附近解決</b>
+                    </li>
+                    <li>
+                        <span class="time">09:30</span>
+                        🏛️ Qasr Al Watan 總統府
+                    </li>
+                    <li>
+                        <span class="time">11:30</span>
+                        🏺 Heritage Village 民俗村
+                        <div class="note">旁邊有漂亮沙灘，可簡單散步</div>
+                    </li>
+                    <li>
+                        <span class="time">13:30</span>
+                        🛍️ Mall 午餐＋購物＋咖啡
+                    </li>
+                    <li>
+                        <span class="time">16:45</span>
+                        🌅 Corniche Beach
+                        <div class="note">散步、看海、夕陽，節奏放慢</div>
+                    </li>
+                    <li>
+                        <span class="time">18:30</span>
+                        🧳 回飯店整理行李、洗澡
+                    </li>
+                    <li>
+                       <b> 🚌 A1 公車前往機場 21:23 / 21:53</b>
+                    </li>
+
+                    <li>
+                        <span class="time">22:30</span>
+                        ✈️ 抵達機場 → 等托運 
+                    </li>
+                    <b>🍝 進入Pearl Lounge 用餐、休息等登機</b>
                 </ul>
-                <div>
-                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Heritage Village</a>
-                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Al Mina Fish Market</a>
-                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Corniche Beach</a>
-                    <a href="PASTE_GOOGLE_MAP_URL_HERE" target="_blank" class="map-btn">📍 Cafe / Mall</a>
-                </div>
-                <div style="margin-top: 10px;">
-                    <b>晚上：</b>
-                    <ul>
-                        <li>整理行李</li>
-                        <li>洗澡、休息</li>
-                    </ul>
-                </div>
+
+                <a href="https://maps.app.goo.gl/7x6R3vZQ8XJ9kzjE7" target="_blank" class="map-btn">📍 Qasr Al Watan</a>
+                <a href="https://maps.app.goo.gl/4Qkz7M9h8yKp2c2x7" target="_blank" class="map-btn">📍 Heritage Village</a>
+                <a href="https://maps.app.goo.gl/R2GmG2nqYqZK8u6q8" target="_blank" class="map-btn">📍 Corniche Beach</a>
+                <a href="https://maps.app.goo.gl/R2GmG2nqYqZK8u6q8" target="_blank" class="map-btn">📍 Pearl Lounge</a>
             </div>
         </div>
     </section>
@@ -702,7 +842,7 @@
                     </div>
                 </div>
                 <div class="transport-badge" style="background: #fff8f0;">
-                    <span style="font-weight: bold; color: #d35400;">🌙 阿布達比機場過夜攻略 (13h 15m)</span>
+                    <span style="font-weight: bold; color: #d35400;">🌙 阿布達比機場過夜 (13h 15m)</span>
                 </div>
 
                 <div class="flight-header">
@@ -770,34 +910,202 @@
 </div>
 
 <nav class="bottom-nav">
-    <a href="#d3" class="active">去程</a>
-     <a href="#d5">AUH</a>   
-    <a href="#d8">BUD</a>
-    <a href="#d10">VIE</a>
-    <a href="#d12">回程</a>
+    <a href="#d3" class="active" data-label="去程">去程</a>
+    <a href="#d5" data-label="AUH">AUH</a>
+    <a href="#d8" data-label="BUD">BUD</a>
+    <a href="#d10" data-label="VIE">VIE</a>
+    <a href="#d12" data-label="回程">回程</a>
 </nav>
 
 <script>
     // 滾動觀察者：當滑動到對應區域時，自動更新按鈕狀態
     const sections = document.querySelectorAll('.day-section');
     const navLinks = document.querySelectorAll('.bottom-nav a');
+    const bottomNav = document.querySelector('.bottom-nav');
 
+    // 定義頁面區塊對應底部導航的 mapping
+    // 「去程」: d3, d4
+    // 「AUH」: d5, d6, d7
+    // 「BUD」: d8, ...
+    // 「VIE」: d10, ...
+    // 「回程」: d12, d14
+    function getActiveNavId(currentSectionId) {
+        // d3, d4 → 去程 (#d3)
+        if (currentSectionId === 'd3' || currentSectionId === 'd4') {
+            return '#d3';
+        }
+        // d5, d6, d7 → AUH (#d5)
+        if (currentSectionId === 'd5' || currentSectionId === 'd6' || currentSectionId === 'd7') {
+            return '#d5';
+        }
+        // d8, d9 → BUD (#d8)
+        if (currentSectionId === 'd8' || currentSectionId === 'd9') {
+            return '#d8';
+        }
+        // d10, d11 → VIE (#d10)
+        if (currentSectionId === 'd10' || currentSectionId === 'd11') {
+            return '#d10';
+        }
+        // d12, d13, d14 → 回程 (#d12)
+        if (currentSectionId === 'd12' || currentSectionId === 'd13' || currentSectionId === 'd14') {
+            return '#d12';
+        }
+        // fallback: 若找不到則預設第一個
+        return '#d3';
+    }
+
+    // 控制縮小/展開狀態
+    let navManuallyExpanded = false;
+    let lastScrollY = window.scrollY;
+    let scrollDirection = null; // "up" or "down"
+
+    // 切換 active 狀態和自動縮放
     window.addEventListener('scroll', () => {
         let current = "";
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
             if (pageYOffset >= (sectionTop - 150)) {
                 current = section.getAttribute('id');
             }
         });
 
+        // 根據目前 section id 取得應該 active 的底部導航 href
+        const activeNavHref = getActiveNavId(current);
+
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
+            if (link.getAttribute('href') === activeNavHref) {
                 link.classList.add('active');
             }
         });
+
+        // 判斷滑動方向
+        let currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY) {
+            scrollDirection = "down";
+        } else if (currentScrollY < lastScrollY) {
+            scrollDirection = "up";
+        }
+        lastScrollY = currentScrollY;
+
+        // 滑動時自動縮小/展開底部導航（如果不是手動展開）
+        if (!navManuallyExpanded) {
+            if (window.scrollY > 90) {
+                if (scrollDirection === "down") {
+                    bottomNav.classList.add('scrolled');
+                } else if (scrollDirection === "up") {
+                    bottomNav.classList.remove('scrolled');
+                }
+            } else {
+                bottomNav.classList.remove('scrolled');
+            }
+        }
+    });
+
+    // =======================
+    // Snap 滾動 touch 支援（更可靠）
+    // =======================
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let isTouching = false;
+    let isSnapping = false; // snap 鎖
+    const SNAP_THROTTLE = 700; // ms, 節流時間
+    const MIN_SWIPE_DIST = 50; // px, 判斷為滑動的最小距離
+
+    function getCurrentSectionIndex() {
+        // 找到目前視窗頂部最近的 section index
+        let idx = 0;
+        let minDist = Infinity;
+        const scrollY = window.scrollY;
+        sections.forEach((section, i) => {
+            const dist = Math.abs(section.offsetTop - scrollY);
+            if (dist < minDist) {
+                minDist = dist;
+                idx = i;
+            }
+        });
+        return idx;
+    }
+
+    function scrollToSectionWithOffset(idx) {
+        if (idx < 0) idx = 0;
+        if (idx >= sections.length) idx = sections.length - 1;
+        const targetSection = sections[idx];
+        if (targetSection) {
+            // 用 scrollTo 精確控制，避免 sticky header 遮擋
+            window.scrollTo({
+                top: targetSection.offsetTop - 20,
+                behavior: "smooth"
+            });
+        }
+    }
+
+    let snapTimeout = null;
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1 || isSnapping) return;
+        isTouching = true;
+        touchStartY = e.touches[0].clientY;
+        touchEndY = touchStartY;
+    }, {passive: true});
+
+    document.addEventListener('touchmove', function(e) {
+        if (!isTouching || e.touches.length !== 1) return;
+        touchEndY = e.touches[0].clientY;
+    }, {passive: true});
+
+    document.addEventListener('touchend', function(e) {
+        if (!isTouching || isSnapping) return;
+        isTouching = false;
+        const deltaY = touchEndY - touchStartY;
+        if (Math.abs(deltaY) < MIN_SWIPE_DIST) return;
+        // 向上滑(手指往上移動) → 下一個, 向下滑 → 上一個
+        const currentIdx = getCurrentSectionIndex();
+        let targetIdx = currentIdx;
+        if (deltaY < 0) {
+            // 上滑 → 下一個
+            targetIdx = Math.min(currentIdx + 1, sections.length - 1);
+        } else if (deltaY > 0) {
+            // 下滑 → 上一個
+            targetIdx = Math.max(currentIdx - 1, 0);
+        }
+        if (targetIdx !== currentIdx) {
+            isSnapping = true;
+            scrollToSectionWithOffset(targetIdx);
+            // 解鎖 snap，避免連續觸發
+            if (snapTimeout) clearTimeout(snapTimeout);
+            snapTimeout = setTimeout(() => { isSnapping = false; }, SNAP_THROTTLE);
+        }
+    }, {passive: true});
+
+    // 點擊縮小模式下的 active 按鈕可展開/收回
+    bottomNav.addEventListener('click', function(e) {
+        // 僅在縮小模式下，且點到 .active 的 a
+        if (bottomNav.classList.contains('scrolled')) {
+            let target = e.target;
+            // 如果點擊的是 a.active
+            if (target.tagName === 'A' && target.classList.contains('active')) {
+                e.preventDefault();
+                // 切換 scrolled 狀態
+                if (bottomNav.classList.contains('scrolled')) {
+                    bottomNav.classList.remove('scrolled');
+                    navManuallyExpanded = true;
+                } else {
+                    bottomNav.classList.add('scrolled');
+                    navManuallyExpanded = false;
+                }
+            }
+        }
+    });
+
+    // 當點擊其他區域，若展開則恢復自動縮放
+    document.addEventListener('click', function(e) {
+        // 若已展開，且點擊非 bottomNav 內部
+        if (navManuallyExpanded && !bottomNav.contains(e.target)) {
+            navManuallyExpanded = false;
+            if (window.scrollY > 90) {
+                bottomNav.classList.add('scrolled');
+            }
+        }
     });
 </script>
 

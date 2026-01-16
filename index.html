@@ -31,8 +31,9 @@
             background-size: cover; 
             background-position: center; 
             color: white; 
-            padding: 60px 25px 40px; /* 調整頂部與底部高度 */
+            padding: 25px 25px 30px; /* 調整頂部與底部高度 */
             text-align: left; 
+            max-height: 15vh;
         }
         .hero h1 { font-size: 2rem; margin: 0; font-weight: 800; }
         .hero p { opacity: 0.8; font-size: 0.8rem; letter-spacing: 2px; margin-top: 8px; }
@@ -507,7 +508,7 @@
                             <div class="note">Hotel Seattle Incheon Airport</div>
                         </li>
 
-                    <a href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" class="map-btn">📍 飯店 </a>
+                    <a href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" class="map-btn">📍 Hotel Seattle Incheon Airport </a>
                 </div>
             </div>
         </div>
@@ -1221,6 +1222,10 @@
             }
         }
     });
+// 頁面載入時自動滾動到最上方
+window.addEventListener('load', () => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+});
 </script>
 
 </body>

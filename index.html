@@ -26,14 +26,247 @@
         }
 
         /* 英雄區增加 padding 防止遮擋第一段內容 */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80'); 
-            background-size: cover; 
-            background-position: center; 
-            color: white; 
-            padding: 25px 25px 30px; /* 調整頂部與底部高度 */
-            text-align: left; 
+        .hero {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 25px 25px 30px;
+            text-align: left;
             max-height: 15vh;
+        }
+        .hero-right {
+            position: absolute;
+            top: 70%;
+            right: 18px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .hero-btn {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(26, 26, 26, 0.72);
+            color: #fff;
+            backdrop-filter: blur(12px);
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            white-space: nowrap;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.22);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(26, 26, 26, 0.86);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.28);
+        }
+
+        .hero-btn--active {
+            background: var(--accent);
+            color: #000;
+            border-color: rgba(0,0,0,0.15);
+            box-shadow: 0 10px 18px rgba(0,0,0,0.24);
+        }
+        .hero-btn--active:hover,
+        .hero-btn--active:focus-visible {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.26);
+        }
+
+        .hero-btn--cost {
+            background: rgba(26, 26, 26, 0.72);
+            border-color: rgba(255,255,255,0.25);
+        }
+        /* Cost page wrapper */
+        .cost-panel {
+            background: rgba(255,255,255,0.78);
+            border: 1px solid rgba(226,230,234,0.9);
+            border-radius: 18px;
+            padding: 18px 18px 14px;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .cost-panel h2 {
+            margin-top: 0;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .cost-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .cost-toolbar .hint {
+            font-size: 0.85rem;
+            color: #555;
+            opacity: 0.9;
+        }
+
+        .cost-toolbar .mini-btn {
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid #e2e6ea;
+            background: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .cost-toolbar .mini-btn:hover {
+            transform: translateY(-1px);
+            background: #f6f8fb;
+        }
+
+        /* Excel 風格表格欄位寬度 */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: #fff;
+            border: 1px solid #e2e6ea;
+            overflow: hidden;
+            border-radius: 12px;
+            table-layout: fixed; /* 固定欄位寬度 */
+        }
+
+        .cost-table thead th {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(180deg, #f7f9fb 0%, #eef2f6 100%);
+            z-index: 2;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            border: 1px solid #e2e6ea;
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .cost-table tbody tr:hover {
+            background: #fff7e6;
+        }
+
+        .cost-summary {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .cost-summary .pill {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, #f4f6f8 0%, #eef2f6 100%);
+            border: 1px solid #e2e6ea;
+            font-weight: 900;
+            letter-spacing: 0.2px;
+        }
+
+        /* Tab content containers */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cost table styles (Excel-like) */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: #fff;
+            border: 1px solid #e2e6ea;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            border: 1px solid #e2e6ea;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cost-table th:nth-child(1),
+        .cost-table td:nth-child(1),
+        .cost-table th:nth-child(5),
+        .cost-table td:nth-child(5) {
+            width: auto; /* 左右兩欄自動撐滿 */
+        }
+
+        .cost-table th:nth-child(2),
+        .cost-table td:nth-child(2),
+        .cost-table th:nth-child(3),
+        .cost-table td:nth-child(3),
+        .cost-table th:nth-child(4),
+        .cost-table td:nth-child(4) {
+            width: 80px; /* 中間三欄固定寬度 */
+            text-align: right;
+        }
+
+        .cost-table th {
+            background: #f4f6f8;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .cost-table tbody tr:nth-child(even) {
+            background: #fbfbfb;
+        }
+
+        .cost-table .right {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cost-summary {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .cost-summary .pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #f4f6f8;
+            border: 1px solid #e2e6ea;
+            font-weight: 800;
+        }
+
+        .cost-summary .pill strong {
+            margin-right: 6px;
         }
         .hero h1 { font-size: 2rem; margin: 0; font-weight: 800; }
         .hero p { opacity: 0.8; font-size: 0.8rem; letter-spacing: 2px; margin-top: 8px; }
@@ -412,15 +645,67 @@
                 margin 0.5s cubic-bezier(0.4,0,0.2,1);
         }
     </style>
+
+    <!-- 花費頁面手機專用 CSS -->
+    <style>
+    @media (max-width: 600px) {
+        /* 花費頁面手機優化 */
+        #tabContentCost .cost-panel {
+            padding: 12px 12px 10px;
+        }
+
+        #tabContentCost .cost-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            font-size: 0.78rem;
+        }
+
+        #tabContentCost .cost-table th,
+        #tabContentCost .cost-table td {
+            padding: 8px 10px;
+        }
+
+        #tabContentCost .cost-summary {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        #tabContentCost .cost-summary .pill {
+            width: 100%;
+            text-align: left;
+            font-size: 0.78rem;
+        }
+
+        #tabContentCost .cost-toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+
+        /* 避免底部導航覆蓋表格 */
+        #tabContentCost .main-content {
+            padding-bottom: 20px;
+        }
+    }
+    </style>
 </head>
 <body>
 
 <div class="hero">
     <p>3/3 - 3/14 Global Adventure</p>
-    <h1>首爾,阿布達比,奧匈!</h1>
+    <h1>中歐行!</h1>
+
+    <div class="hero-right">
+        <button class="hero-btn hero-btn--tab hero-btn--active" id="tabItinerary">旅行</button>
+        <button class="hero-btn hero-btn--tab" id="tabCost">花費</button>
+    </div>
 </div>
 
-<div class="main-content">
+<div class="tab-content active" id="tabContentItinerary">
+    <div class="main-content">
 
     <section class="day-section" id="d3">
         <div class="day-header">
@@ -958,6 +1243,84 @@
         </div>
     </section>
 
+    </div>
+</div>
+
+<div class="tab-content" id="tabContentCost">
+    <div class="main-content">
+        <div class="cost-panel">
+            <h2>總花費</h2>
+
+            <div class="cost-toolbar">
+                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+            </div>
+
+            <table class="cost-table" id="costTable">
+                <thead>
+                    <tr>
+                        <th>分類</th>
+                        <th>PINRU</th>
+                        <th>PINGHAO</th>
+                        <th>TSEFAN</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>累積待收款項</td>
+                        <td class="right">32,281</td>
+                        <td class="right">8,349</td>
+                        <td class="right">17,779</td>
+                        <td></td>
+                    </tr>
+                    <tr><td colspan="5"></td></tr>
+                    <tr>
+                        <td>機票花費</td>
+                        <td class="right">27,606</td>
+                        <td class="right">23,674</td>
+                        <td class="right">23,707</td>
+                        <td>預計1/18收款</td>
+                    </tr>
+                    <tr>
+                        <td>住宿花費</td>
+                        <td class="right">4,675</td>
+                        <td class="right">4,675</td>
+                        <td class="right">4,072</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>票券花費</td>
+                        <td class="right">0</td>
+                        <td class="right">0</td>
+                        <td class="right">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>匯款1/16</td>
+                        <td class="right">0</td>
+                        <td class="right">0</td>
+                        <td class="right">-10,000</td>
+                        <td>將來銀收款</td>
+                    </tr>
+                    <tr>
+                        <td>匯款1/18</td>
+                        <td class="right"></td>
+                        <td class="right">-10,000</td>
+                        <td class="right"></td>
+                        <td>台新收款</td>
+                    </tr>
+                    <tr>
+                        <td>匯款1/18</td>
+                        <td class="right"></td>
+                        <td class="right">-10,000</td>
+                        <td class="right"></td>
+                        <td>台新收款</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 </div>
 
 <nav class="bottom-nav">
@@ -1122,10 +1485,57 @@
             }
         }
     });
-// 頁面載入時自動滾動到最上方
-window.addEventListener('load', () => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-});
+</script>
+
+<script>
+    // ===== Tab switcher (旅行 / 花費) =====
+    const tabItineraryBtn = document.getElementById('tabItinerary');
+    const tabCostBtn = document.getElementById('tabCost');
+    const tabContentItinerary = document.getElementById('tabContentItinerary');
+    const tabContentCost = document.getElementById('tabContentCost');
+
+    function setActiveTab(tab) {
+        const bottomNav = document.querySelector('.bottom-nav');
+        if (tab === 'itinerary') {
+            tabItineraryBtn.classList.add('hero-btn--active');
+            tabCostBtn.classList.remove('hero-btn--active');
+            tabContentItinerary.classList.add('active');
+            tabContentCost.classList.remove('active');
+            // 顯示底部導航
+            bottomNav.style.display = 'flex';
+        } else {
+            tabItineraryBtn.classList.remove('hero-btn--active');
+            tabCostBtn.classList.add('hero-btn--active');
+            tabContentItinerary.classList.remove('active');
+            tabContentCost.classList.add('active');
+            computeCostTotal();
+            // 隱藏底部導航
+            bottomNav.style.display = 'none';
+        }
+    }
+
+    tabItineraryBtn.addEventListener('click', () => setActiveTab('itinerary'));
+    tabCostBtn.addEventListener('click', () => setActiveTab('cost'));
+
+    function computeCostTotal() {
+        const rows = document.querySelectorAll('#costTable tbody tr');
+        let total = 0;
+        rows.forEach(row => {
+            const cell = row.querySelector('td:nth-child(4)');
+            if (!cell) return;
+            const value = parseFloat(cell.textContent.replace(/,/g, '')) || 0;
+            total += value;
+        });
+        document.getElementById('costTotal').textContent = total.toLocaleString();
+    }
+
+    // 初始計算總計
+    computeCostTotal();
+
+    // 頁面載入時自動滾動到最上方
+    window.addEventListener('load', () => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    });
 </script>
 
 </body>

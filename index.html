@@ -283,6 +283,35 @@
         .day-num { font-size: 2.8rem; font-weight: 900; color: var(--accent); opacity: 0.25; line-height: 1; }
         .day-info { font-size: 1.15rem; font-weight: bold; color: var(--primary); }
 
+        /* 日期亮燈 / 暗燈效果（目前觀看日） */
+        .day-header {
+            position: relative;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0.45;
+        }
+
+        .day-header.in-view {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        /* 日期亮燈的柔光底 */
+        .day-header.in-view::after {
+            content: "";
+            position: absolute;
+            left: -8px;
+            right: -8px;
+            bottom: -6px;
+            height: 18px;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(255, 214, 102, 0.45) 0%,
+                rgba(255, 214, 102, 0.25) 35%,
+                rgba(255, 214, 102, 0.0) 70%
+            );
+            pointer-events: none;
+        }
+
         .event-wrapper {
             margin-left: 0;
             padding-left: 0;
@@ -709,7 +738,7 @@
 <body>
 
 <div class="hero">
-    <p>3/3 - 3/14 Global Adventure</p>
+    <p>3/3 - 3/14 UAE,EU Adventure</p>
     <h1>中歐行!</h1>
 
     <div class="hero-right">
@@ -1614,6 +1643,9 @@
             }
         }
     });
+</script>
+
+<script>
 // ===== Event Card 自動凸顯（進入視窗放大，離開還原） =====
 const eventCards = document.querySelectorAll('.event-card');
 
@@ -1633,6 +1665,27 @@ const cardObserver = new IntersectionObserver(
 );
 
 eventCards.forEach(card => cardObserver.observe(card));
+
+/* ===== 日期 Day Header 亮燈 / 暗燈 ===== */
+const dayHeaders = document.querySelectorAll('.day-header');
+
+const dayObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                entry.target.classList.remove('in-view');
+            }
+        });
+    },
+    {
+        rootMargin: '-20% 0px -55% 0px',
+        threshold: 0
+    }
+);
+
+dayHeaders.forEach(day => dayObserver.observe(day));
 </script>
 
 <script>

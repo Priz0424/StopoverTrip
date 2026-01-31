@@ -26,46 +26,247 @@
         }
 
         /* 英雄區增加 padding 防止遮擋第一段內容 */
-        .hero { 
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80'); 
-            background-size: cover; 
-            background-position: center; 
-            color: white; 
-            padding: 25px 25px 30px; /* 調整頂部與底部高度 */
-            text-align: left; 
+        .hero {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 25px 25px 30px;
+            text-align: left;
             max-height: 15vh;
         }
-        .page-toggle {
-            margin-top: 0;
+        .hero-right {
+            position: absolute;
+            top: 70%;
+            right: 18px;
+            transform: translateY(-50%);
             display: flex;
-            gap: 8px;
-            justify-content: flex-end;  /* 按鈕靠右 */
-            align-items: center;        /* 與標題垂直置中 */
+            gap: 10px;
+            align-items: center;
+            z-index: 5;
         }
 
-        .toggle-btn {
-            padding: 6px 14px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border-radius: 20px; /* 更圓 */
-            border: none;
+        .hero-btn {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(26, 26, 26, 0.72);
+            color: #fff;
+            backdrop-filter: blur(12px);
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            white-space: nowrap;
             cursor: pointer;
-            background: linear-gradient(135deg, #f3f3f3, #e0e0e0);
-            color: #333;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.22);
         }
 
-        .toggle-btn.active {
-            background: linear-gradient(135deg, #d4a373, #f2c37b);
-            color: #000;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
-        }
-
-        .toggle-btn:hover {
-            background: linear-gradient(135deg, #e6e6e6, #dcdcdc);
-            color: #000;
+        .hero-btn:hover {
             transform: translateY(-2px);
+            background: rgba(26, 26, 26, 0.86);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.28);
+        }
+
+        .hero-btn--active {
+            background: var(--accent);
+            color: #000;
+            border-color: rgba(0,0,0,0.15);
+            box-shadow: 0 10px 18px rgba(0,0,0,0.24);
+        }
+        .hero-btn--active:hover,
+        .hero-btn--active:focus-visible {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.26);
+        }
+
+        .hero-btn--cost {
+            background: rgba(26, 26, 26, 0.72);
+            border-color: rgba(255,255,255,0.25);
+        }
+        /* Cost page wrapper */
+        .cost-panel {
+            background: rgba(255,255,255,0.78);
+            border: 1px solid rgba(226,230,234,0.9);
+            border-radius: 18px;
+            padding: 18px 18px 14px;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .cost-panel h2 {
+            margin-top: 0;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .cost-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .cost-toolbar .hint {
+            font-size: 0.85rem;
+            color: #555;
+            opacity: 0.9;
+        }
+
+        .cost-toolbar .mini-btn {
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid #e2e6ea;
+            background: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .cost-toolbar .mini-btn:hover {
+            transform: translateY(-1px);
+            background: #f6f8fb;
+        }
+
+        /* Excel 風格表格欄位寬度 */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: #fff;
+            border: 1px solid #e2e6ea;
+            overflow: hidden;
+            border-radius: 12px;
+            table-layout: fixed; /* 固定欄位寬度 */
+        }
+
+        .cost-table thead th {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(180deg, #f7f9fb 0%, #eef2f6 100%);
+            z-index: 2;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            border: 1px solid #e2e6ea;
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .cost-table tbody tr:hover {
+            background: #fff7e6;
+        }
+
+        .cost-summary {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .cost-summary .pill {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, #f4f6f8 0%, #eef2f6 100%);
+            border: 1px solid #e2e6ea;
+            font-weight: 900;
+            letter-spacing: 0.2px;
+        }
+
+        /* Tab content containers */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Cost table styles (Excel-like) */
+        .cost-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: #fff;
+            border: 1px solid #e2e6ea;
+        }
+
+        .cost-table th,
+        .cost-table td {
+            border: 1px solid #e2e6ea;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cost-table th:nth-child(1),
+        .cost-table td:nth-child(1),
+        .cost-table th:nth-child(5),
+        .cost-table td:nth-child(5) {
+            width: auto; /* 左右兩欄自動撐滿 */
+        }
+
+        .cost-table th:nth-child(2),
+        .cost-table td:nth-child(2),
+        .cost-table th:nth-child(3),
+        .cost-table td:nth-child(3),
+        .cost-table th:nth-child(4),
+        .cost-table td:nth-child(4) {
+            width: 80px; /* 中間三欄固定寬度 */
+            text-align: right;
+        }
+
+        .cost-table th {
+            background: #f4f6f8;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .cost-table tbody tr:nth-child(even) {
+            background: #fbfbfb;
+        }
+
+        .cost-table .right {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cost-summary {
+            margin-top: 14px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .cost-summary .pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #f4f6f8;
+            border: 1px solid #e2e6ea;
+            font-weight: 800;
+        }
+
+        .cost-summary .pill strong {
+            margin-right: 6px;
         }
         .hero h1 { font-size: 2rem; margin: 0; font-weight: 800; }
         .hero p { opacity: 0.8; font-size: 0.8rem; letter-spacing: 2px; margin-top: 8px; }
@@ -96,6 +297,17 @@
             border: 1px solid #eceff3;
             box-shadow: 0 6px 18px rgba(0,0,0,0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        /* 目前觀看中的卡片凸顯效果 */
+        .event-card {
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .event-card.in-view {
+            transform: scale(1.03);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.12);
+            z-index: 2;
         }
 
         .event-card:hover {
@@ -356,31 +568,30 @@
                 height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 margin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        /* 滑動時縮小並移動到底部右下角，並縮放 */
+        /* iOS 26 Safari 風格：縮小為底部中間膠囊 */
         .bottom-nav.scrolled {
-            left: auto;
-            right: 18px;
-            bottom: 18px;
+            left: 50%;
+            right: auto;
+            bottom: 12px;
             width: auto;
             max-width: 90vw;
-            padding: 0 0;
+            padding: 0;
             border-radius: 999px;
-            background: rgba(26, 26, 26, 0.96);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.32);
+            background: rgba(28, 28, 30, 0.92);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.28);
             justify-content: center;
-            /* 使用縮放動畫 */
-            transform: scale(0.8);
+
+            /* iOS Safari 關鍵手感：
+               - 輕微往下沉
+               - scale 縮小
+               - 不做橫向移動 */
+            transform: translateX(-50%) translateY(6px) scale(0.78);
+
             transition:
-                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
-                opacity 0.5s ease,
-                width 0.5s cubic-bezier(0.4,0,0.2,1),
-                left 0.5s cubic-bezier(0.4,0,0.2,1),
-                right 0.5s cubic-bezier(0.4,0,0.2,1),
-                bottom 0.5s cubic-bezier(0.4,0,0.2,1),
-                padding 0.5s cubic-bezier(0.4,0,0.2,1),
-                border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
-                background 0.5s cubic-bezier(0.4,0,0.2,1),
-                box-shadow 0.5s cubic-bezier(0.4,0,0.2,1);
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.4s ease,
+                background 0.4s ease,
+                box-shadow 0.4s ease;
         }
         .bottom-nav.scrolled a {
             opacity: 0;
@@ -392,7 +603,7 @@
             background: none;
             display: none;
             /* scale to 0 for hiding */
-            transform: scale(0);
+            transform: scale(0.6);
             transition:
                 transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
                 opacity 0.5s ease,
@@ -443,28 +654,79 @@
                 opacity 0.5s cubic-bezier(0.4,0,0.2,1),
                 margin 0.5s cubic-bezier(0.4,0,0.2,1);
         }
+        /* 當花費分頁顯示時，強制隱藏底部導航 */
+        #tabContentCost.active ~ .bottom-nav {
+            display: none !important;
+        }
+    </style>
+
+    <!-- 花費頁面手機專用 CSS -->
+    <style>
+    @media (max-width: 600px) {
+        /* 花費頁面手機優化 */
+        #tabContentCost .cost-panel {
+            padding: 12px 12px 10px;
+        }
+
+        #tabContentCost .cost-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            font-size: 0.78rem;
+        }
+
+        #tabContentCost .cost-table th,
+        #tabContentCost .cost-table td {
+            padding: 8px 10px;
+        }
+
+        #tabContentCost .cost-summary {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        #tabContentCost .cost-summary .pill {
+            width: 100%;
+            text-align: left;
+            font-size: 0.78rem;
+        }
+
+        #tabContentCost .cost-toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+
+        /* 避免底部導航覆蓋表格 */
+        #tabContentCost .main-content {
+            padding-bottom: 20px;
+        }
+    }
     </style>
 </head>
 <body>
 
 <div class="hero">
     <p>3/3 - 3/14 Global Adventure</p>
-    <h1>中歐行！</h1>
-    <div class="page-toggle">
-        <button class="toggle-btn active" data-target="itinerary">旅程</button>
-        <button class="toggle-btn" data-target="expenses">花費</button>
+    <h1>中歐行!</h1>
+
+    <div class="hero-right">
+        <button class="hero-btn hero-btn--tab hero-btn--active" id="tabItinerary">旅行</button>
+        <button class="hero-btn hero-btn--tab" id="tabCost">花費</button>
     </div>
 </div>
 
-<div class="main-content">
+<div class="tab-content active" id="tabContentItinerary">
+    <div class="main-content">
 
     <section class="day-section" id="d3">
         <div class="day-header">
             <div class="day-num">03</div>
             <div class="day-info"><span>March 03</span>｜前往首爾</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card flight-scoot">
                 <div class="flight-header">
                     <div class="flight-airline">Scoot</div>
@@ -556,8 +818,7 @@
             <div class="day-num">04</div>
             <div class="day-info"><span>March 04</span>｜前往阿布達比</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad Airways</div>
@@ -634,8 +895,7 @@
             <div class="day-num">05</div>
             <div class="day-info"><span>March 05</span>｜阿布達比Day1</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <div class="event-title">🕌 Day 1｜清真寺</div>
                 <ul class="trip-list">
@@ -692,8 +952,7 @@
             <div class="day-num">06</div>
             <div class="day-info"><span>March 06</span>｜阿布達比Day2</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <div class="event-title">🎨🌿 Day 2｜野餐 × 藝術 </div>
                 <ul class="trip-list">
@@ -735,8 +994,7 @@
             <div class="day-num">07</div>
             <div class="day-info"><span>March 07</span>｜阿布達比Day3</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <div class="event-title">🌆🌊 Day 3｜城市 × 海邊 × 夜航準備</div>
                 <ul class="trip-list">
@@ -789,8 +1047,7 @@
             <div class="day-num">08</div>
             <div class="day-info"><span>March 08</span>｜布達佩斯-兩日遊</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad Airways</div>
@@ -838,8 +1095,7 @@
             <div class="day-num">09</div>
             <div class="day-info"><span>March 09</span>｜待排行程</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <div class="event-title">📅 3/9｜待安排行程</div>
                 <ul class="trip-list">
@@ -854,8 +1110,7 @@
             <div class="day-num">10</div>
             <div class="day-info"><span>March 10</span>｜維也納-兩日遊</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <span class="badge bg-euro">RegioJet RJ1034</span>
                 <div class="land-detail">
@@ -881,8 +1136,7 @@
             <div class="day-num">11</div>
             <div class="day-info"><span>March 11</span>｜待排行程</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <div class="event-title">📅 3/11｜待安排行程</div>
                 <ul class="trip-list">
@@ -897,8 +1151,7 @@
             <div class="day-num">12</div>
             <div class="day-info"><span>March 12</span>｜離開歐洲</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad Airways</div>
@@ -960,8 +1213,7 @@
             <div class="day-num">13</div>
             <div class="day-info"><span>March 13</span>｜待排行程</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card">
                 <div class="event-title">📅 3/13｜待安排行程</div>
                 <ul class="trip-list">
@@ -977,8 +1229,7 @@
             <div class="day-num">14</div>
             <div class="day-info"><span>March 14</span>｜返航</div>
         </div>
-        <div class="event-wrapper" data-page="itinerary" style="display:block;">
-        <div class="event-wrapper" data-page="expenses" style="display:none;"></div>
+        <div class="event-wrapper">
             <div class="event-card flight-scoot">
                 <div class="flight-header">
                     <div class="flight-airline">Scoot</div>
@@ -1006,7 +1257,200 @@
         </div>
     </section>
 
+    </div>
 </div>
+
+<div class="tab-content" id="tabContentCost">
+    <div class="main-content">
+        <div class="cost-panel">
+            <h2>總花費</h2>
+
+            <div class="cost-toolbar">
+                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+            </div>
+
+            <table class="cost-table" id="costTable">
+                <thead>
+                    <tr>
+                        <th>分類</th>
+                        <th>CHEN</th>
+                        <th>LIU</th>
+                        <th>HSU</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>累積待收</td>
+                        <td class="right">32,281</td>
+                        <td class="right">8,349</td>
+                        <td class="right">17,779</td>
+                        <td></td>
+                    </tr>
+                    <tr><td colspan="5"></td></tr>
+                    <tr>
+                        <td>機票花費</td>
+                        <td class="right">27,606</td>
+                        <td class="right">23,674</td>
+                        <td class="right">23,707</td>
+                        <td>預計1/18收款</td>
+                    </tr>
+                    <tr>
+                        <td>住宿花費</td>
+                        <td class="right">4,675</td>
+                        <td class="right">4,675</td>
+                        <td class="right">4,072</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>票券花費</td>
+                        <td class="right">0</td>
+                        <td class="right">0</td>
+                        <td class="right">0</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>匯款1/16</td>
+                        <td class="right"></td>
+                        <td class="right"></td>
+                        <td class="right">-10,000</td>
+                        <td>將來收款</td>
+                    </tr>
+                    <tr>
+                        <td>匯款1/18</td>
+                        <td class="right"></td>
+                        <td class="right">-10,000</td>
+                        <td class="right"></td>
+                        <td>台新收款</td>
+                    </tr>
+                    <tr>
+                        <td>匯款1/18</td>
+                        <td class="right"></td>
+                        <td class="right">-10,000</td>
+                        <td class="right"></td>
+                        <td>台新收款</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+<br></br>
+            <div class="cost-panel">
+            <h2>機票花費</h2>
+
+            <div class="cost-toolbar">
+                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+            </div>
+
+            <table class="cost-table" id="costTable">
+                <thead>
+                    <tr>
+                        <th>分類</th>
+                        <th>CHEN</th>
+                        <th>LIU</th>
+                        <th>HSU</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>機票花費</td>
+                        <td class="right">27,606</td>
+                        <td class="right">23,674</td>
+                        <td class="right">23,707</td>
+                        <td></td>
+                    </tr>
+                    <tr><td colspan="5"></td></tr>
+                    <tr>
+                        <td>TPE-ICN</td>
+                        <td class="right">3,899</td>
+                        <td class="right">3,899</td>
+                        <td class="right"></td>
+                        <td>均分兩人</td>
+                    </tr>
+                    <tr>
+                        <td>ICN-VIE</td>
+                        <td class="right">19,775</td>
+                        <td class="right">19,775</td>
+                        <td class="right">19,775</td>
+                        <td>Etihad往返</td>
+                    </tr>
+                    <tr>
+                        <td>ICN-TPE</td>
+                        <td class="right">3,932</td>
+                        <td class="right"></td>
+                        <td class="right">3,932</td>
+                        <td>均分兩人</td>
+                    </tr>                
+                </tbody>
+            </table>
+
+        </div>
+<br></br>
+            <div class="cost-panel">
+            <h2>住宿花費</h2>
+
+            <div class="cost-toolbar">
+                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+            </div>
+
+            <table class="cost-table" id="costTable">
+                <thead>
+                    <tr>
+                        <th>分類</th>
+                        <th>CHEN</th>
+                        <th>LIU</th>
+                        <th>HSU</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>住宿花費</td>
+                        <td class="right">4,675</td>
+                        <td class="right">4,675</td>
+                        <td class="right">4,072</td>
+                        <td></td>
+                    </tr>
+                    <tr><td colspan="5"></td></tr>
+                    <tr>
+                        <td>ICN住宿</td>
+                        <td class="right">603</td>
+                        <td class="right">603</td>
+                        <td class="right"></td>
+                        <td>均分兩人</td>
+                    </tr>
+                    <tr>
+                        <td>BUD住宿</td>
+                        <td class="right">1,304</td>
+                        <td class="right">1,304</td>
+                        <td class="right">1,304</td>
+                        <td>均分三人</td>
+                    </tr>
+                    <tr>
+                        <td>VIE住宿</td>
+                        <td class="right">2,138</td>
+                        <td class="right">2,138</td>
+                        <td class="right">2,138</td>
+                        <td>均分三人</td>
+                    </tr>     
+                    <tr>
+                        <td>ICN住宿</td>
+                        <td class="right">630</td>
+                        <td class="right">630</td>
+                        <td class="right">630</td>
+                        <td>均分三人</td>
+                    </tr>                
+                </tbody>
+            </table>
+
+        </div>
+
+        
+    </div>
+    <br></br>
+</div>
+
 
 <nav class="bottom-nav">
     <a href="#d3" class="active" data-label="去程">去程</a>
@@ -1170,29 +1614,76 @@
             }
         }
     });
-// 頁面載入時自動滾動到最上方
-window.addEventListener('load', () => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-});
+// ===== Event Card 自動凸顯（進入視窗放大，離開還原） =====
+const eventCards = document.querySelectorAll('.event-card');
 
-// 旅程/花費切換
-const toggleBtns = document.querySelectorAll('.toggle-btn');
-toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // 切換按鈕 active
-        toggleBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const targetPage = btn.getAttribute('data-target');
-        document.querySelectorAll('.event-wrapper').forEach(wrapper => {
-            if (wrapper.getAttribute('data-page') === targetPage) {
-                wrapper.style.display = 'block';
-            } else if (wrapper.hasAttribute('data-page')) {
-                wrapper.style.display = 'none';
+const cardObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                entry.target.classList.remove('in-view');
             }
         });
+    },
+    {
+        threshold: 0.6
+    }
+);
+
+eventCards.forEach(card => cardObserver.observe(card));
+</script>
+
+<script>
+    // ===== Tab switcher (旅行 / 花費) =====
+    const tabItineraryBtn = document.getElementById('tabItinerary');
+    const tabCostBtn = document.getElementById('tabCost');
+    const tabContentItinerary = document.getElementById('tabContentItinerary');
+    const tabContentCost = document.getElementById('tabContentCost');
+
+    function setActiveTab(tab) {
+        const bottomNav = document.querySelector('.bottom-nav');
+        if (tab === 'itinerary') {
+            tabItineraryBtn.classList.add('hero-btn--active');
+            tabCostBtn.classList.remove('hero-btn--active');
+            tabContentItinerary.classList.add('active');
+            tabContentCost.classList.remove('active');
+            // 顯示底部導航
+            bottomNav.style.display = 'flex';
+        } else {
+            tabItineraryBtn.classList.remove('hero-btn--active');
+            tabCostBtn.classList.add('hero-btn--active');
+            tabContentItinerary.classList.remove('active');
+            tabContentCost.classList.add('active');
+            computeCostTotal();
+            // 隱藏底部導航
+            bottomNav.style.display = 'none';
+        }
+    }
+
+    tabItineraryBtn.addEventListener('click', () => setActiveTab('itinerary'));
+    tabCostBtn.addEventListener('click', () => setActiveTab('cost'));
+
+    function computeCostTotal() {
+        const rows = document.querySelectorAll('#costTable tbody tr');
+        let total = 0;
+        rows.forEach(row => {
+            const cell = row.querySelector('td:nth-child(4)');
+            if (!cell) return;
+            const value = parseFloat(cell.textContent.replace(/,/g, '')) || 0;
+            total += value;
+        });
+        document.getElementById('costTotal').textContent = total.toLocaleString();
+    }
+
+    // 初始計算總計
+    computeCostTotal();
+
+    // 頁面載入時自動滾動到最上方
+    window.addEventListener('load', () => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
     });
-});
 </script>
 
 </body>

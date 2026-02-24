@@ -701,8 +701,10 @@
         }
 
         .photo-carousel.photo-carousel-full .square-photo img {
+            width: 100%;
+            max-width: 100%;
             height: auto;
-            object-fit: contain;
+            display: block;
         }
 
         .photo-carousel.photo-carousel-full .photo-carousel-track {
@@ -749,6 +751,7 @@
         .photo-carousel-slide {
             flex: 0 0 100%;
             scroll-snap-align: center;
+            scroll-snap-stop: always;
         }
 
         .photo-carousel-dots {
@@ -2235,6 +2238,8 @@
         dotsWrap.appendChild(counter);
 
         let activeIndex = 0;
+        let touchStartX = null;
+        let touchStartIndex = 0;
         let ticking = false;
         const syncTrackHeightToActiveSlide = () => {
             if (!carousel.classList.contains('photo-carousel-full')) return;
@@ -2265,6 +2270,27 @@
             counter.textContent = `${activeIndex + 1} / ${slides.length}`;
             syncTrackHeightToActiveSlide();
         };
+
+        track.addEventListener('touchstart', (event) => {
+            if (event.touches.length !== 1) return;
+            touchStartX = event.touches[0].clientX;
+            touchStartIndex = activeIndex;
+        }, { passive: true });
+
+        track.addEventListener('touchend', (event) => {
+            if (touchStartX === null || event.changedTouches.length === 0) return;
+
+            const deltaX = event.changedTouches[0].clientX - touchStartX;
+            touchStartX = null;
+            if (Math.abs(deltaX) < 35) return;
+
+            const direction = deltaX < 0 ? 1 : -1;
+            const targetIndex = Math.max(0, Math.min(slides.length - 1, touchStartIndex + direction));
+            track.scrollTo({
+                left: targetIndex * track.clientWidth,
+                behavior: 'smooth'
+            });
+        }, { passive: true });
 
         track.addEventListener('scroll', () => {
             track.dataset.justScrolled = '1';

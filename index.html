@@ -440,6 +440,103 @@
         .flight-info { font-size: 0.85rem; color: #ddd; margin-top: 6px; line-height: 1.3; }
         .flight-subinfo { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
 
+        /* Day 03: 雙航班選項卡片壓縮高度 */
+        .event-card.flight-options-compact {
+            border-left: 5px solid #b08a3c;
+            background: linear-gradient(180deg, #ffffff 0%, #f3efe6 100%);
+            padding: 14px 16px;
+        }
+
+        .flight-options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .flight-option {
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .flight-option + .flight-option {
+            margin-top: 2px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0,0,0,0.12);
+        }
+
+        .flight-options-compact .flight-header {
+            margin-bottom: 7px;
+        }
+
+        .flight-options-compact .flight-detail {
+            margin: 0;
+            padding: 10px 12px;
+            border-radius: 12px;
+        }
+
+        .flight-options-compact .airport-code {
+            font-size: 1.14rem;
+        }
+
+        .flight-options-compact .airport-time {
+            font-size: 1.04rem;
+            letter-spacing: 1.2px;
+        }
+
+        .flight-options-compact .flight-subinfo {
+            font-size: 0.74rem;
+        }
+
+        .flight-options-compact .flight-info {
+            margin-top: 5px;
+            font-size: 0.84rem;
+        }
+
+        /* 航空卡片：首次進入後自動收合，點擊展開 */
+        .event-card.flight-card {
+            position: relative;
+        }
+
+        .event-card.flight-card .flight-collapse-hint {
+            display: none;
+            width: 100%;
+            border: 0;
+            background: transparent;
+            color: #2c3e50;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+            text-align: left;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .event-card.flight-card.is-collapsed {
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+        }
+
+        .event-card.flight-card.is-collapsed > * {
+            display: none !important;
+        }
+
+        .event-card.flight-card.is-collapsed > .flight-collapse-hint {
+            display: flex !important;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .event-card.flight-card.is-collapsed > .flight-collapse-hint::after {
+            content: "▼";
+            font-size: 0.72rem;
+            color: #666;
+        }
+
         .land-detail {
             background: #f4f6f8;
             color: #2c3e50;
@@ -464,6 +561,27 @@
             font-size: 0.85rem;
             margin-top: 6px;
             color: #555;
+        }
+
+        /* 巴士/火車卡片壓縮高度 */
+        .land-detail.transport-compact {
+            padding: 12px 14px;
+            margin: 8px 0;
+            border-radius: 12px;
+        }
+
+        .land-detail.transport-compact .land-icon {
+            font-size: 1.2rem;
+        }
+
+        .land-detail.transport-compact .land-info {
+            margin-top: 4px;
+            font-size: 0.82rem;
+        }
+
+        .land-detail.transport-compact .map-btn {
+            margin-top: 8px;
+            padding: 5px 10px;
         }
 
         .badge { font-size: 0.65rem; padding: 4px 10px; border-radius: 8px; font-weight: 800; color: white; display: inline-block; margin-bottom: 10px; text-transform: uppercase; }
@@ -535,7 +653,7 @@
             border-radius: 10px;
         }
 
-        /* ===== 單張圖片方形容器（Day 11 專用） ===== */
+        /* ===== 單張圖片方形容器（行程照片共用） ===== */
         .square-photo {
             width: 100%;
             max-width: 420px;
@@ -561,6 +679,108 @@
             display: block;
         }
 
+        /* ===== 可左右滑動圖片輪播（Day 09） ===== */
+        .photo-carousel {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .photo-carousel.photo-carousel-full {
+            max-width: none;
+            width: 100%;
+            margin: 0;
+        }
+
+        .photo-carousel.photo-carousel-full .square-photo {
+            max-width: none;
+            width: 100%;
+            aspect-ratio: auto;
+            height: auto;
+        }
+
+        .photo-carousel.photo-carousel-full .square-photo img {
+            height: auto;
+            object-fit: contain;
+        }
+
+        .photo-carousel.photo-carousel-full .photo-carousel-track {
+            align-items: flex-start;
+            transition: height 0.28s ease;
+        }
+
+        .photo-carousel.photo-carousel-full .photo-carousel-slide {
+            align-self: flex-start;
+        }
+
+        .event-card.event-card-photo-bg {
+            background: #fdfaf6;
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+        }
+
+        .event-card.event-card-photo-bg .event-title {
+            padding-left: 18px;
+            padding-right: 18px;
+        }
+
+        .photo-carousel .square-photo {
+            cursor: grab;
+        }
+
+        .photo-carousel .square-photo:active {
+            cursor: grabbing;
+        }
+
+        .photo-carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .photo-carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .photo-carousel-slide {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+        }
+
+        .photo-carousel-dots {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            z-index: 2;
+        }
+
+        .photo-carousel-counter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.42);
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            backdrop-filter: blur(4px);
+        }
+
+        .photo-carousel-hint {
+            margin-top: 6px;
+            text-align: center;
+            font-size: 0.72rem;
+            color: #777;
+            letter-spacing: 0.2px;
+        }
+
         /* ===== 圖片放大 Lightbox ===== */
         .lightbox {
             position: fixed;
@@ -580,11 +800,33 @@
             pointer-events: auto;
         }
 
-        .lightbox img {
+        .lightbox-stage {
+            max-width: 92vw;
+            max-height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: pan-y;
+        }
+
+        .lightbox-stage img {
             max-width: 92vw;
             max-height: 92vh;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-indicator {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.42);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.3px;
         }
         /* 底部導航按鈕（縮放動畫版本） */
         .bottom-nav { 
@@ -830,88 +1072,93 @@
             <div class="day-info"><span>March 03</span>｜前往首爾</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card flight-scoot">
-                <div class="flight-header">
-                    <div class="flight-airline">Scoot</div>
-                    <div class="flight-number">TR 896</div>
-                </div>
-                <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
-                        <div>
-                            <span class="airport-code">TPE</span>
-                            <span class="airport-time">18:15 </span>
-                            <span class="flight-subinfo">航站: 1</span>
+            <div class="event-card flight-options-compact">
+                <div class="flight-options-grid">
+                    <div class="flight-option flight-scoot">
+                        <div class="flight-header">
+                            <div class="flight-airline">Scoot</div>
+                            <div class="flight-number">TR 896</div>
                         </div>
-                        <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
-                        <div style="text-align: right;">
-                            <span class="airport-code">ICN</span>
-                            <span class="airport-time">21:45 </span>
-                            <span class="flight-subinfo">航站: 1</span>
-                        </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 2h 30m</span>
-                        <span style="color: #bbb;">機型: Boeing 787-9</span>
-                    </div>
-                </div>
-
-                <div class="flight-header">
-                    <div class="flight-airline">Tigerair</div>
-                    <div class="flight-number">IT 602</div>
-                </div>
-                <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
-                        <div>
-                            <span class="airport-code">TPE</span>
-                            <span class="airport-time">20:00 </span>
-                            <span class="flight-subinfo">航站: 2</span>
-                        </div>
-                        <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
-                        <div style="text-align: right;">
-                            <span class="airport-code">ICN</span>
-                            <span class="airport-time">23:30 </span>
-                            <span class="flight-subinfo">航站: 1</span>
+                        <div class="flight-detail">
+                            <div class="flight-route" style="margin-top: 0;">
+                                <div>
+                                    <span class="airport-code">TPE</span>
+                                    <span class="airport-time">18:15 </span>
+                                    <span class="flight-subinfo">航站: 1</span>
+                                </div>
+                                <div style="font-size: 1.1rem; opacity: 0.3">✈</div>
+                                <div style="text-align: right;">
+                                    <span class="airport-code">ICN</span>
+                                    <span class="airport-time">21:45 </span>
+                                    <span class="flight-subinfo">航站: 1</span>
+                                </div>
+                            </div>
+                            <div class="flight-info" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>飛行時間: 2h 30m</span>
+                                <span style="color: #bbb;">機型: Boeing 787-9</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 2h 30m</span>
-                        <span style="color: #bbb;">機型: Airbus A320</span>
+
+                    <div class="flight-option flight-tiger">
+                        <div class="flight-header">
+                            <div class="flight-airline">Tigerair</div>
+                            <div class="flight-number">IT 602</div>
+                        </div>
+                        <div class="flight-detail">
+                            <div class="flight-route" style="margin-top: 0;">
+                                <div>
+                                    <span class="airport-code">TPE</span>
+                                    <span class="airport-time">20:00 </span>
+                                    <span class="flight-subinfo">航站: 2</span>
+                                </div>
+                                <div style="font-size: 1.1rem; opacity: 0.3">✈</div>
+                                <div style="text-align: right;">
+                                    <span class="airport-code">ICN</span>
+                                    <span class="airport-time">23:30 </span>
+                                    <span class="flight-subinfo">航站: 1</span>
+                                </div>
+                            </div>
+                            <div class="flight-info" style="display: flex; justify-content: space-between; align-items: center;">
+                                <span>飛行時間: 2h 30m</span>
+                                <span style="color: #bbb;">機型: Airbus A320</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="event-card">
-                    <div class="event-title">📅 3/3｜出發日行程</div>
-                    <ul class="trip-list">
-                        <li class="todo">
-                            <label class="todo-check">
-                                <input type="checkbox">
-                                <span>出發前 48 小時完成虎航線上登機</span>
-                            </label>
-                        </li>
-                        <li>
-                            <span class="time">15:00</span>
-                            🧳 桃園機場集合 → 等託運行李
-                        </li>
-                        <li>
-                            <span class="time">15:30</span>
-                            🍴  <b>Plaza Premium</b> 用午晚餐
-                        </li>
-                        <li>
-                            <span class="time">23:40</span>
-                            ✈️ 抵達仁川機場 後會合
-                        </li>
-
-                        <li>
-                            🚇 搭乘機場地鐵前往市區
-                            <div class="note">末班車時間：23:56</div>
-                        </li>
-                        <li>
-                            🏨 抵達 <b>Unseo 站</b> → 步行前往飯店休息
-                            <div class="note">Hotel Seattle Incheon Airport</div>
-                        </li>
-
-                    <a href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" class="map-btn">📍 Hotel Seattle Incheon Airport </a>
-                </div>
+            <div class="event-card">
+                <div class="event-title">📅 3/3｜出發日行程</div>
+                <ul class="trip-list">
+                    <li class="todo">
+                        <label class="todo-check">
+                            <input type="checkbox">
+                            <span>出發前 48 小時完成虎航線上登機</span>
+                        </label>
+                    </li>
+                    <li>
+                        <span class="time">15:00</span>
+                        🧳 桃園機場集合 → 等託運行李
+                    </li>
+                    <li>
+                        <span class="time">15:30</span>
+                        🍴  <b>Plaza Premium</b> 用午晚餐
+                    </li>
+                    <li>
+                        <span class="time">23:40</span>
+                        ✈️ 抵達仁川機場 後會合
+                    </li>
+                    <li>
+                        🚇 搭乘機場地鐵前往市區
+                        <div class="note">末班車時間：23:56</div>
+                    </li>
+                    <li>
+                        🏨 抵達 <b>Unseo 站</b> → 步行前往飯店休息
+                        <div class="note">Hotel Seattle Incheon Airport</div>
+                    </li>
+                </ul>
+                <a href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" class="map-btn">📍 Hotel Seattle Incheon Airport </a>
             </div>
         </div>
     </section>
@@ -1028,7 +1275,7 @@
                         <b>休息至中午後，前往附近用餐</b>
                     </li>
                     <li>
-                        <span class="time">14:00</span>
+                        <span class="time">14:30</span>
                         🕌 謝赫扎耶德大清真寺（免費）
                         <div class="note">建議停留 1.5–2 小時，搭 94,44 公車</div>
                     </li>
@@ -1175,7 +1422,7 @@
                         <span style="color: #bbb;">機型: Boeing 777‑300ER</span>
                     </div>
                 </div>
-                <div class="land-detail">
+                <div class="land-detail transport-compact">
                     <div class="land-route">
                         <div>
                             <b>🚌 FlixBus</b><br>
@@ -1193,16 +1440,109 @@
         </div>
     </section>
 
-    <section class="day-section" id="d9">
+    <section class="day-section" id="d09">
         <div class="day-header">
             <div class="day-num">09</div>
-            <div class="day-info"><span>March 09</span>｜待排行程</div>
+            <div class="day-info"><span>March 09</span>｜布達佩斯Day2</div>
         </div>
         <div class="event-wrapper">
+            <div class="event-card event-card-photo-bg">
+                <div class="event-title">📅 3/09｜布達</div>
+
+                <div class="photo-carousel js-photo-carousel photo-carousel-full">
+                    <div class="square-photo photo-carousel-track">
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2.jpg" alt="BUD Day2 Photo">
+                        </div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/e3942cb82e73b393a5d96634c9663211/notes_pre_post/1040g3k031nk79c9al21g40o96jqa9br5588ia3o!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 1" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/00b5b191591dd1166ca440d65d76bce6/notes_pre_post/1040g3k031nk79c9al21040o96jqa9br5m026jrg!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 2" loading="lazy" referrerpolicy="no-referrer">
+</div>
+
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/93e87c974c190d7e5b210c984fc724a2/notes_pre_post/1040g3k031nk79c9al20040o96jqa9br52d0qo78!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 3" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/583a226e34f89b5150206c10dc8d4676/notes_pre_post/1040g3k031nk79c9al22040o96jqa9br5g2vb7m0!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 4" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/ea911262b1e5329f078eaccce14b1da5/notes_pre_post/1040g3k031nk79c9al22g40o96jqa9br5k82s810!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 5" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/b8c8faca37b6c7eafb815cc08f925bb8/notes_pre_post/1040g3k031nk79c9al20g40o96jqa9br5imglj50!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 6" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/29590b0ab7d33f971633a288c8aca9cb/notes_pre_post/1040g3k031nk79c9al23g40o96jqa9br5u1b3848!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 7" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/e9140f5fde6e2bb9556748e27e9c1b20/notes_pre_post/1040g3k031nk79c9al24040o96jqa9br5tl3u7u8!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 8" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/18b28578d9fb556a85c66c72e048c201/notes_pre_post/1040g3k031nk79c9al23040o96jqa9br5244nn2o!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 9" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/1512bf0447d0ad8a89b5986b1de36df9/notes_pre_post/1040g3k031nk79c9al24g40o96jqa9br5vapomj0!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 10" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/56f52bac51d57fc19c3165057956584a/notes_pre_post/1040g3k031nk79c9al25g40o96jqa9br5a7hljmo!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 11" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/53ddc9f5b6fcb96d0897ea1407bdb09c/notes_pre_post/1040g3k031nk79c9al26040o96jqa9br55mhv03o!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 12" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/0932512239d72a5b65b9709decc0a62b/notes_pre_post/1040g3k831nk7a3l0kq8040o96jqa9br5i6ucvjo!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 13" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/51ed61a5f86ec6bcfdc8d14ecf4de6ab/notes_pre_post/1040g3k031nk79c9al26g40o96jqa9br5r5t07lo!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 14" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/4668ee3226e6e957fb1122ee08db46c1/notes_pre_post/1040g3k031nk79c9al25040o96jqa9br5seu4r2g!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 15" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/556be49443dc4a33fe3d909c4f3a8fe2/notes_pre_post/1040g3k831nk7a3l0kq8g40o96jqa9br5ksicdfg!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 16" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/944f3dd9c2f45402bff984a866ba4480/notes_pre_post/1040g3k831nk7a3l0kq7g40o96jqa9br55bsmpso!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 17" loading="lazy" referrerpolicy="no-referrer">
+</div>
+<div class="photo-carousel-slide js-lightbox-photo">
+    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/58888c792d487b98d1a658a61dd86755/notes_pre_post/1040g3k831nk7a3l0kq7040o96jqa9br5fkqgcng!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 18" loading="lazy" referrerpolicy="no-referrer">
+</div>
+                </div>
+                    <div class="photo-carousel-dots" aria-label="3/09 照片切換"></div>
+                </div>
+            </div>
+
             <div class="event-card">
-                <div class="event-title">📅 3/9｜待安排行程</div>
                 <ul class="trip-list">
-                    <!-- 待填充 -->
+                    <li class="todo">
+                        ⚠️ 漁人堡 09:00 前免費，建議提早到。
+                    </li>
+                    <li>
+                        <span class="time">1️⃣</span>
+                        🏰 漁人堡（Fisherman's Bastion）
+                        <div class="note">16／216｜🚌 到 Halászbástya／Donati utca</div>
+                    </li>
+                    <li>
+                        <span class="time">2️⃣</span>
+                        ⛪ 馬加什教堂
+                        <div class="note">需門票，若不特別想進教堂可略過。</div>
+                    </li>
+                    <li>
+                        <span class="time">3️⃣</span>
+                        🏯 布達城堡
+                        <div class="note">🚌｜教堂旁上車 → Disz ter（1 站）</div>
+                    </li>
+                    <li>
+                        <span class="time">4️⃣</span>
+                        🌉 自由橋
+                        <div class="note">19／41｜🚋 到 Szent Gellert ter</div>
+                    </li>
+                    <li>
+                        <span class="time">5️⃣</span>
+                        🛍️ 中央市場
+                    </li>
                 </ul>
             </div>
         </div>
@@ -1215,7 +1555,7 @@
         </div>
         <div class="event-wrapper">
             <span class="badge bg-euro">RegioJet RJ1034</span>
-            <div class="land-detail">
+            <div class="land-detail transport-compact">
                 <div class="land-route">
                     <div>
                         <b>🚆 RegioJet RJ1034</b><br>
@@ -1287,7 +1627,7 @@
             <div class="event-card">
                 <div class="event-title">📅 3/11｜維也納市區外環</div>
 
-                <div class="square-photo" id="viePhoto">
+                <div class="square-photo js-lightbox-photo">
                     <img src="vie1.jpg" alt="Vienna Photo">
                 </div>
             </div>
@@ -1756,6 +2096,26 @@
     let navManuallyExpanded = false;
     let lastScrollY = window.scrollY;
     let scrollDirection = null; // "up" or "down"
+    const NAV_IDLE_COLLAPSE_MS = 2200;
+    let navCollapseTimer = null;
+
+    function clearNavCollapseTimer() {
+        if (!navCollapseTimer) return;
+        clearTimeout(navCollapseTimer);
+        navCollapseTimer = null;
+    }
+
+    // 只在「停止滾動」一段時間後才收合
+    function scheduleNavIdleCollapse() {
+        clearNavCollapseTimer();
+        navCollapseTimer = setTimeout(() => {
+            if (window.scrollY > 90) {
+                bottomNav.classList.add('scrolled');
+            }
+            navManuallyExpanded = false;
+            navCollapseTimer = null;
+        }, NAV_IDLE_COLLAPSE_MS);
+    }
 
     // 切換 active 狀態和自動縮放
     window.addEventListener('scroll', () => {
@@ -1786,44 +2146,39 @@
         }
         lastScrollY = currentScrollY;
 
+        // 手動展開時：只要有滾動就重置「靜止後收合」計時器
+        if (navManuallyExpanded) {
+            if (window.scrollY > 90 && !bottomNav.classList.contains('scrolled')) {
+                scheduleNavIdleCollapse();
+            } else if (window.scrollY <= 90) {
+                clearNavCollapseTimer();
+            }
+            return;
+        }
+
         // 滑動時自動縮小/展開底部導航（如果不是手動展開）
         if (!navManuallyExpanded) {
             if (window.scrollY > 90) {
                 if (scrollDirection === "down") {
                     bottomNav.classList.add('scrolled');
-                    // 向下滑動時，確保自動收回計時器被清除
-                    if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
-                        clearTimeout(navCollapseTimer);
-                        navCollapseTimer = null;
-                    }
+                    clearNavCollapseTimer();
                 } else if (scrollDirection === "up") {
-                    // 向上滑動時，自動展開並啟動自動收回計時器
+                    // 向上滑動時，自動展開，並在停止滾動後才收合
                     if (bottomNav.classList.contains('scrolled')) {
                         bottomNav.classList.remove('scrolled');
-                        // 啟動 2.2 秒自動收回（共用 navCollapseTimer）
-                        if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
-                            clearTimeout(navCollapseTimer);
-                            navCollapseTimer = null;
-                        }
-                        navCollapseTimer = setTimeout(() => {
-                            bottomNav.classList.add('scrolled');
-                            navCollapseTimer = null;
-                        }, 2200);
+                    }
+                    if (!bottomNav.classList.contains('scrolled')) {
+                        scheduleNavIdleCollapse();
                     }
                 }
             } else {
                 bottomNav.classList.remove('scrolled');
-                // 滾回頂部時清除自動收回計時器
-                if (typeof navCollapseTimer !== 'undefined' && navCollapseTimer) {
-                    clearTimeout(navCollapseTimer);
-                    navCollapseTimer = null;
-                }
+                clearNavCollapseTimer();
             }
         }
     });
 
-    // 點擊縮小模式下的 active 按鈕可展開/收回，並自動收回
-    let navCollapseTimer = null;
+    // 點擊縮小模式下的 active 按鈕可展開/收回
     bottomNav.addEventListener('click', function(e) {
         // 僅在縮小模式下，且點到 .active 的 a
         if (bottomNav.classList.contains('scrolled')) {
@@ -1831,21 +2186,12 @@
             // 如果點擊的是 a.active
             if (target.tagName === 'A' && target.classList.contains('active')) {
                 e.preventDefault();
-                // 清除舊的自動收回計時器
-                if (navCollapseTimer) {
-                    clearTimeout(navCollapseTimer);
-                    navCollapseTimer = null;
-                }
+                clearNavCollapseTimer();
                 // 切換 scrolled 狀態
                 if (bottomNav.classList.contains('scrolled')) {
                     bottomNav.classList.remove('scrolled');
                     navManuallyExpanded = true;
-                    // 設置 2.2 秒自動收回
-                    navCollapseTimer = setTimeout(() => {
-                        bottomNav.classList.add('scrolled');
-                        navManuallyExpanded = false;
-                        navCollapseTimer = null;
-                    }, 2200);
+                    scheduleNavIdleCollapse();
                 } else {
                     bottomNav.classList.add('scrolled');
                     navManuallyExpanded = false;
@@ -1859,11 +2205,7 @@
         // 若已展開，且點擊非 bottomNav 內部
         if (navManuallyExpanded && !bottomNav.contains(e.target)) {
             navManuallyExpanded = false;
-            // 清除自動收回計時器
-            if (navCollapseTimer) {
-                clearTimeout(navCollapseTimer);
-                navCollapseTimer = null;
-            }
+            clearNavCollapseTimer();
             if (window.scrollY > 90) {
                 bottomNav.classList.add('scrolled');
             }
@@ -1872,23 +2214,199 @@
 </script>
 
 <script>
-    // ===== Day 11 圖片放大功能 =====
-    const viePhoto = document.getElementById('viePhoto');
+    // ===== 圖片輪播（可左右滑動） =====
+    const photoCarousels = document.querySelectorAll('.js-photo-carousel');
+
+    photoCarousels.forEach(carousel => {
+        const track = carousel.querySelector('.photo-carousel-track');
+        const slides = Array.from(carousel.querySelectorAll('.photo-carousel-slide'));
+        const dotsWrap = carousel.querySelector('.photo-carousel-dots');
+        let clearScrollStateTimer = null;
+
+        if (!track || !dotsWrap || slides.length === 0) return;
+        if (slides.length === 1) {
+            dotsWrap.style.display = 'none';
+            return;
+        }
+
+        dotsWrap.innerHTML = '';
+        const counter = document.createElement('span');
+        counter.className = 'photo-carousel-counter';
+        dotsWrap.appendChild(counter);
+
+        let activeIndex = 0;
+        let ticking = false;
+        const syncTrackHeightToActiveSlide = () => {
+            if (!carousel.classList.contains('photo-carousel-full')) return;
+            const activeSlide = slides[activeIndex];
+            if (!activeSlide) return;
+
+            const targetHeight = activeSlide.scrollHeight;
+            if (targetHeight > 0) {
+                track.style.height = `${Math.ceil(targetHeight)}px`;
+            }
+        };
+
+        slides.forEach((slide) => {
+            const img = slide.querySelector('img');
+            if (!img) return;
+            img.addEventListener('load', () => {
+                if (slide !== slides[activeIndex]) return;
+                syncTrackHeightToActiveSlide();
+            });
+        });
+
+        const updateActiveDot = () => {
+            const slideWidth = track.clientWidth || 1;
+            activeIndex = Math.max(
+                0,
+                Math.min(slides.length - 1, Math.round(track.scrollLeft / slideWidth))
+            );
+            counter.textContent = `${activeIndex + 1} / ${slides.length}`;
+            syncTrackHeightToActiveSlide();
+        };
+
+        track.addEventListener('scroll', () => {
+            track.dataset.justScrolled = '1';
+            if (clearScrollStateTimer) {
+                clearTimeout(clearScrollStateTimer);
+            }
+            clearScrollStateTimer = window.setTimeout(() => {
+                delete track.dataset.justScrolled;
+                clearScrollStateTimer = null;
+            }, 140);
+
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(() => {
+                updateActiveDot();
+                ticking = false;
+            });
+        }, { passive: true });
+
+        window.addEventListener('resize', updateActiveDot);
+        updateActiveDot();
+    });
+</script>
+
+<script>
+    // ===== 行程照片放大 Lightbox（共用） =====
+    const dayPhotos = document.querySelectorAll('.js-lightbox-photo');
 
     // 建立 lightbox
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox';
-    lightbox.innerHTML = '<img src="vie1.jpg" alt="Vienna Photo Large">';
+    lightbox.innerHTML = `
+        <div class="lightbox-stage">
+            <img src="" alt="Large Photo">
+        </div>
+        <div class="lightbox-indicator"></div>
+    `;
+    const lightboxStage = lightbox.querySelector('.lightbox-stage');
+    const lightboxImage = lightbox.querySelector('.lightbox-stage img');
+    const lightboxIndicator = lightbox.querySelector('.lightbox-indicator');
     document.body.appendChild(lightbox);
 
-    if (viePhoto) {
-        viePhoto.addEventListener('click', () => {
-            lightbox.classList.add('active');
-        });
+    let lightboxSlides = [];
+    let lightboxIndex = 0;
+    let lightboxTouchStartX = null;
+
+    function renderLightboxSlide() {
+        if (lightboxSlides.length === 0) return;
+        const active = lightboxSlides[lightboxIndex];
+        lightboxImage.src = active.src;
+        lightboxImage.alt = active.alt || 'Large Photo';
+        lightboxIndicator.textContent = `${lightboxIndex + 1} / ${lightboxSlides.length}`;
+
+        const multi = lightboxSlides.length > 1;
+        lightboxIndicator.style.display = multi ? 'inline-flex' : 'none';
     }
 
-    lightbox.addEventListener('click', () => {
+    function openLightbox(slides, startIndex) {
+        if (!slides || slides.length === 0) return;
+        lightboxSlides = slides;
+        lightboxIndex = Math.max(0, Math.min(startIndex, slides.length - 1));
+        renderLightboxSlide();
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
         lightbox.classList.remove('active');
+        lightboxSlides = [];
+        lightboxTouchStartX = null;
+        document.body.style.overflow = '';
+    }
+
+    function moveLightbox(step) {
+        if (lightboxSlides.length <= 1) return;
+        const total = lightboxSlides.length;
+        lightboxIndex = (lightboxIndex + step + total) % total;
+        renderLightboxSlide();
+    }
+
+    function buildSlidesFromPhotoCard(photoCard) {
+        const track = photoCard.closest('.photo-carousel-track');
+        const cards = track
+            ? Array.from(track.querySelectorAll('.js-lightbox-photo'))
+            : [photoCard];
+
+        const slides = [];
+        let startIndex = 0;
+        cards.forEach(card => {
+            const img = card.querySelector('img');
+            if (!img || !img.src) return;
+            if (card === photoCard) startIndex = slides.length;
+            slides.push({
+                src: img.src,
+                alt: img.alt || 'Large Photo'
+            });
+        });
+        return { slides, startIndex };
+    }
+
+    dayPhotos.forEach(photoCard => {
+        photoCard.addEventListener('click', () => {
+            const carouselTrack = photoCard.closest('.photo-carousel-track');
+            if (carouselTrack && carouselTrack.dataset.justScrolled === '1') return;
+
+            const { slides, startIndex } = buildSlidesFromPhotoCard(photoCard);
+            openLightbox(slides, startIndex);
+        });
+    });
+
+    lightboxStage.addEventListener('touchstart', (event) => {
+        if (event.touches.length !== 1) return;
+        lightboxTouchStartX = event.touches[0].clientX;
+    }, { passive: true });
+
+    lightboxStage.addEventListener('touchend', (event) => {
+        if (lightboxTouchStartX === null) return;
+        const endX = event.changedTouches[0].clientX;
+        const deltaX = endX - lightboxTouchStartX;
+        lightboxTouchStartX = null;
+        if (Math.abs(deltaX) < 40) return;
+        if (deltaX < 0) {
+            moveLightbox(1);
+        } else {
+            moveLightbox(-1);
+        }
+    }, { passive: true });
+
+    document.addEventListener('keydown', (event) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (event.key === 'Escape') {
+            closeLightbox();
+        } else if (event.key === 'ArrowRight') {
+            moveLightbox(1);
+        } else if (event.key === 'ArrowLeft') {
+            moveLightbox(-1);
+        }
+    });
+
+    lightbox.addEventListener('click', (event) => {
+        if (event.target !== lightbox && event.target !== lightboxStage && event.target !== lightboxImage) return;
+        closeLightbox();
     });
 </script>
 

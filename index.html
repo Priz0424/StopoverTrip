@@ -463,12 +463,25 @@
 
         /* Day 03: 雙航班選項卡片壓縮高度 */
         .event-card.flight-options-compact {
-            padding: 14px 16px;
+            background: transparent;
+            border: 0;
+            border-left: 0;
+            box-shadow: none;
+            padding: 0;
+            margin-bottom: 10px;
         }
 
         .event-card.flight-options-compact:not(.flight-etihad):not(.flight-scoot):not(.flight-tiger) {
-            border-left: 5px solid #b08a3c;
-            background: linear-gradient(180deg, #ffffff 0%, #f3efe6 100%);
+            background: transparent;
+            border: 0;
+            border-left: 0;
+            box-shadow: none;
+        }
+
+        .event-card.flight-options-compact.in-view,
+        .event-card.flight-options-compact:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         .flight-options-grid {
@@ -491,7 +504,7 @@
         }
 
         .flight-options-compact .flight-header {
-            margin-bottom: 7px;
+            display: none;
         }
 
         .flight-options-compact .flight-detail {

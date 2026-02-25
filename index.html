@@ -439,12 +439,36 @@
         }
         .flight-info { font-size: 0.85rem; color: #ddd; margin-top: 6px; line-height: 1.3; }
         .flight-subinfo { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
+        .flight-middle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 64px;
+            text-align: center;
+            line-height: 1;
+        }
+        .flight-middle-icon {
+            font-size: 1.2rem;
+            opacity: 0.3;
+        }
+        .flight-middle-duration {
+            margin-top: 4px;
+            font-size: 0.72rem;
+            color: #ddd;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
 
         /* Day 03: 雙航班選項卡片壓縮高度 */
         .event-card.flight-options-compact {
+            padding: 14px 16px;
+        }
+
+        .event-card.flight-options-compact:not(.flight-etihad):not(.flight-scoot):not(.flight-tiger) {
             border-left: 5px solid #b08a3c;
             background: linear-gradient(180deg, #ffffff 0%, #f3efe6 100%);
-            padding: 14px 16px;
         }
 
         .flight-options-grid {
@@ -490,8 +514,13 @@
         }
 
         .flight-options-compact .flight-info {
-            margin-top: 5px;
+            margin-top: 0;
+            margin-bottom: 5px;
             font-size: 0.84rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
         }
 
         /* 航空卡片：首次進入後自動收合，點擊展開 */
@@ -1083,23 +1112,27 @@
                             <div class="flight-number">TR 896</div>
                         </div>
                         <div class="flight-detail">
-                            <div class="flight-route" style="margin-top: 0;">
+                            <div class="flight-info">
+                                <span>Scoot TR 896</span>
+                                <span style="color: #bbb;">Boeing 787‑9</span>
+                            </div>
+                            <div class="flight-route">
                                 <div>
                                     <span class="airport-code">TPE</span>
                                     <span class="airport-time">18:15 </span>
                                     <span class="flight-subinfo">航站: 1</span>
                                 </div>
-                                <div style="font-size: 1.1rem; opacity: 0.3">✈</div>
+                                <div class="flight-middle">
+                                    <div class="flight-middle-icon">✈</div>
+                                    <div class="flight-middle-duration">2h 30m</div>
+                                </div>
                                 <div style="text-align: right;">
                                     <span class="airport-code">ICN</span>
                                     <span class="airport-time">21:45 </span>
                                     <span class="flight-subinfo">航站: 1</span>
                                 </div>
                             </div>
-                            <div class="flight-info" style="display: flex; justify-content: space-between; align-items: center;">
-                                <span>飛行時間: 2h 30m</span>
-                                <span style="color: #bbb;">機型: Boeing 787-9</span>
-                            </div>
+
                         </div>
                     </div>
 
@@ -1109,22 +1142,25 @@
                             <div class="flight-number">IT 602</div>
                         </div>
                         <div class="flight-detail">
-                            <div class="flight-route" style="margin-top: 0;">
+                            <div class="flight-info">
+                                <span>Tigerair IT 602</span>
+                                <span style="color: #bbb;">Airbus A320</span>
+                            </div>
+                            <div class="flight-route">
                                 <div>
                                     <span class="airport-code">TPE</span>
                                     <span class="airport-time">20:00 </span>
                                     <span class="flight-subinfo">航站: 2</span>
                                 </div>
-                                <div style="font-size: 1.1rem; opacity: 0.3">✈</div>
+                                <div class="flight-middle">
+                                    <div class="flight-middle-icon">✈</div>
+                                    <div class="flight-middle-duration">2h 30m</div>
+                                </div>
                                 <div style="text-align: right;">
                                     <span class="airport-code">ICN</span>
                                     <span class="airport-time">23:30 </span>
                                     <span class="flight-subinfo">航站: 1</span>
                                 </div>
-                            </div>
-                            <div class="flight-info" style="display: flex; justify-content: space-between; align-items: center;">
-                                <span>飛行時間: 2h 30m</span>
-                                <span style="color: #bbb;">機型: Airbus A320</span>
                             </div>
                         </div>
                     </div>
@@ -1172,28 +1208,31 @@
             <div class="day-info"><span>March 04</span>｜前往阿布達比</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card flight-etihad">
+            <div class="event-card flight-options-compact flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad Airways</div>
                     <div class="flight-number">EY 827</div>
                 </div>
                 <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
+                    <div class="flight-info">
+                        <span>Etihad Airways EY 827</span>
+                        <span style="color: #bbb;">Boeing 787‑9</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
                             <span class="airport-code">ICN</span>
                             <span class="airport-time">23:45 </span>
                             <span class="flight-subinfo">航站: 2</span>
                         </div>
-                        <div style="font-size: 1.2rem; color: var(--accent)">➔</div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-duration">10h 35m</div>
+                        </div>
                         <div style="text-align: right;">
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">05:20 (+1) </span>
                             <span class="flight-subinfo">航站: 3</span>
                         </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 10h 35m</span>
-                        <span style="color: #bbb;">機型: Boeing 787‑9</span>
                     </div>
                 </div>
             </div>
@@ -1398,28 +1437,31 @@
             <div class="day-info"><span>March 08</span>｜布達佩斯-兩日遊</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card flight-etihad">
+            <div class="event-card flight-options-compact flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad Airways</div>
                     <div class="flight-number">EY 153</div>
                 </div>
                 <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
+                    <div class="flight-info">
+                        <span>Etihad Airways EY 153</span>
+                        <span style="color: #bbb;">Boeing 777‑300ER</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">02:55 </span>
                             <span class="flight-subinfo">航站: 3</span>
                         </div>
-                        <div style="font-size: 1.2rem; opacity: 0.3">✈</div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-duration">6h 15m</div>
+                        </div>
                         <div style="text-align: right;">
                             <span class="airport-code">VIE</span>
                             <span class="airport-time">06:10 </span>
                             <span class="flight-subinfo">航站: 1</span>
                         </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 6h 15m</span>
-                        <span style="color: #bbb;">機型: Boeing 777‑300ER</span>
                     </div>
                 </div>
                 <div class="land-detail transport-compact">
@@ -1640,7 +1682,7 @@
             <div class="day-info"><span>March 12</span>｜離開歐洲</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card flight-etihad">
+            <div class="event-card flight-options-compact flight-etihad">
                 <div class="land-detail">
                     <div class="land-route">
                         <div>
@@ -1661,22 +1703,25 @@
                     <div class="flight-number">EY 154</div>
                 </div>
                 <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
+                    <div class="flight-info">
+                        <span>Etihad Airways EY 154</span>
+                        <span style="color: #bbb;">Boeing 777‑300ER</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
                             <span class="airport-code">VIE</span>
                             <span class="airport-time">10:55 </span>
                             <span class="flight-subinfo">航站: 1</span>
                         </div>
-                        <div style="font-size: 1.2rem; color: var(--accent)">➔</div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-duration">5h 25m</div>
+                        </div>
                         <div style="text-align: right;">
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">19:20 </span>
                             <span class="flight-subinfo">航站: 3</span>
                         </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 5h 25m</span>
-                        <span style="color: #bbb;">機型: Boeing 777‑300ER</span>
                     </div>
                 </div>
                 <div class="transport-badge" style="background: #fff8f0;">
@@ -1688,21 +1733,25 @@
                     <div class="flight-number">EY 826</div>
                 </div>
                 <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
+                    <div class="flight-info">
+                        <span>Etihad Airways EY 826</span>
+                        <span style="color: #bbb;">Boeing 787‑9</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">08:35 </span>
                             <span class="flight-subinfo">航站: 3</span>
+                        </div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-duration">8h 20m</div>
                         </div>
                         <div style="text-align: right;">
                             <span class="airport-code">ICN</span>
                             <span class="airport-time">21:55 </span>
                             <span class="flight-subinfo">航站: 1</span>
                         </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 8h 20m</span>
-                        <span style="color: #bbb;">機型: Boeing 787‑9</span>
                     </div>
                 </div>
 
@@ -1717,27 +1766,31 @@
             <div class="day-info"><span>March 13</span>｜到達首爾</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card flight-etihad">
+            <div class="event-card flight-options-compact flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad Airways</div>
                     <div class="flight-number">EY 826</div>
                 </div>
                 <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
+                    <div class="flight-info">
+                        <span>Etihad Airways EY 826</span>
+                        <span style="color: #bbb;">Boeing 787‑9</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
                             <span class="airport-code">AUH</span>
                             <span class="airport-time">08:35 </span>
                             <span class="flight-subinfo">航站: 3</span>
+                        </div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-duration">8h 20m</div>
                         </div>
                         <div style="text-align: right;">
                             <span class="airport-code">ICN</span>
                             <span class="airport-time">21:55 </span>
                             <span class="flight-subinfo">航站: 1</span>
                         </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 8h 20m</span>
-                        <span style="color: #bbb;">機型: Boeing 787‑9</span>
                     </div>
                 </div>
                     <a href="https://maps.app.goo.gl/uDe6TXeXkD1yujSD8?g_st=ic" target="_blank" class="map-btn">📍 Hound Hotel Incheon Airport</a>
@@ -1754,27 +1807,31 @@
             <div class="day-info"><span>March 14</span>｜返航</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card flight-scoot">
+            <div class="event-card flight-options-compact flight-scoot">
                 <div class="flight-header">
                     <div class="flight-airline">Scoot</div>
                     <div class="flight-number">TR 897</div>
                 </div>
                 <div class="flight-detail">
-                    <div class="flight-route" style="margin-top: 0;">
+                    <div class="flight-info">
+                        <span>Scoot TR 897</span>
+                        <span style="color: #bbb;">Boeing 787-9</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
                             <span class="airport-code">ICN</span>
                             <span class="airport-time">23:00 </span>
                             <span class="flight-subinfo">航站: 1</span>
+                        </div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-duration">2h 45m</div>
                         </div>
                         <div style="text-align: right;">
                             <span class="airport-code">TPE</span>
                             <span class="airport-time">00:45 (+1) </span>
                             <span class="flight-subinfo">航站: 2</span>
                         </div>
-                    </div>
-                    <div class="flight-info" style="margin-top:6px; display: flex; justify-content: space-between; align-items: center;">
-                        <span>飛行時間: 2h 45m</span>
-                        <span style="color: #bbb;">機型: Boeing 787-9</span>
                     </div>
                 </div>
             </div>
@@ -1807,7 +1864,7 @@
                     <tr>
                         <td>累積待收</td>
                         <td class="right"></td>
-                        <td class="right">11,104</td>
+                        <td class="right">-8,701</td>
                         <td class="right">20,534</td>
                         <td></td>
                     </tr>
@@ -1854,7 +1911,13 @@
                         <td class="right"></td>
                         <td>台新收款</td>
                     </tr>
-                </tbody>
+                    <tr>
+                        <td>匯款2/25</td>
+                        <td class="right"></td>
+                        <td class="right">-20,000</td>
+                        <td class="right"></td>
+                        <td>台新收款</td>
+                    </tr>                </tbody>
             </table>
 
         </div>

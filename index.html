@@ -832,7 +832,8 @@
             box-shadow: 0 16px 40px rgba(0,0,0,0.18);
         }
 
-        .square-photo img {
+        .square-photo img,
+        .square-photo video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -846,6 +847,8 @@
             margin: 0 auto;
             position: relative;
             overflow: hidden;
+            transition: transform 0.28s ease, filter 0.28s ease;
+            will-change: transform, filter;
         }
 
         .photo-carousel.photo-carousel-full {
@@ -862,7 +865,8 @@
             overflow: hidden;
         }
 
-        .photo-carousel.photo-carousel-full .square-photo img {
+        .photo-carousel.photo-carousel-full .square-photo img,
+        .photo-carousel.photo-carousel-full .square-photo video {
             width: 100%;
             max-width: 100%;
             height: 100%;
@@ -921,9 +925,13 @@
             max-width: 100%;
         }
 
-        .event-card.event-card-photo-bg .photo-carousel-slide img {
+        .event-card.event-card-photo-bg .photo-carousel-slide img,
+        .event-card.event-card-photo-bg .photo-carousel-slide video {
             width: 100%;
             border-radius: 0;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .photo-carousel .square-photo {
@@ -950,6 +958,18 @@
             flex: 0 0 100%;
             scroll-snap-align: center;
             scroll-snap-stop: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-carousel-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(120% 120% at 50% 50%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.28) 100%),
+                linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 45%);
         }
 
         .photo-carousel-dots {
@@ -980,6 +1000,37 @@
             font-size: 0.72rem;
             color: #777;
             letter-spacing: 0.2px;
+        }
+
+        .video-dim-overlay {
+            position: fixed;
+            inset: 0;
+            --focus-x: 50vw;
+            --focus-y: 50vh;
+            --focus-rx: 180px;
+            --focus-ry: 180px;
+            background:
+                radial-gradient(
+                    ellipse var(--focus-rx) var(--focus-ry) at var(--focus-x) var(--focus-y),
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(0, 0, 0, 0.12) 58%,
+                    rgba(0, 0, 0, 0.58) 100%
+                );
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.26s ease;
+            z-index: 1500;
+        }
+
+        .video-dim-overlay.active {
+            opacity: 1;
+        }
+
+        .photo-carousel.video-focus-active {
+            position: relative;
+            z-index: 1501;
+            transform: scale(1.012);
+            filter: brightness(1.06) saturate(1.04);
         }
 
         /* ===== 圖片放大 Lightbox ===== */
@@ -1351,10 +1402,12 @@
                         🛫 抵達仁川機場 後會合
                     </li>
                     <li>
+                        <span class="time" style="visibility:hidden;">--:--</span>
                         🚇 搭乘機場地鐵前往市區
                         <div class="note">末班車時間：23:56</div>
                     </li>
                     <li>
+                        <span class="time" style="visibility:hidden;">--:--</span>
                         🏨 抵達 <b>Unseo 站</b> → 步行前往飯店休息
                         <div class="note"><a class="spot-link" href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" rel="noopener">Hotel Seattle Incheon Airport</a></div>
                     </li>
@@ -1409,7 +1462,8 @@
                         🧳 退房並將行李寄放於飯店
                     </li>
                     <li>
-                        🚶‍♂️ 飯店附近散步、順路至 <b><a class="spot-link" href="https://maps.app.goo.gl/nmGRFoSRzu4VqamR9" target="_blank" rel="noopener">樂天超市</a></b> 補貨
+                         <span class="time" style="visibility:hidden;">--:--</span>
+                        🚶‍♂️ 附近散步、<b><a class="spot-link" href="https://maps.app.goo.gl/nmGRFoSRzu4VqamR9" target="_blank" rel="noopener">樂天超市</a></b> 補貨
                     </li>
                     <li>
                         <span class="time">18:30</span>
@@ -1446,7 +1500,7 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card event-card-photo-bg">
-                <div class="event-title">📅 3/05｜阿布達比</div>
+                <div class="event-title">📅 3/05｜清真寺</div>
 
                 <div class="photo-carousel js-photo-carousel photo-carousel-full">
                     <div class="square-photo photo-carousel-track">
@@ -1473,7 +1527,7 @@
                 </div>
             </div>
             <div class="event-card">
-                <div class="event-title">🕌 Day 1｜清真寺</div>
+                <div class="event-title">🕌 Day 1｜宗教 × 文化</div>
                 <ul class="trip-list">
                     <li>
                         <span class="time">05:20</span>
@@ -1492,7 +1546,8 @@
                         </label>
                     </li>
                     <li>
-                        🧳 計程車前往 <b><a class="spot-link" href="https://maps.app.goo.gl/ZxEBhyqM5J85sNi17" target="_blank" rel="noopener">Royal Rose Hotel</a></b>，先休息
+                        <span class="time" style="visibility:hidden;">--:--</span>
+                        🧳 前往 <b><a class="spot-link" href="https://maps.app.goo.gl/ZxEBhyqM5J85sNi17" target="_blank" rel="noopener">Royal Rose Hotel</a></b>，先休息
                     <div class="note">機場計程車(100AED)，或搭A1機場巴士(4AED)</div>
 
                     </li>
@@ -1507,9 +1562,11 @@
                     </li>
 
                     <li>
+                        <span class="time" style="visibility:hidden;">--:--</span>
                         🚶‍♂️ 海濱散步、超市／商場(待安排)
                     </li>
                     <li>
+                        <span class="time" style="visibility:hidden;">--:--</span>
                         🍴 晚餐：⬜️ 保留，之後再找
                     </li>
                 </ul>
@@ -1525,7 +1582,7 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card event-card-photo-bg">
-                <div class="event-title">📅 3/06｜阿布達比</div>
+                <div class="event-title">📅 3/06｜羅浮宮</div>
 
                 <div class="photo-carousel js-photo-carousel photo-carousel-full">
                     <div class="square-photo photo-carousel-track">
@@ -1590,7 +1647,7 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card event-card-photo-bg">
-                <div class="event-title">📅 3/07｜阿布達比</div>
+                <div class="event-title">📅 3/07｜總統府</div>
 
                 <div class="photo-carousel js-photo-carousel photo-carousel-full">
                     <div class="square-photo photo-carousel-track">
@@ -1646,6 +1703,7 @@
                         🧳 回飯店整理行李、洗澡
                     </li>
                     <li>
+                       <span class="time" style="visibility:hidden;">--:--</span>
                        <b> 🚌 A1 公車前往機場 21:23 / 21:53</b>
                     </li>
 
@@ -1653,6 +1711,7 @@
                         <span class="time">22:30</span>
                         🛫 抵達機場 → 等托運 
                     </li>
+                    <span class="time" style="visibility:hidden;">--:--</span>
                     <b>🍝 進入<a class="spot-link" href="https://maps.app.goo.gl/myYBdAPoHZ2L4dFZA" target="_blank" rel="noopener">Pearl Lounge</a> 用餐、休息等登機</b>
                 </ul>
             </div>
@@ -1665,6 +1724,36 @@
             <div class="day-info"><span>March 08</span>｜布達佩斯-兩日遊</div>
         </div>
         <div class="event-wrapper">
+            <div class="event-card event-card-photo-bg">
+                <div class="event-title">📅 3/08｜布達</div>
+
+                <div class="photo-carousel js-photo-carousel photo-carousel-full">
+                    <div class="square-photo photo-carousel-track">
+                        <div class="photo-carousel-slide">
+                            <video src="bud1-0.mp4" aria-label="BUD Day1 Video 0" muted loop playsinline preload="metadata"></video>
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud1-1.jpg" alt="BUD Day1 Photo 1" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud1-2.jpg" alt="BUD Day1 Photo 2" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud1-3.jpg" alt="BUD Day1 Photo 3" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud1-4.jpg" alt="BUD Day1 Photo 4" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud1-5.jpg" alt="BUD Day1 Photo 5" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud1-6.jpg" alt="BUD Day1 Photo 6" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="photo-carousel-dots" aria-label="3/08 照片切換"></div>
+                </div>
+            </div>
             <div class="event-card flight-options-compact flight-etihad">
                 <div class="flight-header">
                     <div class="flight-airline">Etihad </div>
@@ -1736,7 +1825,7 @@
                         <div class="note">門票有分教堂和頂樓，有電梯和廁所</div>
                     </li>
                     <li>
-                        <span class="time">4️⃣</span>
+                       <span class="time">20:30</span>
                         🚢 <a class="spot-link" href="https://maps.app.goo.gl/FRfgbdjoykNy16cz8?g_st=ic" target="_blank" rel="noopener">Duna Cruises - Dock 10</a>
                         <div class="note">已預約 20:30 - 21:30</div>
                     </li>
@@ -1757,11 +1846,26 @@
                 <div class="photo-carousel js-photo-carousel photo-carousel-full">
                     <div class="square-photo photo-carousel-track">
                         <div class="photo-carousel-slide js-lightbox-photo">
-                            <img src="bud2.jpg" alt="BUD Day2 Photo">
+                            <img src="bud2-0.jpg" alt="BUD Day2 Photo 0">
                         </div>
-<div class="photo-carousel-slide js-lightbox-photo">
-    <img src="https://sns-webpic-qc.xhscdn.com/202602250319/e3942cb82e73b393a5d96634c9663211/notes_pre_post/1040g3k031nk79c9al21g40o96jqa9br5588ia3o!nd_dft_wlteh_webp_3" alt="BUD Day2 Web Photo 1" loading="lazy" referrerpolicy="no-referrer">
-</div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2-1.jpg" alt="BUD Day2 Photo 1" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2-2.jpg" alt="BUD Day2 Photo 2" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2-3.jpg" alt="BUD Day2 Photo 3" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2-4.jpg" alt="BUD Day2 Photo 4" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2-5.jpg" alt="BUD Day2 Photo 5" loading="lazy">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="bud2-6.jpg" alt="BUD Day2 Photo 6" loading="lazy">
+                        </div>
 
                 </div>
                     <div class="photo-carousel-dots" aria-label="3/09 照片切換"></div>
@@ -1964,7 +2068,7 @@
                 <div class="transport-badge" style="background: #fff8f0;">
                     <span style="font-weight: bold; color: #d35400;">🌙 阿布達比機場過夜 (13h 15m)</span>
                 </div>
-
+<br>
                 <div class="flight-header">
                     <div class="flight-airline">Etihad </div>
                     <div class="flight-number">EY 826</div>
@@ -2044,7 +2148,7 @@
             <h2>總花費</h2>
 
             <div class="cost-toolbar">
-                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+                <div class="hint">提示：</div>
             </div>
 
             <table class="cost-table" id="costTable">
@@ -2062,7 +2166,7 @@
                         <td>累積待收</td>
                         <td class="right"></td>
                         <td class="right">-8,701</td>
-                        <td class="right">20,534</td>
+                        <td class="right">10,534</td>
                         <td></td>
                     </tr>
                     <tr><td colspan="5"></td></tr>
@@ -2114,6 +2218,13 @@
                         <td class="right">-20,000</td>
                         <td class="right"></td>
                         <td>台新收款</td>
+                    </tr>
+                    <tr>
+                        <td>匯款2/26</td>
+                        <td class="right"></td>
+                        <td class="right"></td>
+                        <td class="right">-10,000</td>
+                        <td>國泰收款</td>
                     </tr>                </tbody>
             </table>
 
@@ -2123,7 +2234,7 @@
             <h2>機票花費</h2>
 
             <div class="cost-toolbar">
-                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+                <div class="hint">提示：</div>
             </div>
 
             <table class="cost-table" id="costTable">
@@ -2175,7 +2286,7 @@
             <h2>住宿花費</h2>
 
             <div class="cost-toolbar">
-                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+                <div class="hint">提示：</div>
             </div>
 
             <table class="cost-table" id="costTable">
@@ -2235,7 +2346,7 @@
             <h2>票券花費</h2>
 
             <div class="cost-toolbar">
-                <div class="hint">提示：可以用表格快速整理每一筆花費</div>
+                <div class="hint">提醒：esim費用另收</div>
             </div>
 
             <table class="cost-table" id="costTable">
@@ -2496,6 +2607,40 @@
 <script>
     // ===== 圖片輪播（可左右滑動） =====
     const photoCarousels = document.querySelectorAll('.js-photo-carousel');
+    let activeVideoFocusCarousel = null;
+    const videoDimOverlay = document.createElement('div');
+    videoDimOverlay.className = 'video-dim-overlay';
+    document.body.appendChild(videoDimOverlay);
+
+    function setVideoFocusCarousel(nextCarousel) {
+        if (activeVideoFocusCarousel === nextCarousel) return;
+        if (activeVideoFocusCarousel) {
+            activeVideoFocusCarousel.classList.remove('video-focus-active');
+        }
+        activeVideoFocusCarousel = nextCarousel;
+        if (activeVideoFocusCarousel) {
+            activeVideoFocusCarousel.classList.add('video-focus-active');
+            videoDimOverlay.classList.add('active');
+            return;
+        }
+        videoDimOverlay.classList.remove('active');
+    }
+
+    function updateVideoFocusSpot(targetVideo) {
+        if (!targetVideo) return;
+        const rect = targetVideo.getBoundingClientRect();
+        if (rect.width <= 0 || rect.height <= 0) return;
+
+        const focusX = rect.left + rect.width / 2;
+        const focusY = rect.top + rect.height / 2;
+        const focusRx = Math.max(140, rect.width * 0.62);
+        const focusRy = Math.max(140, rect.height * 0.62);
+
+        videoDimOverlay.style.setProperty('--focus-x', `${focusX}px`);
+        videoDimOverlay.style.setProperty('--focus-y', `${focusY}px`);
+        videoDimOverlay.style.setProperty('--focus-rx', `${focusRx}px`);
+        videoDimOverlay.style.setProperty('--focus-ry', `${focusRy}px`);
+    }
 
     photoCarousels.forEach(carousel => {
         const track = carousel.querySelector('.photo-carousel-track');
@@ -2518,6 +2663,8 @@
         let touchStartX = null;
         let touchStartIndex = 0;
         let ticking = false;
+        let viewportSyncTicking = false;
+        let carouselInView = false;
         const syncTrackHeightToActiveSlide = () => {
             if (!carousel.classList.contains('photo-carousel-full')) return;
             const trackWidth = track.clientWidth;
@@ -2526,13 +2673,70 @@
             }
         };
 
+        const syncVideoPlayback = () => {
+            let hasActiveVideo = false;
+            let activeVideo = null;
+            const slideWidth = track.clientWidth || 1;
+            const centeredTolerance = Math.max(8, slideWidth * 0.04);
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            const carouselRect = carousel.getBoundingClientRect();
+            const carouselCenterY = carouselRect.top + carouselRect.height / 2;
+            const viewportCenterY = viewportHeight / 2;
+            const viewportCenterTolerance = Math.max(90, Math.min(180, viewportHeight * 0.18));
+            const carouselCenteredInViewport =
+                carouselInView &&
+                carouselRect.bottom > 0 &&
+                carouselRect.top < viewportHeight &&
+                Math.abs(carouselCenterY - viewportCenterY) <= viewportCenterTolerance;
+            slides.forEach((slide, index) => {
+                const video = slide.querySelector('video');
+                if (!video) return;
+
+                const shouldPlay =
+                    carouselCenteredInViewport &&
+                    Math.abs(track.scrollLeft - (index * slideWidth)) <= centeredTolerance;
+                if (shouldPlay) {
+                    hasActiveVideo = true;
+                    activeVideo = video;
+                    const playPromise = video.play();
+                    if (playPromise && typeof playPromise.catch === 'function') {
+                        playPromise.catch(() => {});
+                    }
+                    return;
+                }
+                video.pause();
+            });
+
+            if (hasActiveVideo) {
+                updateVideoFocusSpot(activeVideo);
+                setVideoFocusCarousel(carousel);
+                return;
+            }
+            if (activeVideoFocusCarousel === carousel) {
+                setVideoFocusCarousel(null);
+            }
+        };
+
         slides.forEach((slide) => {
             const img = slide.querySelector('img');
-            if (!img) return;
-            img.addEventListener('load', () => {
-                if (slide !== slides[activeIndex]) return;
-                syncTrackHeightToActiveSlide();
-            });
+            if (img) {
+                img.addEventListener('load', () => {
+                    if (slide !== slides[activeIndex]) return;
+                    syncTrackHeightToActiveSlide();
+                });
+            }
+
+            const video = slide.querySelector('video');
+            if (video) {
+                video.muted = true;
+                video.defaultMuted = true;
+                video.loop = true;
+                video.playsInline = true;
+                video.addEventListener('loadedmetadata', () => {
+                    if (slide !== slides[activeIndex]) return;
+                    syncTrackHeightToActiveSlide();
+                });
+            }
         });
 
         const updateActiveDot = () => {
@@ -2543,6 +2747,7 @@
             );
             counter.textContent = `${activeIndex + 1} / ${slides.length}`;
             syncTrackHeightToActiveSlide();
+            syncVideoPlayback();
         };
 
         const resetToFirstSlide = () => {
@@ -2591,12 +2796,25 @@
             });
         }, { passive: true });
 
+        const syncVideoPlaybackOnViewportChange = () => {
+            if (viewportSyncTicking) return;
+            viewportSyncTicking = true;
+            window.requestAnimationFrame(() => {
+                syncVideoPlayback();
+                viewportSyncTicking = false;
+            });
+        };
+
         const carouselViewportObserver = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
+                    carouselInView = entry.isIntersecting;
                     if (!entry.isIntersecting) {
                         resetToFirstSlide();
+                        syncVideoPlayback();
+                        return;
                     }
+                    syncVideoPlayback();
                 });
             },
             {
@@ -2606,7 +2824,11 @@
 
         carouselViewportObserver.observe(carousel);
 
-        window.addEventListener('resize', updateActiveDot);
+        window.addEventListener('scroll', syncVideoPlaybackOnViewportChange, { passive: true });
+        window.addEventListener('resize', () => {
+            updateActiveDot();
+            syncVideoPlaybackOnViewportChange();
+        });
         updateActiveDot();
     });
 </script>

@@ -485,7 +485,7 @@
             height: 1.25rem;
             font-size: 1.08rem;
             line-height: 1;
-            opacity: 0.3;
+            opacity: 1;
         }
         .flight-middle-duration {
             margin-top: 0;
@@ -780,6 +780,19 @@
             font-weight: 800;
             color: var(--accent);
             margin-right: 6px;
+        }
+
+        .spot-link {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: rgba(44, 62, 80, 0.35);
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+        }
+
+        .spot-link:hover {
+            color: var(--primary);
+            text-decoration-color: var(--accent);
         }
 
         .trip-list .note {
@@ -1268,7 +1281,7 @@
                                     <span class="flight-subinfo">航站: 1</span>
                                 </div>
                                 <div class="flight-middle">
-                                    <div class="flight-middle-icon">✈</div>
+                                    <div class="flight-middle-icon">🛫</div>
                                     <div class="flight-middle-duration">2h 30m</div>
                                 </div>
                                 <div style="text-align: right;">
@@ -1298,7 +1311,7 @@
                                     <span class="flight-subinfo">航站: 2</span>
                                 </div>
                                 <div class="flight-middle">
-                                    <div class="flight-middle-icon">✈</div>
+                                    <div class="flight-middle-icon">🛫</div>
                                     <div class="flight-middle-duration">2h 30m</div>
                                 </div>
                                 <div style="text-align: right;">
@@ -1331,7 +1344,7 @@
                     </li>
                     <li>
                         <span class="time">23:40</span>
-                        ✈️ 抵達仁川機場 後會合
+                        🛫 抵達仁川機場 後會合
                     </li>
                     <li>
                         🚇 搭乘機場地鐵前往市區
@@ -1339,10 +1352,9 @@
                     </li>
                     <li>
                         🏨 抵達 <b>Unseo 站</b> → 步行前往飯店休息
-                        <div class="note">Hotel Seattle Incheon Airport</div>
+                        <div class="note"><a class="spot-link" href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" rel="noopener">Hotel Seattle Incheon Airport</a></div>
                     </li>
                 </ul>
-                <a href="https://maps.app.goo.gl/zkyLLAsJz8AdTdUQ8" target="_blank" class="map-btn">📍 Hotel Seattle Incheon Airport </a>
             </div>
         </div>
     </section>
@@ -1370,7 +1382,7 @@
                             <span class="flight-subinfo">航站: 2</span>
                         </div>
                         <div class="flight-middle">
-                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-icon">🛫</div>
                             <div class="flight-middle-duration">10h 35m</div>
                         </div>
                         <div style="text-align: right;">
@@ -1393,16 +1405,16 @@
                         🧳 退房並將行李寄放於飯店
                     </li>
                     <li>
-                        🚶‍♂️ 飯店附近散步、順路至 <b>樂天超市</b> 補貨
+                        🚶‍♂️ 飯店附近散步、順路至 <b><a class="spot-link" href="https://maps.app.goo.gl/nmGRFoSRzu4VqamR9" target="_blank" rel="noopener">樂天超市</a></b> 補貨
                     </li>
                     <li>
                         <span class="time">18:30</span>
-                        ✈️ 抵達仁川機場 ICN（先不吃晚餐）
+                        🛫 抵達仁川機場 ICN（先不吃晚餐）
                     </li>
                     <li class="todo">
                         <label class="todo-check">
                             <input type="checkbox">
-                            <span>🛁 可至 SPA AT HOME 淋浴 (239台幣)</span>
+                            <span>🛁 可至 <a class="spot-link" href="https://maps.app.goo.gl/ymGrYnRVLcMNRfXM8" target="_blank" rel="noopener">SPA AT HOME</a> 淋浴 (239台幣)</span>
                         </label>
                     </li>
                     <li>
@@ -1411,19 +1423,14 @@
                     </li>
                     <li>
                         <span class="time">20:30</span>
-                        🍝 進入 <b>Matina Lounge </b> 用晚餐
+                        🍝 進入 <b><a class="spot-link" href="https://maps.app.goo.gl/6f9eyoRb8WPkLmdU7" target="_blank" rel="noopener">Matina Lounge</a></b> 用晚餐
                     </li>
                     <li>
                         <span class="time">22:00</span>
                         🕘 離開休息室，慢慢前往登機口
                     </li>
                 </ul>
-                </ul>
-            <a href="https://maps.app.goo.gl/ymGrYnRVLcMNRfXM8" target="_blank" class="map-btn">📍 SPA </a>
-            <a href="https://maps.app.goo.gl/6f9eyoRb8WPkLmdU7" target="_blank" class="map-btn">📍 Matina </a>
-            <a href="https://maps.app.goo.gl/nmGRFoSRzu4VqamR9" target="_blank" class="map-btn">📍 樂天超市 </a>
-    
-        </div>
+            </div>
         </div>
     </section>
 
@@ -1439,7 +1446,7 @@
                 <ul class="trip-list">
                     <li>
                         <span class="time">05:20</span>
-                        ✈️ 抵達 AUH
+                        🛫 抵達 AUH
                     </li>
                  <li class="todo">
                         <label class="todo-check">
@@ -1454,7 +1461,7 @@
                         </label>
                     </li>
                     <li>
-                        🧳 計程車前往 <b>Royal Rose Hotel</b>，先休息
+                        🧳 計程車前往 <b><a class="spot-link" href="https://maps.app.goo.gl/ZxEBhyqM5J85sNi17" target="_blank" rel="noopener">Royal Rose Hotel</a></b>，先休息
                     <div class="note">機場計程車(100AED)，或搭A1機場巴士(4AED)</div>
 
                     </li>
@@ -1464,7 +1471,7 @@
                     </li>
                     <li>
                         <span class="time">14:30</span>
-                        🕌 謝赫扎耶德大清真寺（免費）
+                        🕌 <a class="spot-link" href="https://maps.app.goo.gl/JFguJRJs6zPso6GB8" target="_blank" rel="noopener">謝赫扎耶德大清真寺（免費）</a>
                         <div class="note">建議停留 1.5–2 小時，搭 94,44 公車</div>
                     </li>
 
@@ -1475,8 +1482,6 @@
                         🍴 晚餐：⬜️ 保留，之後再找
                     </li>
                 </ul>
-                <a href="https://maps.app.goo.gl/ZxEBhyqM5J85sNi17" target="_blank" class="map-btn">📍 Royal Rose Hotel</a>
-                <a href="https://maps.app.goo.gl/JFguJRJs6zPso6GB8" target="_blank" class="map-btn">📍 謝赫扎耶德大清真寺</a>
             </div>
         </div>
     </section>
@@ -1493,32 +1498,28 @@
                 <ul class="trip-list">
                     <li>
                         <span class="time">10:00</span>
-                        🛍️ World Trade Center（世貿）
+                        🛍️ <a class="spot-link" href="https://maps.app.goo.gl/Raz3NQ8Y9vqzFANF8" target="_blank" rel="noopener">World Trade Center（世貿）</a>
                         <div class="note">先逛逛，順便到 LuLu 超市 採買野餐食物</div>
                     </li>
                     <li>
                         <span class="time">12:00</span>
-                        🧺 Corniche Park 野餐
+                        🧺 <a class="spot-link" href="https://maps.app.goo.gl/z1fgihNrUibkCuAd7" target="_blank" rel="noopener">Corniche Park 野餐</a>
                         <div class="note">樹下遮陽、安靜、免費，早上最舒服</div>
                     </li>
                     <li>
                         <span class="time">14:00</span>
-                        🖼️ Louvre Abu Dhabi
+                        🖼️ <a class="spot-link" href="https://maps.app.goo.gl/9dJncHjuaTeeHNK47" target="_blank" rel="noopener">Louvre Abu Dhabi</a>
                         <div class="note">下午光影最好，慢慢逛不趕</div>
                     </li>
                     <li>
                         <span class="time">16:45</span>
-                        🕊️ Abrahamic Family House
+                        🕊️ <a class="spot-link" href="https://maps.app.goo.gl/sw3cGiWej6CouBFp9" target="_blank" rel="noopener">Abrahamic Family House</a>
                         <div class="note">建築線條＋夕陽斜光，很適合收尾</div>
                     </li>
                     <li>
                         🍴 晚餐：⬜️ 保留，之後再找
                     </li>
                 </ul>
-                <a href="https://maps.app.goo.gl/Raz3NQ8Y9vqzFANF8" target="_blank" class="map-btn">📍 World Trade Center</a>
-                <a href="https://maps.app.goo.gl/z1fgihNrUibkCuAd7" target="_blank" class="map-btn">📍 Corniche Park</a>
-                <a href="https://maps.app.goo.gl/9dJncHjuaTeeHNK47" target="_blank" class="map-btn">📍 Louvre</a>
-                <a href="https://maps.app.goo.gl/sw3cGiWej6CouBFp9" target="_blank" class="map-btn">📍 Abrahamic Family House</a>
             </div>
         </div>
     </section>
@@ -1538,11 +1539,11 @@
                     </li>
                     <li>
                        <span class="time">09:30</span>
-                        🏛️ Qasr Al Watan 總統府
+                        🏛️ <a class="spot-link" href="https://maps.app.goo.gl/VtTnp5exnw1GzXKP8" target="_blank" rel="noopener">Qasr Al Watan 總統府</a>
                     </li>
                     <li>
                         <span class="time">11:30</span>
-                        🏺 Heritage Village 民俗村
+                        🏺 <a class="spot-link" href="https://maps.app.goo.gl/kWU5xztdKs4wm9RB8" target="_blank" rel="noopener">Heritage Village 民俗村</a>
                         <div class="note">旁邊有漂亮沙灘，可簡單散步</div>
                     </li>
                     <li>
@@ -1551,7 +1552,7 @@
                     </li>
                     <li>
                         <span class="time">16:45</span>
-                        🌅 Corniche Beach
+                        🌅 <a class="spot-link" href="https://maps.app.goo.gl/NsMftoUy7XsGVDCQ9" target="_blank" rel="noopener">Corniche Beach</a>
                         <div class="note">散步、看海、夕陽，節奏放慢</div>
                     </li>
                     <li>
@@ -1564,15 +1565,10 @@
 
                     <li>
                         <span class="time">22:30</span>
-                        ✈️ 抵達機場 → 等托運 
+                        🛫 抵達機場 → 等托運 
                     </li>
-                    <b>🍝 進入Pearl Lounge 用餐、休息等登機</b>
+                    <b>🍝 進入<a class="spot-link" href="https://maps.app.goo.gl/myYBdAPoHZ2L4dFZA" target="_blank" rel="noopener">Pearl Lounge</a> 用餐、休息等登機</b>
                 </ul>
-
-                <a href="https://maps.app.goo.gl/VtTnp5exnw1GzXKP8" target="_blank" class="map-btn">📍 Qasr Al Watan</a>
-                <a href="https://maps.app.goo.gl/kWU5xztdKs4wm9RB8" target="_blank" class="map-btn">📍 Heritage Village</a>
-                <a href="https://maps.app.goo.gl/NsMftoUy7XsGVDCQ9" target="_blank" class="map-btn">📍 Corniche Beach</a>
-                <a href="https://maps.app.goo.gl/myYBdAPoHZ2L4dFZA" target="_blank" class="map-btn">📍 Pearl Lounge</a>
             </div>
         </div>
     </section>
@@ -1600,7 +1596,7 @@
                             <span class="flight-subinfo">航站: 3</span>
                         </div>
                         <div class="flight-middle">
-                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-icon">🛫</div>
                             <div class="flight-middle-duration">6h 15m</div>
                         </div>
                         <div style="text-align: right;">
@@ -1640,22 +1636,22 @@
                     </li>
                     <li>
                         <span class="time">1️⃣</span>
-                        🏨 Hi5 Apartments
+                        🏨 <a class="spot-link" href="https://maps.app.goo.gl/3y5JhXUQTtU9YudJA?g_st=ic" target="_blank" rel="noopener">Hi5 Apartments</a>
                         <div class="note">搭M3捷運 Népliget 到 Deák Ferenc tér</div>
                     </li>
                     <li>
                         <span class="time">2️⃣</span>
-                        🏛️ 國會大廈 Országház
+                        🏛️ <a class="spot-link" href="https://maps.app.goo.gl/swayLqby3fJEbPfp6?g_st=ic" target="_blank" rel="noopener">國會大廈 Országház</a>
                         <div class="note">門票不划算</div>
                     </li>
                     <li>
                         <span class="time">3️⃣</span>
-                        ⛪ 聖伊什特萬聖殿 Szent István Bazilika
+                        ⛪ <a class="spot-link" href="https://maps.app.goo.gl/ozeuc6f2ge3UAHfu6?g_st=ic" target="_blank" rel="noopener">聖伊什特萬聖殿 Szent István Bazilika</a>
                         <div class="note">門票有分教堂和頂樓，有電梯和廁所</div>
                     </li>
                     <li>
                         <span class="time">4️⃣</span>
-                        🚢 Duna Cruises - Dock 10
+                        🚢 <a class="spot-link" href="https://maps.app.goo.gl/FRfgbdjoykNy16cz8?g_st=ic" target="_blank" rel="noopener">Duna Cruises - Dock 10</a>
                         <div class="note">已預約 20:30 - 21:30</div>
                     </li>
                 </ul>
@@ -1693,27 +1689,27 @@
                     </li>
                     <li>
                         <span class="time">1️⃣</span>
-                        🏰 漁人堡（Fisherman's Bastion）
+                        🏰 <a class="spot-link" href="https://maps.app.goo.gl/BR5NXz2ekvEY6k286?g_st=ic" target="_blank" rel="noopener">漁人堡（Fisherman's Bastion）</a>
                         <div class="note">16／216｜🚌 到 Halászbástya／Donati utca</div>
                     </li>
                     <li>
                         <span class="time">2️⃣</span>
-                        ⛪ 馬加什教堂
+                        ⛪ <a class="spot-link" href="https://maps.app.goo.gl/pW77kRD1iJHtW4qCA?g_st=ic" target="_blank" rel="noopener">馬加什教堂</a>
                         <div class="note">需門票，若不特別想進教堂可略過。</div>
                     </li>
                     <li>
                         <span class="time">3️⃣</span>
-                        🏯 布達城堡
+                        🏯 <a class="spot-link" href="https://maps.app.goo.gl/p6FuzofucAVPyuzV6?g_st=ic" target="_blank" rel="noopener">布達城堡</a>
                         <div class="note">🚌｜教堂旁上車 → Disz ter（1 站）</div>
                     </li>
                     <li>
                         <span class="time">4️⃣</span>
-                        🌉 自由橋
-                        <div class="note">19／41｜🚋 到 Szent Gellert ter</div>
+                        🌉 <a class="spot-link" href="https://maps.app.goo.gl/eoFaG37FGRDabUJB6?g_st=ic" target="_blank" rel="noopener">自由橋</a>
+                        <div class="note">道地風情，但有點盤 可以去晃晃</div>
                     </li>
                     <li>
                         <span class="time">5️⃣</span>
-                        🛍️ 中央市場
+                        🛍️ <a class="spot-link" href="https://maps.app.goo.gl/dduh1jk2qR2og2xT8?g_st=ic" target="_blank" rel="noopener">中央市場</a>
                     </li>
                 </ul>
             </div>
@@ -1758,7 +1754,7 @@
                 <ul class="trip-list">
                     <li>
                         <span class="time">14:32</span>
-                        🚆 抵達 Vienna Hbf
+                        🚆 抵達 <a class="spot-link" href="https://maps.google.com" target="_blank" rel="noopener">Vienna Hbf</a>
                         <div class="note">Budapest Déli pu. → Vienna Hbf</div>
                     </li>
                     <li>
@@ -1768,24 +1764,24 @@
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        🕯️ 黑死病紀念柱 Pestsäule
+                        🕯️ <a class="spot-link" href="https://maps.google.com" target="_blank" rel="noopener">黑死病紀念柱 Pestsäule</a>
                         <div class="note"> U1｜🚇 Reumannplatz → Stephansplatz</div>
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        ⛪ 聖彼得教堂 St. Peter’s Church
+                        ⛪ <a class="spot-link" href="https://maps.google.com" target="_blank" rel="noopener">聖彼得教堂 St. Peter’s Church</a>
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        🏰 聖斯德望主教 Stephansdom
+                        🏰 <a class="spot-link" href="https://maps.google.com" target="_blank" rel="noopener">聖斯德望主教 Stephansdom</a>
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        🛍️ 克恩大街 Kärntner Straße
+                        🛍️ <a class="spot-link" href="https://maps.google.com" target="_blank" rel="noopener">克恩大街 Kärntner Straße</a>
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        ⛪ 卡爾教堂 Karlskirche
+                        ⛪ <a class="spot-link" href="https://maps.google.com" target="_blank" rel="noopener">卡爾教堂 Karlskirche</a>
                         <div class="note">18:00後免費入場，傍晚光線最佳</div>
                     </li>
                     <li>
@@ -1864,7 +1860,7 @@
                             <span class="flight-subinfo">航站: 1</span>
                         </div>
                         <div class="flight-middle">
-                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-icon">🛫</div>
                             <div class="flight-middle-duration">5h 25m</div>
                         </div>
                         <div style="text-align: right;">
@@ -1894,7 +1890,7 @@
                             <span class="flight-subinfo">航站: 3</span>
                         </div>
                         <div class="flight-middle">
-                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-icon">🛫</div>
                             <div class="flight-middle-duration">8h 20m</div>
                         </div>
                         <div style="text-align: right;">
@@ -1933,7 +1929,7 @@
                             <span class="flight-subinfo">航站: 1</span>
                         </div>
                         <div class="flight-middle">
-                            <div class="flight-middle-icon">✈</div>
+                            <div class="flight-middle-icon">🛫</div>
                             <div class="flight-middle-duration">2h 45m</div>
                         </div>
                         <div style="text-align: right;">
@@ -2628,25 +2624,33 @@ const cardObserver = new IntersectionObserver(
 eventCards.forEach(card => cardObserver.observe(card));
 
 /* ===== 日期 Day Header 亮燈 / 暗燈 ===== */
-const dayHeaders = document.querySelectorAll('.day-header');
+const daySections = Array.from(document.querySelectorAll('.day-section'));
+const dayHeaders = daySections
+    .map(section => section.querySelector('.day-header'))
+    .filter(Boolean);
 
-const dayObserver = new IntersectionObserver(
-    (entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-            } else {
-                entry.target.classList.remove('in-view');
-            }
-        });
-    },
-    {
-        rootMargin: '-20% 0px -55% 0px',
-        threshold: 0
-    }
-);
+function updateActiveDayHeader() {
+    if (daySections.length === 0 || dayHeaders.length === 0) return;
 
-dayHeaders.forEach(day => dayObserver.observe(day));
+    // 用固定定位線判斷「當前日」，避免內容高度變動造成交集判斷飄移
+    const viewportH = window.innerHeight || document.documentElement.clientHeight;
+    const anchorY = Math.min(Math.max(viewportH * 0.24, 90), 220);
+    let activeIndex = 0;
+
+    daySections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= anchorY) activeIndex = index;
+    });
+
+    dayHeaders.forEach((header, index) => {
+        header.classList.toggle('in-view', index === activeIndex);
+    });
+}
+
+window.addEventListener('scroll', updateActiveDayHeader, { passive: true });
+window.addEventListener('resize', updateActiveDayHeader);
+window.addEventListener('load', updateActiveDayHeader);
+updateActiveDayHeader();
 </script>
 
 <script>

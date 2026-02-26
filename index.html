@@ -855,7 +855,7 @@
         .photo-carousel.photo-carousel-full .square-photo {
             max-width: none;
             width: 100%;
-            aspect-ratio: auto;
+            aspect-ratio: 1 / 1;
             height: auto;
             overflow: hidden;
         }
@@ -863,17 +863,19 @@
         .photo-carousel.photo-carousel-full .square-photo img {
             width: 100%;
             max-width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
         .photo-carousel.photo-carousel-full .photo-carousel-track {
-            align-items: flex-start;
+            align-items: stretch;
             transition: height 0.28s ease;
         }
 
         .photo-carousel.photo-carousel-full .photo-carousel-slide {
-            align-self: flex-start;
+            align-self: stretch;
+            aspect-ratio: 1 / 1;
         }
 
         .event-card.event-card-photo-bg {
@@ -898,10 +900,17 @@
             box-shadow: none;
         }
 
+        .event-card.event-card-photo-bg .photo-carousel {
+            border-radius: var(--photo-card-radius);
+            overflow: hidden;
+            isolation: isolate;
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+        }
+
         .event-card.event-card-photo-bg .photo-carousel-track {
             width: 100%;
             max-width: 100%;
-            border-radius: var(--photo-card-radius);
+            border-radius: 0;
             overflow: hidden;
         }
 
@@ -912,7 +921,7 @@
 
         .event-card.event-card-photo-bg .photo-carousel-slide img {
             width: 100%;
-            border-radius: var(--photo-card-radius);
+            border-radius: 0;
         }
 
         .photo-carousel .square-photo {
@@ -1851,11 +1860,16 @@
             <div class="day-info"><span>March 11</span>｜維也納Day2</div>
         </div>
         <div class="event-wrapper">
-            <div class="event-card">
+            <div class="event-card event-card-photo-bg">
                 <div class="event-title">📅 3/11｜維也納市區外環</div>
 
-                <div class="square-photo js-lightbox-photo">
-                    <img src="vie1.jpg" alt="Vienna Photo">
+                <div class="photo-carousel js-photo-carousel photo-carousel-full">
+                    <div class="square-photo photo-carousel-track">
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="vie1.jpg" alt="Vienna Photo">
+                        </div>
+                    </div>
+                    <div class="photo-carousel-dots" aria-label="3/11 照片切換"></div>
                 </div>
             </div>
         </div>
@@ -2456,12 +2470,9 @@
         let ticking = false;
         const syncTrackHeightToActiveSlide = () => {
             if (!carousel.classList.contains('photo-carousel-full')) return;
-            const activeSlide = slides[activeIndex];
-            if (!activeSlide) return;
-
-            const targetHeight = activeSlide.scrollHeight;
-            if (targetHeight > 0) {
-                track.style.height = `${Math.ceil(targetHeight)}px`;
+            const trackWidth = track.clientWidth;
+            if (trackWidth > 0) {
+                track.style.height = `${Math.ceil(trackWidth)}px`;
             }
         };
 

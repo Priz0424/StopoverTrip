@@ -1021,9 +1021,11 @@
         /* 底部導航按鈕（縮放動畫版本） */
         .bottom-nav { 
             position: fixed; 
-            bottom: 1px; 
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 6px); 
             left: 50%; 
-            transform: translateX(-50%) scale(1); 
+            right: auto;
+            transform: translate3d(-50%, 0, 0); 
+            transform-origin: center bottom;
             background: rgba(26, 26, 26, 0.9); 
             backdrop-filter: blur(15px);
             padding: 10px; 
@@ -1035,18 +1037,14 @@
             width: 90%; 
             max-width: 500px; 
             justify-content: space-around;
-            /* 使用 transform: scale 動畫，速度調慢 */
+            will-change: transform, opacity;
             transition:
-                transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
-                opacity 0.5s ease,
-                width 0.5s cubic-bezier(0.4,0,0.2,1),
-                left 0.5s cubic-bezier(0.4,0,0.2,1),
-                right 0.5s cubic-bezier(0.4,0,0.2,1),
-                bottom 0.5s cubic-bezier(0.4,0,0.2,1),
-                padding 0.5s cubic-bezier(0.4,0,0.2,1),
-                border-radius 0.5s cubic-bezier(0.4,0,0.2,1),
-                background 0.5s cubic-bezier(0.4,0,0.2,1),
-                box-shadow 0.5s cubic-bezier(0.4,0,0.2,1);
+                transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.3s ease,
+                padding 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                border-radius 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.35s ease,
+                box-shadow 0.35s ease;
         }
         .bottom-nav a { 
             color: white; 
@@ -1091,7 +1089,7 @@
         .bottom-nav.scrolled {
             left: 50%;
             right: auto;
-            bottom: 12px;
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
             width: auto;
             max-width: 90vw;
             padding: 0;
@@ -1099,12 +1097,7 @@
             background: rgba(28, 28, 30, 0.92);
             box-shadow: 0 6px 18px rgba(0,0,0,0.28);
             justify-content: center;
-
-            /* iOS Safari 關鍵手感：
-               - 輕微往下沉
-               - scale 縮小
-               - 不做橫向移動 */
-            transform: translateX(-50%) translateY(6px) scale(0.78);
+            transform: translate3d(-50%, 0, 0);
 
             transition:
                 transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),

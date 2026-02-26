@@ -343,9 +343,11 @@
             z-index: 2;
         }
 
-        .event-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+        @media (hover: hover) and (pointer: fine) {
+            .event-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+            }
         }
 
         /* 移除時間軸圓點 */
@@ -1587,6 +1589,34 @@
             <div class="day-info"><span>March 07</span>｜阿布達比Day3</div>
         </div>
         <div class="event-wrapper">
+            <div class="event-card event-card-photo-bg">
+                <div class="event-title">📅 3/07｜阿布達比</div>
+
+                <div class="photo-carousel js-photo-carousel photo-carousel-full">
+                    <div class="square-photo photo-carousel-track">
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="auh3-1.jpg" alt="AUH Day3 Photo 1">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="auh3-2.jpg" alt="AUH Day3 Photo 2">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="auh3-3.jpg" alt="AUH Day3 Photo 3">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="auh3-4.jpg" alt="AUH Day3 Photo 4">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="auh3-5.jpg" alt="AUH Day3 Photo 5">
+                        </div>
+                        <div class="photo-carousel-slide js-lightbox-photo">
+                            <img src="auh3-6.jpg" alt="AUH Day3 Photo 6">
+                        </div>
+                    </div>
+                    <div class="photo-carousel-dots" aria-label="3/07 照片切換"></div>
+                </div>
+            </div>
+
             <div class="event-card">
                 <div class="event-title">🌆🌊 Day 3｜城市 × 海邊 × 夜航準備</div>
                 <ul class="trip-list">
@@ -2378,11 +2408,23 @@
 
         // 手動展開時：只要有滾動就重置「靜止後收合」計時器
         if (navManuallyExpanded) {
-            if (window.scrollY > 90 && !bottomNav.classList.contains('scrolled')) {
-                scheduleNavIdleCollapse();
-            } else if (window.scrollY <= 90) {
+            if (window.scrollY <= 90) {
+                bottomNav.classList.remove('scrolled');
                 clearNavCollapseTimer();
+                return;
             }
+
+            // 手動展開後只要往下滑，立即恢復收合
+            if (scrollDirection === "down") {
+                bottomNav.classList.add('scrolled');
+                navManuallyExpanded = false;
+                clearNavCollapseTimer();
+                return;
+            }
+
+            // 其餘情況（停住/往上）維持展開，並在靜止後收合
+            bottomNav.classList.remove('scrolled');
+            scheduleNavIdleCollapse();
             return;
         }
 
@@ -2410,9 +2452,17 @@
 
     // 點擊縮小模式下的 active 按鈕可展開/收回
     bottomNav.addEventListener('click', function(e) {
+        let target = e.target.closest('a');
+        if (!target) return;
+
+        // 點擊任一導航後，恢復自動收合模式
+        if (navManuallyExpanded) {
+            navManuallyExpanded = false;
+            clearNavCollapseTimer();
+        }
+
         // 僅在縮小模式下，且點到 .active 的 a
         if (bottomNav.classList.contains('scrolled')) {
-            let target = e.target;
             // 如果點擊的是 a.active
             if (target.tagName === 'A' && target.classList.contains('active')) {
                 e.preventDefault();
@@ -2684,24 +2734,73 @@
 
 <script>
 // ===== Event Card 自動凸顯（進入視窗放大，離開還原） =====
-const eventCards = document.querySelectorAll('.event-card');
+const eventCards = Array.from(document.querySelectorAll('.event-card'));
+let activeEventCard = null;
+let cardHighlightTicking = false;
 
-const cardObserver = new IntersectionObserver(
-    (entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-            } else {
-                entry.target.classList.remove('in-view');
-            }
-        });
-    },
-    {
-        threshold: 0.6
+function getEventCardDistance(card, anchorY, viewportH) {
+    const rect = card.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > viewportH) return Number.POSITIVE_INFINITY;
+    if (rect.top <= anchorY && rect.bottom >= anchorY) return 0;
+    return Math.min(Math.abs(rect.top - anchorY), Math.abs(rect.bottom - anchorY));
+}
+
+function updateActiveEventCard() {
+    if (eventCards.length === 0) return;
+
+    const viewportH = window.innerHeight || document.documentElement.clientHeight;
+    const anchorY = Math.min(Math.max(viewportH * 0.42, 180), 420);
+    const switchHysteresis = 16;
+
+    let bestCard = null;
+    let bestDistance = Number.POSITIVE_INFINITY;
+
+    eventCards.forEach((card) => {
+        const distance = getEventCardDistance(card, anchorY, viewportH);
+        if (distance < bestDistance) {
+            bestDistance = distance;
+            bestCard = card;
+        }
+    });
+
+    if (!bestCard || !Number.isFinite(bestDistance)) {
+        if (activeEventCard) {
+            activeEventCard.classList.remove('in-view');
+            activeEventCard = null;
+        }
+        return;
     }
-);
 
-eventCards.forEach(card => cardObserver.observe(card));
+    // 切換需要超過距離差，避免臨界點反覆抖動
+    if (activeEventCard && activeEventCard !== bestCard) {
+        const activeDistance = getEventCardDistance(activeEventCard, anchorY, viewportH);
+        if (Number.isFinite(activeDistance) && bestDistance + switchHysteresis >= activeDistance) {
+            bestCard = activeEventCard;
+        }
+    }
+
+    if (activeEventCard === bestCard) return;
+
+    if (activeEventCard) {
+        activeEventCard.classList.remove('in-view');
+    }
+    activeEventCard = bestCard;
+    activeEventCard.classList.add('in-view');
+}
+
+function scheduleActiveEventCardUpdate() {
+    if (cardHighlightTicking) return;
+    cardHighlightTicking = true;
+    window.requestAnimationFrame(() => {
+        updateActiveEventCard();
+        cardHighlightTicking = false;
+    });
+}
+
+window.addEventListener('scroll', scheduleActiveEventCardUpdate, { passive: true });
+window.addEventListener('resize', scheduleActiveEventCardUpdate);
+window.addEventListener('load', scheduleActiveEventCardUpdate);
+scheduleActiveEventCardUpdate();
 
 /* ===== 日期 Day Header 亮燈 / 暗燈 ===== */
 const daySections = Array.from(document.querySelectorAll('.day-section'));

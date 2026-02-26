@@ -427,7 +427,24 @@
             background: #a24a4a;
             color: #fff;
         }
-        .flight-route { display: flex; justify-content: space-between; align-items: center; }
+        .flight-route {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+            align-items: center;
+            column-gap: 8px;
+        }
+        .flight-route > div:not(.flight-middle) {
+            display: grid;
+            grid-template-rows: auto auto 0.78rem auto;
+            align-content: start;
+        }
+        .flight-route > div:not(.flight-middle) .airport-code { grid-row: 1; }
+        .flight-route > div:not(.flight-middle) .airport-time { grid-row: 2; }
+        .flight-route > div:not(.flight-middle) .airport-next-day {
+            grid-row: 3;
+            margin-top: 0;
+        }
+        .flight-route > div:not(.flight-middle) .flight-subinfo { grid-row: 4; }
         .airport-code { font-size: 1.2rem; font-weight: 800; display: block; letter-spacing: 1px; color: #fff; }
         .airport-time {
             font-size: 1.1rem;
@@ -437,28 +454,51 @@
             display: block;
             margin-top: 2px;
         }
+        .airport-next-day {
+            display: block;
+            margin-top: 2px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #bbb;
+            line-height: 1;
+        }
         .flight-info { font-size: 0.85rem; color: #ddd; margin-top: 6px; line-height: 1.3; }
         .flight-subinfo { font-size: 0.75rem; color: #bbb; margin-top: 2px; }
         .flight-middle {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-rows: 1.25rem 0.9rem;
             align-items: center;
-            justify-content: center;
-            min-width: 64px;
+            justify-items: center;
+            row-gap: 4px;
+            min-width: 72px;
+            width: 72px;
+            flex: 0 0 72px;
             text-align: center;
             line-height: 1;
         }
         .flight-middle-icon {
-            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            font-size: 1.08rem;
+            line-height: 1;
             opacity: 0.3;
         }
         .flight-middle-duration {
-            margin-top: 4px;
+            margin-top: 0;
+            min-height: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-size: 0.72rem;
             color: #ddd;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1;
             white-space: nowrap;
+            font-variant-numeric: tabular-nums;
         }
 
         /* Day 03: 雙航班選項卡片壓縮高度 */
@@ -509,10 +549,10 @@
 
         .flight-options-compact .flight-detail {
             margin: 0 auto;
-            padding: 8px 14px;
+            padding: 6px 12px;
             border-radius: 12px;
             width: calc(100% - 12%);
-            aspect-ratio: 4 / 1;
+            aspect-ratio: 4 / 1.2;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -539,6 +579,64 @@
             justify-content: space-between;
             align-items: center;
             gap: 8px;
+        }
+
+        .transport-detail {
+            margin: 0 auto;
+            padding: 6px 12px;
+            border-radius: 12px;
+            width: calc(100% - 12%);
+            aspect-ratio: 4 / 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #1e272e;
+            color: #fff;
+            border-left: 5px solid #27ae60;
+        }
+
+        .flight-options-compact .transport-detail {
+            margin-top: 8px;
+        }
+
+        .flight-options-compact > .transport-detail:first-child {
+            margin-top: 0;
+        }
+
+        .transport-detail .flight-info {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 0.84rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            color: #ddd;
+        }
+
+        .transport-detail .airport-time {
+            color: #7fd39f;
+        }
+
+        .transport-detail .flight-middle-icon {
+            opacity: 1;
+            color: #7fd39f;
+        }
+
+        .transport-detail .flight-subinfo {
+            color: #b9c3cd;
+        }
+
+        .transport-card-links {
+            width: calc(100% - 12%);
+            margin: 6px auto 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .transport-card-links .map-btn {
+            margin-top: 0;
         }
 
         /* 航空卡片：首次進入後自動收合，點擊展開 */
@@ -732,6 +830,7 @@
             max-width: 420px;
             margin: 0 auto;
             position: relative;
+            overflow: hidden;
         }
 
         .photo-carousel.photo-carousel-full {
@@ -745,6 +844,7 @@
             width: 100%;
             aspect-ratio: auto;
             height: auto;
+            overflow: hidden;
         }
 
         .photo-carousel.photo-carousel-full .square-photo img {
@@ -768,11 +868,38 @@
             padding-left: 0;
             padding-right: 0;
             padding-bottom: 0;
+            border: 0;
+            box-shadow: none;
+            --photo-card-radius: 16px;
+            border-radius: var(--photo-card-radius);
+            overflow: hidden;
         }
 
         .event-card.event-card-photo-bg .event-title {
             padding-left: 18px;
             padding-right: 18px;
+        }
+
+        .event-card.event-card-photo-bg .square-photo {
+            border-radius: var(--photo-card-radius);
+            box-shadow: none;
+        }
+
+        .event-card.event-card-photo-bg .photo-carousel-track {
+            width: 100%;
+            max-width: 100%;
+            border-radius: var(--photo-card-radius);
+            overflow: hidden;
+        }
+
+        .event-card.event-card-photo-bg .photo-carousel-slide {
+            min-width: 100%;
+            max-width: 100%;
+        }
+
+        .event-card.event-card-photo-bg .photo-carousel-slide img {
+            width: 100%;
+            border-radius: var(--photo-card-radius);
         }
 
         .photo-carousel .square-photo {
@@ -1248,7 +1375,8 @@
                         </div>
                         <div style="text-align: right;">
                             <span class="airport-code">AUH</span>
-                            <span class="airport-time">05:20 (+1) </span>
+                            <span class="airport-time">05:20</span>
+                            <span class="airport-next-day">(+1)</span>
                             <span class="flight-subinfo">航站: 3</span>
                         </div>
                     </div>
@@ -1482,20 +1610,55 @@
                         </div>
                     </div>
                 </div>
-                <div class="land-detail transport-compact">
-                    <div class="land-route">
+                <div class="flight-detail transport-detail">
+                    <div class="flight-info">
+                        <span>FlixBus</span>
+                        <span style="color: #bbb;">Coach</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
-                            <b>🚌 FlixBus</b><br>
-                            <span>VIE 機場 → Budapest Népliget</span>
+                            <span class="airport-code">VIE</span>
+                            <span class="airport-time">07:35</span>
+                            <span class="flight-subinfo">Vienna Airport</span>
                         </div>
-                        <div class="land-icon">🚌</div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">🚌</div>
+                            <div class="flight-middle-duration">3h 00m</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">BUD</span>
+                            <span class="airport-time">10:35</span>
+                            <span class="flight-subinfo">BUD Népliget</span>
+                        </div>
                     </div>
-                    <div class="land-info">
-                        07:35 上車 → 10:35 抵達（約 3h 00m）
-                    </div>
-                    <a href="https://maps.app.goo.gl/FtTySZbej5Zyma6bA" target="_blank" class="map-btn">📍 Vienna Airport</a>
-                    <a href="https://maps.app.goo.gl/v3oyYLD5QYjpJqZg7" target="_blank" class="map-btn">📍 BUD Népliget</a>
                 </div>
+            </div>
+            <div class="event-card">
+                <ul class="trip-list">
+                    <li class="todo">
+                        ⚠️ 可先至Apartment agengt放行李。
+                    </li>
+                    <li>
+                        <span class="time">1️⃣</span>
+                        🏨 Hi5 Apartments
+                        <div class="note">搭M3捷運 Népliget 到 Deák Ferenc tér</div>
+                    </li>
+                    <li>
+                        <span class="time">2️⃣</span>
+                        🏛️ 國會大廈 Országház
+                        <div class="note">門票不划算</div>
+                    </li>
+                    <li>
+                        <span class="time">3️⃣</span>
+                        ⛪ 聖伊什特萬聖殿 Szent István Bazilika
+                        <div class="note">門票有分教堂和頂樓，有電梯和廁所</div>
+                    </li>
+                    <li>
+                        <span class="time">4️⃣</span>
+                        🚢 Duna Cruises - Dock 10
+                        <div class="note">已預約 20:30 - 21:30</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
@@ -1563,21 +1726,33 @@
             <div class="day-info"><span>March 10</span>｜維也納-兩日遊</div>
         </div>
         <div class="event-wrapper">
-            <span class="badge bg-euro">RegioJet RJ1034</span>
-            <div class="land-detail transport-compact">
-                <div class="land-route">
+            <div class="flight-detail transport-detail">
+                <div class="flight-info">
+                    <span>RegioJet RJ1034</span>
+                    <span style="color: #bbb;">Train</span>
+                </div>
+                <div class="flight-route">
                     <div>
-                        <b>🚆 RegioJet RJ1034</b><br>
-                        <span>Budapest Déli pu. → Vienna Hbf</span>
+                        <span class="airport-code">BUD</span>
+                        <span class="airport-time">11:45</span>
+                        <span class="flight-subinfo">BUD Déli pu.</span>
                     </div>
-                    <div class="land-icon">🚆</div>
+                    <div class="flight-middle">
+                        <div class="flight-middle-icon">🚆</div>
+                        <div class="flight-middle-duration">2h 47m</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="airport-code">VIE</span>
+                        <span class="airport-time">14:32</span>
+                        <span class="flight-subinfo">Vienna Hbf</span>
+                    </div>
                 </div>
-                <div class="land-info">
-                    11:45 出發 → 14:32 抵達（2h 47m）
-                </div>
-                <a href="https://maps.app.goo.gl/1owZU7NoTq1SAgGw8" target="_blank" class="map-btn">📍 Budapest Déli pu.</a>
+            </div>
+            <div class="transport-card-links">
+                <a href="https://maps.app.goo.gl/1owZU7NoTq1SAgGw8" target="_blank" class="map-btn">📍 BUD Déli pu.</a>
                 <a href="https://maps.app.goo.gl/QVa9LuWpZX71YKpF9" target="_blank" class="map-btn">📍 Vienna Hbf</a>
             </div>
+            <br>
             <div class="event-card">
                 <div class="event-title">📅 3/10｜維也納市區</div>
                 <ul class="trip-list">
@@ -1593,16 +1768,16 @@
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        🕯️ 黑死病紀念柱（Pestsäule）
+                        🕯️ 黑死病紀念柱 Pestsäule
                         <div class="note"> U1｜🚇 Reumannplatz → Stephansplatz</div>
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        ⛪ 聖彼得教堂（St. Peter’s Church）
+                        ⛪ 聖彼得教堂 St. Peter’s Church
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        🏰 聖斯德望主教（Stephansdom）
+                        🏰 聖斯德望主教 Stephansdom
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
@@ -1610,7 +1785,7 @@
                     </li>
                     <li>
                         <span class="time" style="visibility:hidden;">--:--</span>
-                        ⛪ 卡爾教堂（Karlskirche）
+                        ⛪ 卡爾教堂 Karlskirche
                         <div class="note">18:00後免費入場，傍晚光線最佳</div>
                     </li>
                     <li>
@@ -1650,21 +1825,29 @@
         </div>
         <div class="event-wrapper">
             <div class="event-card flight-options-compact flight-etihad">
-                <div class="land-detail">
-                    <div class="land-route">
+                <div class="flight-detail transport-detail">
+                    <div class="flight-info">
+                        <span>U1 + ÖBB</span>
+                        <span style="color: #bbb;">Metro + Rail</span>
+                    </div>
+                    <div class="flight-route">
                         <div>
-                            <b>🚇 U1 + 🚆 ÖBB</b><br>
-                            <span> Reumannplatz →  VIE Airport</span>
+                            <span class="airport-code">REU</span>
+                            <span class="airport-time">08:31</span>
+                            <span class="flight-subinfo">Reumannplatz</span>
                         </div>
-                        <div class="land-icon">🚆</div>
+                        <div class="flight-middle">
+                            <div class="flight-middle-icon">🚆</div>
+                            <div class="flight-middle-duration">29m</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <span class="airport-code">VIE</span>
+                            <span class="airport-time">09:00</span>
+                            <span class="flight-subinfo">Vienna Airport</span>
+                        </div>
                     </div>
-                    <div class="land-info">
-                        08:31 出發 → 09:00 抵達
-                    </div>
-                <a href="https://maps.app.goo.gl/FtTySZbej5Zyma6bA" target="_blank" class="map-btn">📍 VIE Airport</a>
-                <a href="https://maps.app.goo.gl/TxDcHqAHci2hVUF48" target="_blank" class="map-btn">📍 Reumannplatz</a>
-
                 </div>
+<br>
                 <div class="flight-header">
                     <div class="flight-airline">Etihad </div>
                     <div class="flight-number">EY 154</div>
@@ -1721,57 +1904,16 @@
                         </div>
                     </div>
                 </div>
-
+                    <a href="https://maps.app.goo.gl/uDe6TXeXkD1yujSD8?g_st=ic" target="_blank" class="map-btn">📍 Hound Hotel Incheon</a>
             </div>
  
         </div>
     </section>
-
-    <section class="day-section" id="d13">
-        <div class="day-header">
-            <div class="day-num">13</div>
-            <div class="day-info"><span>March 13</span>｜到達首爾</div>
-        </div>
-        <div class="event-wrapper">
-            <div class="event-card flight-options-compact flight-etihad">
-                <div class="flight-header">
-                    <div class="flight-airline">Etihad </div>
-                    <div class="flight-number">EY 826</div>
-                </div>
-                <div class="flight-detail">
-                    <div class="flight-info">
-                        <span>Etihad  EY 826</span>
-                        <span style="color: #bbb;">Boeing 787‑9</span>
-                    </div>
-                    <div class="flight-route">
-                        <div>
-                            <span class="airport-code">AUH</span>
-                            <span class="airport-time">08:35 </span>
-                            <span class="flight-subinfo">航站: 3</span>
-                        </div>
-                        <div class="flight-middle">
-                            <div class="flight-middle-icon">✈</div>
-                            <div class="flight-middle-duration">8h 20m</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <span class="airport-code">ICN</span>
-                            <span class="airport-time">21:55 </span>
-                            <span class="flight-subinfo">航站: 1</span>
-                        </div>
-                    </div>
-                </div>
-                    <a href="https://maps.app.goo.gl/uDe6TXeXkD1yujSD8?g_st=ic" target="_blank" class="map-btn">📍 Hound Hotel Incheon Airport</a>
-
-            </div>
- 
-        </div>
-    </section>
-
 
     <section class="day-section" id="d14">
         <div class="day-header">
             <div class="day-num">14</div>
-            <div class="day-info"><span>March 14</span>｜返航</div>
+            <div class="day-info"><span>March 14</span>｜首爾採購,返航</div>
         </div>
         <div class="event-wrapper">
             <div class="event-card flight-options-compact flight-scoot">
@@ -1796,7 +1938,8 @@
                         </div>
                         <div style="text-align: right;">
                             <span class="airport-code">TPE</span>
-                            <span class="airport-time">00:45 (+1) </span>
+                            <span class="airport-time">00:45</span>
+                            <span class="airport-next-day">(+1)</span>
                             <span class="flight-subinfo">航站: 2</span>
                         </div>
                     </div>

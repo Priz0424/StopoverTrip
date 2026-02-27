@@ -1004,7 +1004,12 @@
 
         .video-dim-overlay {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100dvw;
+            height: 100dvh;
+            min-width: 100vw;
+            min-height: 100vh;
             --focus-x: 50vw;
             --focus-y: 50vh;
             --focus-rx: 180px;
@@ -1012,10 +1017,11 @@
             background:
                 radial-gradient(
                     ellipse var(--focus-rx) var(--focus-ry) at var(--focus-x) var(--focus-y),
-                    rgba(0, 0, 0, 0) 0%,
-                    rgba(0, 0, 0, 0.12) 58%,
-                    rgba(0, 0, 0, 0.58) 100%
-                );
+                    rgba(0, 0, 0, 0.02) 0%,
+                    rgba(0, 0, 0, 0.16) 56%,
+                    rgba(0, 0, 0, 0.66) 100%
+                ),
+                linear-gradient(rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34));
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.26s ease;

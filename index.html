@@ -23,6 +23,7 @@
             margin: 0; 
             color: #333; 
             overflow-x: hidden;
+            transition: background-color 0.26s ease;
         }
 
         /* 英雄區增加 padding 防止遮擋第一段內容 */
@@ -1004,12 +1005,13 @@
 
         .video-dim-overlay {
             position: fixed;
-            top: 0;
+            top: calc(-1 * env(safe-area-inset-top, 0px));
             left: 0;
-            width: 100dvw;
-            height: 100dvh;
-            min-width: 100vw;
-            min-height: 100vh;
+            right: 0;
+            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+            width: auto;
+            height: auto;
+            min-height: 100lvh;
             --focus-x: 50vw;
             --focus-y: 50vh;
             --focus-rx: 180px;
@@ -1018,10 +1020,10 @@
                 radial-gradient(
                     ellipse var(--focus-rx) var(--focus-ry) at var(--focus-x) var(--focus-y),
                     rgba(0, 0, 0, 0.02) 0%,
-                    rgba(0, 0, 0, 0.16) 56%,
-                    rgba(0, 0, 0, 0.66) 100%
+                    rgba(0, 0, 0, 0.12) 56%,
+                    rgba(0, 0, 0, 0.54) 100%
                 ),
-                linear-gradient(rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.34));
+                linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.26s ease;

@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#fdfaf6">
     <title>Prismo's StopoverTrip</title>
     <style>
         :root {
@@ -848,8 +852,6 @@
             margin: 0 auto;
             position: relative;
             overflow: hidden;
-            transition: transform 0.28s ease, filter 0.28s ease;
-            will-change: transform, filter;
         }
 
         .photo-carousel.photo-carousel-full {
@@ -968,9 +970,24 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.28s ease;
             background:
                 radial-gradient(120% 120% at 50% 50%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.28) 100%),
                 linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0) 45%);
+        }
+
+        .photo-carousel-slide.video-focus-active::after {
+            opacity: 0.2;
+        }
+
+        .photo-carousel-slide video {
+            transition: filter 0.28s ease;
+            filter: brightness(1);
+        }
+
+        .photo-carousel-slide video.video-focus-playing {
+            filter: brightness(1.3) saturate(1.1) contrast(1.06);
         }
 
         .photo-carousel-dots {
@@ -1001,44 +1018,6 @@
             font-size: 0.72rem;
             color: #777;
             letter-spacing: 0.2px;
-        }
-
-        .video-dim-overlay {
-            position: fixed;
-            top: calc(-1 * env(safe-area-inset-top, 0px));
-            left: 0;
-            right: 0;
-            bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-            width: auto;
-            height: auto;
-            min-height: 100lvh;
-            --focus-x: 50vw;
-            --focus-y: 50vh;
-            --focus-rx: 180px;
-            --focus-ry: 180px;
-            background:
-                radial-gradient(
-                    ellipse var(--focus-rx) var(--focus-ry) at var(--focus-x) var(--focus-y),
-                    rgba(0, 0, 0, 0.02) 0%,
-                    rgba(0, 0, 0, 0.12) 56%,
-                    rgba(0, 0, 0, 0.54) 100%
-                ),
-                linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.26s ease;
-            z-index: 1500;
-        }
-
-        .video-dim-overlay.active {
-            opacity: 1;
-        }
-
-        .photo-carousel.video-focus-active {
-            position: relative;
-            z-index: 1501;
-            transform: scale(1.012);
-            filter: brightness(1.06) saturate(1.04);
         }
 
         /* ===== 圖片放大 Lightbox ===== */
@@ -1091,7 +1070,7 @@
         /* 底部導航按鈕（縮放動畫版本） */
         .bottom-nav { 
             position: fixed; 
-            bottom: calc(env(safe-area-inset-bottom, 0px) + 6px); 
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 2px); 
             left: 50%; 
             right: auto;
             transform: translate3d(-50%, 0, 0); 
@@ -1158,7 +1137,7 @@
         .bottom-nav.scrolled {
             left: 50%;
             right: auto;
-            bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 6px);
             width: auto;
             max-width: 90vw;
             padding: 0;
@@ -2473,25 +2452,14 @@
     let navManuallyExpanded = false;
     let lastScrollY = window.scrollY;
     let scrollDirection = null; // "up" or "down"
-    const NAV_IDLE_COLLAPSE_MS = 2200;
-    let navCollapseTimer = null;
 
     function clearNavCollapseTimer() {
-        if (!navCollapseTimer) return;
-        clearTimeout(navCollapseTimer);
-        navCollapseTimer = null;
+        // 已停用「秒數後自動收縮」
     }
 
-    // 只在「停止滾動」一段時間後才收合
+    // 已停用「停止滾動後幾秒收合」
     function scheduleNavIdleCollapse() {
-        clearNavCollapseTimer();
-        navCollapseTimer = setTimeout(() => {
-            if (window.scrollY > 90) {
-                bottomNav.classList.add('scrolled');
-            }
-            navManuallyExpanded = false;
-            navCollapseTimer = null;
-        }, NAV_IDLE_COLLAPSE_MS);
+        // no-op
     }
 
     // 切換 active 狀態和自動縮放
@@ -2613,39 +2581,25 @@
 <script>
     // ===== 圖片輪播（可左右滑動） =====
     const photoCarousels = document.querySelectorAll('.js-photo-carousel');
-    let activeVideoFocusCarousel = null;
-    const videoDimOverlay = document.createElement('div');
-    videoDimOverlay.className = 'video-dim-overlay';
-    document.body.appendChild(videoDimOverlay);
+    let activeFocusedVideo = null;
 
-    function setVideoFocusCarousel(nextCarousel) {
-        if (activeVideoFocusCarousel === nextCarousel) return;
-        if (activeVideoFocusCarousel) {
-            activeVideoFocusCarousel.classList.remove('video-focus-active');
+    function setFocusedVideo(nextVideo) {
+        if (activeFocusedVideo === nextVideo) return;
+        const previousSlide = activeFocusedVideo ? activeFocusedVideo.closest('.photo-carousel-slide') : null;
+        if (activeFocusedVideo) {
+            activeFocusedVideo.classList.remove('video-focus-playing');
         }
-        activeVideoFocusCarousel = nextCarousel;
-        if (activeVideoFocusCarousel) {
-            activeVideoFocusCarousel.classList.add('video-focus-active');
-            videoDimOverlay.classList.add('active');
-            return;
+        if (previousSlide) {
+            previousSlide.classList.remove('video-focus-active');
         }
-        videoDimOverlay.classList.remove('active');
-    }
-
-    function updateVideoFocusSpot(targetVideo) {
-        if (!targetVideo) return;
-        const rect = targetVideo.getBoundingClientRect();
-        if (rect.width <= 0 || rect.height <= 0) return;
-
-        const focusX = rect.left + rect.width / 2;
-        const focusY = rect.top + rect.height / 2;
-        const focusRx = Math.max(140, rect.width * 0.62);
-        const focusRy = Math.max(140, rect.height * 0.62);
-
-        videoDimOverlay.style.setProperty('--focus-x', `${focusX}px`);
-        videoDimOverlay.style.setProperty('--focus-y', `${focusY}px`);
-        videoDimOverlay.style.setProperty('--focus-rx', `${focusRx}px`);
-        videoDimOverlay.style.setProperty('--focus-ry', `${focusRy}px`);
+        activeFocusedVideo = nextVideo;
+        if (activeFocusedVideo) {
+            activeFocusedVideo.classList.add('video-focus-playing');
+            const nextSlide = activeFocusedVideo.closest('.photo-carousel-slide');
+            if (nextSlide) {
+                nextSlide.classList.add('video-focus-active');
+            }
+        }
     }
 
     photoCarousels.forEach(carousel => {
@@ -2683,7 +2637,7 @@
             let hasActiveVideo = false;
             let activeVideo = null;
             const slideWidth = track.clientWidth || 1;
-            const centeredTolerance = Math.max(8, slideWidth * 0.04);
+            const centeredTolerance = Math.max(14, slideWidth * 0.08);
             const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
             const carouselRect = carousel.getBoundingClientRect();
             const carouselCenterY = carouselRect.top + carouselRect.height / 2;
@@ -2710,16 +2664,22 @@
                     }
                     return;
                 }
-                video.pause();
+                if (!video.paused) {
+                    video.pause();
+                }
+                if (video.currentTime !== 0) {
+                    try {
+                        video.currentTime = 0;
+                    } catch (_) {}
+                }
             });
 
             if (hasActiveVideo) {
-                updateVideoFocusSpot(activeVideo);
-                setVideoFocusCarousel(carousel);
+                setFocusedVideo(activeVideo);
                 return;
             }
-            if (activeVideoFocusCarousel === carousel) {
-                setVideoFocusCarousel(null);
+            if (activeFocusedVideo && activeFocusedVideo.closest('.js-photo-carousel') === carousel) {
+                setFocusedVideo(null);
             }
         };
 
